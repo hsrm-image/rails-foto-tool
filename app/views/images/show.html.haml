@@ -10,8 +10,8 @@
   %b Image File:
   = image_tag @image.image_file
 %p
-  %b Owner Name:
-  = @image.owner.name
+  %b Owner:
+  = link_to @image.owner.name, @image.owner
 = link_to 'Edit', edit_image_path(@image)
 \|
 = link_to 'Back', images_path
