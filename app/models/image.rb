@@ -7,4 +7,18 @@ class Image < ApplicationRecord
 
     # Activerecord
     has_one_attached :image_file
+
+    def get_ratings
+        return Rating.where(rateable_id: id, rateable_type: "Image")
+    end
+
+    def get_score
+        sum = 0
+        get_ratings.each{ |x| sum += x.rating }
+        1.0 * sum / get_ratings.count
+    end
+
+    def has_rated?(user_id)
+        Rating.where(rateable_id: id, rateable_type: "Image", user_id: user_id).count > 0
+    end
 end

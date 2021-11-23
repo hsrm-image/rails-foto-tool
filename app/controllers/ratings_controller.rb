@@ -25,7 +25,7 @@ class RatingsController < ApplicationController
 
     respond_to do |format|
       if @rating.save
-        format.html { redirect_to @rating, notice: "Rating was successfully created." }
+        format.html { redirect_back fallback_location: root_path, notice: "Rating was successfully created." }
         format.json { render :show, status: :created, location: @rating }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -64,6 +64,8 @@ class RatingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def rating_params
-      params.require(:rating).permit(:rating)
+      params.require(:rating).permit(:rating, :rateable_type, :rateable_id, :user_id)
+      #params.require(:rateable_type).permit(:rating, :rateable_type, :rateable_id)
+      #params.require(:rateable_id).permit(:rating, :rateable_type, :rateable_id)
     end
 end

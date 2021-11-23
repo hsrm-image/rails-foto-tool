@@ -84,12 +84,14 @@ ActiveRecord::Schema.define(version: 2021_11_22_163519) do
   end
 
   create_table "ratings", force: :cascade do |t|
-    t.float "rating"
+    t.integer "rating"
+    t.string "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "rateable_type", null: false
     t.integer "rateable_id", null: false
     t.index ["rateable_type", "rateable_id"], name: "index_ratings_on_rateable"
+    t.index ["user_id", "rateable_type", "rateable_id"], name: "index_user_on_rateable", unique: true
   end
 
   create_table "tags", force: :cascade do |t|

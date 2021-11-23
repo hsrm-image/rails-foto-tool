@@ -12,6 +12,21 @@
 %p
   %b Owner:
   = link_to @image.owner.name, @image.owner
+%p 
+  Current uuid: 
+  - if session[:session_id].nil?
+    Please activate cookies to rate!
+  - else 
+    = session[:session_id]
+    %br
+    = render 'ratings/form' unless @rating.nil?
+%p 
+  This image has a score of
+  = @image.get_score
+  %br 
+  from 
+  = @image.get_ratings.count
+  Ratings
 = link_to 'Edit', edit_image_path(@image)
 \|
 = link_to 'Back', images_path

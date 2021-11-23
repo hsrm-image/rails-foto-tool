@@ -8,6 +8,14 @@ class ImagesController < ApplicationController
 
   # GET /images/1 or /images/1.json
   def show
+    unless session[:session_id].nil? #TODO das hier noch als concern?
+      unless @image.has_rated?(session[:session_id])
+        @rating = Rating.new
+        @rating.rateable_type = "Image"
+        @rating.rateable_id = @image.id
+        @rating.user_id = session[:session_id]
+      end
+    end
   end
 
   # GET /images/new
