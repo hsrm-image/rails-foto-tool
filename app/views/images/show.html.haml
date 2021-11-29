@@ -1,3 +1,4 @@
+= javascript_pack_tag 'rating', 'data-turbolinks-track': 'reload'
 %p#notice= notice
 
 %p
@@ -21,6 +22,12 @@
     %br
     = render 'ratings/form' unless @image.has_rated?(session[:session_id]) 
     //TODO https://stackoverflow.com/questions/3928466/ruby-on-rails-update-div-on-click-with-link-to-remote 
+  %p
+    %ul.rating
+      - (1..5).each do |i|
+        %li{class: "rating-star", id: "star_#{i}", "data-rateable-type": "Image", "data-rateable-id": "#{@image.id}", "data-stars": "#{i}"}
+          %b #{i}
+
 %p 
   This image has a score of
   = @image.get_score
