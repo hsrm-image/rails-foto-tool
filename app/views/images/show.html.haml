@@ -19,14 +19,13 @@
     Please activate cookies to rate!
   - else 
     = session[:session_id]
-    %br
-    = render 'ratings/form' unless @image.has_rated?(session[:session_id]) 
-    //TODO https://stackoverflow.com/questions/3928466/ruby-on-rails-update-div-on-click-with-link-to-remote 
   %p
-    %ul.rating
+    %ul#rating
+      - user_rate = (@image.get_rate("eeev2")&.rating) || 0
       - (1..5).each do |i|
-        %li{class: "rating-star", id: "star_#{i}", "data-rateable-type": "Image", "data-rateable-id": "#{@image.id}", "data-stars": "#{i}"}
-          %b #{i}
+        - puts(user_rate)
+        %li{class: "rating-star" + (user_rate >= i ? " star-active" : " star-inactive"), id: "star_#{i}", "data-rateable-type": "Image", "data-rateable-id": "#{@image.id}", "data-stars": "#{i}"}
+          Star!
 
 %p 
   This image has a score of

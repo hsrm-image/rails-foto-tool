@@ -21,12 +21,16 @@ class RatingsController < ApplicationController
 
   # POST /ratings or /ratings.json
   def create
-    @rating = Rating.new(rating_params)
-
+    # @rating = Rating.new(rating_params)
+    puts("============================================2")
+    @rating = Rating.find_or_create_by(:rateable_type => rating_params[:rateable_type], :rateable_id => rating_params[:rateable_id], :user_id => rating_params[:user_id])
+    @rating.rating = rating_params[:rating]
+    puts("============================================")
     respond_to do |format|
       if @rating.save
-        format.html { redirect_back fallback_location: root_path, notice: "Rating was successfully created." }
-        format.json { render :show, status: :created, location: @rating }
+        # format.html { redirect_back fallback_location: root_path, notice: "Rating was successfully created." }
+        format.json { render json: {rating: @rating.rateable.get_score, nr_ratings: @rating.rateable.get_ratings.count} }
+        format.js
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @rating.errors, status: :unprocessable_entity }

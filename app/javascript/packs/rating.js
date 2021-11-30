@@ -1,9 +1,11 @@
 var set_stars = function(rateable_type, rateable_id, stars) {
     for(i=1; i<=5; i++) {
         if(i <= stars) {
-            $('#star_' + i).text(i + " active!");
+            $('#star_' + i).addClass("star-active");
+            $('#star_' + i).removeClass("star-inactive");
         } else {
-            $('#star_' + i).text(i);
+            $('#star_' + i).removeClass("star-active");
+            $('#star_' + i).addClass("star-inactive");
         }
     }
 }
@@ -15,8 +17,8 @@ $(function() {
         var stars = $(this).attr('data-stars');
         var rateable_type = $(this).attr('data-rateable-type');
         var rateable_id = $(this).attr('data-rateable-id');
-        var user_id = "abcde1235";
-        alert("Clicked " + star.attr('id') + " on " + rateable_type + " " + rateable_id);
+        var user_id = "eeev2";
+        //alert("Clicked " + star.attr('id') + " on " + rateable_type + " " + rateable_id);
 
         set_stars(rateable_type, rateable_id, stars);
 
@@ -31,6 +33,8 @@ $(function() {
                         "user_id": user_id,
                         "rating": stars}
             }
-        });
+        }).done(function( msg ) {
+            console.log( msg );
+            });
     });
 });

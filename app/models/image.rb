@@ -21,4 +21,8 @@ class Image < ApplicationRecord
     def has_rated?(user_id) # TODO move this function to the user model?
         Rating.where(rateable_id: id, rateable_type: "Image", user_id: user_id).count > 0
     end
+
+    def get_rate(user_id) # TODO move this function to the user model?
+        Rating.where(rateable_id: id, rateable_type: "Image", user_id: user_id).first
+    end
 end
