@@ -19,7 +19,6 @@
   %ul#rating
     - user_rate = (@image.get_rate(session[:session_id])&.rating) || 0
     - (1..5).each do |i|
-      - puts(user_rate)
       %li{class: "rating-star" + (user_rate >= i ? " star-active" : " star-inactive"), id: "star_#{i}", "data-rateable-type": "Image", "data-rateable-id": "#{@image.id}", "data-stars": "#{i}"}
         Star!
 - else 
@@ -33,3 +32,13 @@
 = link_to 'Edit', edit_image_path(@image)
 \|
 = link_to 'Back', images_path
+
+%h3 New Comment
+= render 'comments/form'
+%h2
+  =@image.comments.count
+  Comments
+= render @image.comments[0...-1]
+
+
+

@@ -1,16 +1,16 @@
-= form_for @comment do |f|
-  - if @comment.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@comment.errors.count, "error")} prohibited this comment from being saved:"
-      %ul
-        - @comment.errors.full_messages.each do |message|
-          %li= message
+= form_with model: [@image, @image.comments.build] do |f|
 
+  .field
+    = f.label :username
+    - if user_signed_in?
+      // Autofill username if User is logged in
+      = f.text_field :username, value: current_user[:name], readonly: true
+    - else
+      = f.text_field :username 
   .field
     = f.label :text
     = f.text_area :text
-  .field
-    = f.label :username
-    = f.text_field :username
+
+  = f.hidden_field :user_id, value: session[:session_id]
   .actions
     = f.submit 'Save'
