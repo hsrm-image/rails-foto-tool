@@ -62,3 +62,5 @@ gem 'haml-rails'
 # Manipulate images, eg. Thumbnails
 gem "image_processing"
 gem "mini_magick"
+
+gem 'aws-sdk-s3'
