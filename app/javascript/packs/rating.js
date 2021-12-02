@@ -21,7 +21,6 @@ $(function() {
     var score = score_area.find("#score");
     var nr_ratings = score_area.find("#nr-ratings");
     var user_id = $('[name="session_id"]')[0].value;
-
     $('.rating-star').on( "click", function() {
         // Find all the Attributes of the clicked Star
         var stars = $(this).attr('data-stars');
@@ -32,6 +31,8 @@ $(function() {
         set_stars(stars);
 
         // Now send the clicked value to the server
+        // TODO only submit when leaving page? https://stackoverflow.com/questions/18783535/jquery-beforeunload-when-closing-not-leaving-the-page
+        // TODO click again to remove rating?
         $.ajax({
             url: "/ratings",
             method: "POST",
