@@ -1,5 +1,10 @@
-var set_stars = function(rateable_type, rateable_id, stars) {
-    for(i=1; i<=5; i++) {
+"use strict";
+/**
+ * Change the clicked stars to give the User a feedback
+ * @param {number} stars The Number of stars to change to "active"
+ */
+var set_stars = function(stars) {
+    for(var i=1; i<=5; i++) {
         if(i <= stars) {
             $('#star_' + i).addClass("star-active");
             $('#star_' + i).removeClass("star-inactive");
@@ -11,17 +16,22 @@ var set_stars = function(rateable_type, rateable_id, stars) {
 }
 
 $(function() {
+    // Get the static page Elements
+    var score_area = $("#score-area");
+    var score = score_area.find("#score");
+    var nr_ratings = score_area.find("#nr-ratings");
+    var user_id = $('[name="session_id"]')[0].value;
+
     $('.rating-star').on( "click", function() {
-        
-        var star = $(this);
+        // Find all the Attributes of the clicked Star
         var stars = $(this).attr('data-stars');
         var rateable_type = $(this).attr('data-rateable-type');
         var rateable_id = $(this).attr('data-rateable-id');
-        var user_id = "eeev2";
-        //alert("Clicked " + star.attr('id') + " on " + rateable_type + " " + rateable_id);
 
-        set_stars(rateable_type, rateable_id, stars);
+        // Change the class of the stars to reflect the clicked stars
+        set_stars(stars);
 
+        // Now send the clicked value to the server
         $.ajax({
             url: "/ratings",
             method: "POST",
@@ -34,7 +44,10 @@ $(function() {
                         "rating": stars}
             }
         }).done(function( msg ) {
-            console.log( msg );
-            });
+            // Update the displayed score
+            score.text((Math.round(msg.rating * 10) / 10).toFixed(1));
+            nr_ratings.text(msg.nr_ratings);
+            score_area.show();
+        });
     });
 });

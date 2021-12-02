@@ -13,27 +13,23 @@
 %p
   %b Owner:
   = link_to @image.owner.name, @image.owner
-%p 
-  Current uuid: 
-  - if session[:session_id].nil?
-    Please activate cookies to rate!
-  - else 
-    = session[:session_id]
-  %p
-    %ul#rating
-      - user_rate = (@image.get_rate("eeev2")&.rating) || 0
-      - (1..5).each do |i|
-        - puts(user_rate)
-        %li{class: "rating-star" + (user_rate >= i ? " star-active" : " star-inactive"), id: "star_#{i}", "data-rateable-type": "Image", "data-rateable-id": "#{@image.id}", "data-stars": "#{i}"}
-          Star!
 
-%p 
-  This image has a score of
-  = @image.get_score
-  %br 
-  from 
-  = @image.get_ratings.count
-  Ratings
+- unless session[:session_id].nil?
+  %input{:type=>"hidden", :value=>session[:session_id], :name=>:session_id}
+  %ul#rating
+    - user_rate = (@image.get_rate(session[:session_id])&.rating) || 0
+    - (1..5).each do |i|
+      - puts(user_rate)
+      %li{class: "rating-star" + (user_rate >= i ? " star-active" : " star-inactive"), id: "star_#{i}", "data-rateable-type": "Image", "data-rateable-id": "#{@image.id}", "data-stars": "#{i}"}
+        Star!
+- else 
+  Please activate cookies to rate!
+
+%p#score-area{:style => (@image.get_ratings.count > 0 ? "" : "display:none;")}
+  Rating: 
+  %span#score= @image.get_score.round(1)
+  Number of ratings: 
+  %span#nr-ratings= @image.get_ratings.count
 = link_to 'Edit', edit_image_path(@image)
 \|
 = link_to 'Back', images_path
