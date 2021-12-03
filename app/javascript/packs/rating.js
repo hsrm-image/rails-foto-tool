@@ -16,6 +16,12 @@ var set_stars = function(stars) {
 }
 
 $(function() {
+    if($('[name="session_id"]').length == 0) {
+        // No session Cookie set
+        console.log("No session!");
+        return;
+    }
+
     // Get the static page Elements
     var score_area = $("#score-area");
     var score = score_area.find("#score");
