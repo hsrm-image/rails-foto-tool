@@ -29,7 +29,9 @@ class CommentsController < ApplicationController
   def create
     @image = Image.find(params[:image_id])
     @comment = @image.comments.create(comment_params)
-    
+    puts("=================================================")
+    puts(comment_params)
+
     respond_to do |format|
       if @comment.save
         format.html { redirect_back fallback_location: root_path, notice: "Comment was successfully created." }
@@ -71,6 +73,6 @@ class CommentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def comment_params
-      params.require(:comment).permit(:text, :username, :session_id)
+      params.require(:comment).permit(:text, :username).merge({session_id: session[:session_id], user_id: current_user&.[](:id)}) #Add session ID and user ID to the Request 
     end
 end
