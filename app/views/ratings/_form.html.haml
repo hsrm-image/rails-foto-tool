@@ -11,7 +11,7 @@
     = f.number_field :rating
   = f.hidden_field  :rateable_id, value: @rating.rateable_id
   = f.hidden_field :rateable_type, value: @rating.rateable_type
-  = f.hidden_field :user_id, value: @rating.user_id
+  = f.hidden_field :session_id, value: @rating.session_id
   = @rating.rateable_id
   = @rating.rateable_type
   .actions

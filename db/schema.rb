@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_02_155015) do
+
+ActiveRecord::Schema.define(version: 2021_12_03_105448) do
+
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -84,13 +86,13 @@ ActiveRecord::Schema.define(version: 2021_12_02_155015) do
 
   create_table "ratings", force: :cascade do |t|
     t.integer "rating"
-    t.string "user_id"
+    t.string "session_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "rateable_type", null: false
     t.integer "rateable_id", null: false
     t.index ["rateable_type", "rateable_id"], name: "index_ratings_on_rateable"
-    t.index ["user_id", "rateable_type", "rateable_id"], name: "index_user_on_rateable", unique: true
+    t.index ["session_id", "rateable_type", "rateable_id"], name: "index_user_on_rateable", unique: true
   end
 
   create_table "tags", force: :cascade do |t|

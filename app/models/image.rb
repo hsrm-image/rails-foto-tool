@@ -18,11 +18,11 @@ class Image < ApplicationRecord
         1.0 * sum / get_ratings.count
     end
 
-    def has_rated?(user_id) # TODO move this function to the user model?
-        Rating.where(rateable_id: id, rateable_type: "Image", user_id: user_id).count > 0
+    def has_rated?(session_id) # TODO move this function to the user model?
+        Rating.where(rateable_id: id, rateable_type: "Image", session_id: session_id).count > 0
     end
 
-    def get_rate(user_id) # TODO move this function to the user model?
-        Rating.where(rateable_id: id, rateable_type: "Image", user_id: user_id).first
+    def get_rate(session_id) # TODO move this function to the user model?
+        Rating.where(rateable_id: id, rateable_type: "Image", session_id: session_id).first
     end
 end

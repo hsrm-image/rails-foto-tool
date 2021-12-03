@@ -11,7 +11,7 @@ class ImagesController < ApplicationController
     @rating = Rating.new
     @rating.rateable_type = "Image"
     @rating.rateable_id = @image.id
-    @rating.user_id = session[:session_id]
+    @rating.session_id = session[:session_id]
   end
 
   # GET /images/new

@@ -1,0 +1,5 @@
+%p#score-area{:style => (locals[:rateable].get_ratings.count > 0 ? "" : "display:none;")}
+  Rating: 
+  %span#score= locals[:rateable].get_score.round(1)
+  Number of ratings: 
+  %span#nr-ratings= locals[:rateable].get_ratings.count

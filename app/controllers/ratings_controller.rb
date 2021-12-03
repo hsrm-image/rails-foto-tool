@@ -22,7 +22,7 @@ class RatingsController < ApplicationController
   # POST /ratings or /ratings.json
   def create
     # @rating = Rating.new(rating_params)
-    @rating = Rating.find_or_create_by(:rateable_type => rating_params[:rateable_type], :rateable_id => rating_params[:rateable_id], :user_id => rating_params[:user_id])
+    @rating = Rating.find_or_create_by(:rateable_type => rating_params[:rateable_type], :rateable_id => rating_params[:rateable_id], :session_id => rating_params[:session_id])
     @rating.rating = rating_params[:rating]
 
     respond_to do |format|
@@ -67,7 +67,7 @@ class RatingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def rating_params
-      params.require(:rating).permit(:rating, :rateable_type, :rateable_id, :user_id)
+      params.require(:rating).permit(:rating, :rateable_type, :rateable_id, :session_id)
       #params.require(:rateable_type).permit(:rating, :rateable_type, :rateable_id)
       #params.require(:rateable_id).permit(:rating, :rateable_type, :rateable_id)
     end

@@ -16,11 +16,17 @@ var set_stars = function(stars) {
 }
 
 $(function() {
+    if($('[name="session_id"]').length == 0) {
+        // No session Cookie set
+        console.log("No session!");
+        return;
+    }
+
     // Get the static page Elements
     var score_area = $("#score-area");
     var score = score_area.find("#score");
     var nr_ratings = score_area.find("#nr-ratings");
-    var user_id = $('[name="session_id"]')[0].value;
+    var session_id = $('[name="session_id"]')[0].value;
     $('.rating-star').on( "click", function() {
         // Find all the Attributes of the clicked Star
         var stars = $(this).attr('data-stars');
@@ -41,7 +47,7 @@ $(function() {
                 "rating": 
                         {"rateable_id": rateable_id,
                         "rateable_type": rateable_type,
-                        "user_id": user_id,
+                        "session_id": session_id,
                         "rating": stars}
             }
         }).done(function( msg ) {
