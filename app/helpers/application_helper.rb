@@ -6,4 +6,8 @@ module ApplicationHelper
   def admin?
     current_user&.admin?
   end
+
+  def same_user?(id)
+    !current_user.nil? and current_user[:id] == id
+  end
 end

@@ -11,8 +11,8 @@ module Authenticate
     deny unless same_session?(id)
   end
 
-  def authenticate_admin_or_same_session!(id)
-    deny unless same_session?(id) or admin?
+  def authenticate_admin_user_session!(s_id, u_id)
+    deny unless same_session?(s_id) or same_user?(u_id) or admin?
   end
 
   private

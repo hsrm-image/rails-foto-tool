@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
 
   before_action :set_comment, only: %i[ show edit update destroy ]
   before_action only: [:destroy] do
-    authenticate_admin_or_same_session!(@comment.session_id)
+    authenticate_admin_user_session!(@comment.session_id, @comment.user_id)
   end
 
 
@@ -29,8 +29,6 @@ class CommentsController < ApplicationController
   def create
     @image = Image.find(params[:image_id])
     @comment = @image.comments.create(comment_params)
-    puts("=================================================")
-    puts(comment_params)
 
     respond_to do |format|
       if @comment.save
