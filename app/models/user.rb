@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
     has_many :images, dependent: :destroy, foreign_key: "owner_id"
     has_many :collections, dependent: :destroy, foreign_key: "owner_id"
+    has_many :comments
 
     # Activerecord
     has_one_attached :avatar 

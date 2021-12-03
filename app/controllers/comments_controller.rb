@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
 
   before_action :set_comment, only: %i[ show edit update destroy ]
   before_action only: [:destroy] do
-    authenticate_admin_or_same_session!(@comment.user_id)
+    authenticate_admin_or_same_session!(@comment.session_id)
   end
 
 
@@ -71,6 +71,6 @@ class CommentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def comment_params
-      params.require(:comment).permit(:text, :username, :user_id)
+      params.require(:comment).permit(:text, :username, :session_id)
     end
 end

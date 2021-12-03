@@ -11,6 +11,6 @@
     = f.label :text
     = f.text_area :text
 
-  = f.hidden_field :user_id, value: session[:session_id]
+  = f.hidden_field :session_id, value: session[:session_id]
   .actions
     = f.submit 'Save'
