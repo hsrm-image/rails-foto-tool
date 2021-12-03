@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  include AuthenticateAdmin
+  include Authenticate
   before_action :authenticate_admin!, only: %i[ destroy ]
   before_action :set_user, only: %i[ show edit update destroy ]
 
