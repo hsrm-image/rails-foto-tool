@@ -3,11 +3,13 @@
     - if comment.user_id.nil?
       %b= comment.username 
     - else
-      %b= link_to User.find(comment.user_id).name, User.find(comment.user_id)
+      %b= link_to User.find(comment.user_id).name, User.find(comment.user_id) 
     %span> &nbsp(
     = time_ago_in_words(comment.created_at)
     ago)
-
+    - if @image.get_rate(comment.session_id)
+      = @image.get_rate(comment.session_id).rating
+      stars
   %p
     = comment.text
 
