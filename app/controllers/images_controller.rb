@@ -12,6 +12,9 @@ class ImagesController < ApplicationController
     @rating.rateable_type = "Image"
     @rating.rateable_id = @image.id
     @rating.session_id = session[:session_id]
+
+    @image = Image.find(params[:id])
+    @comment = @image.comments.new
   end
 
   # GET /images/new
