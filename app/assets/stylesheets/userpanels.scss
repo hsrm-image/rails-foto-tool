@@ -1,0 +1,15 @@
+// Place all the styles related to the userpanels controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+body{
+    margin:0px
+}
+#view{
+    display:grid;
+    grid-template-columns: 10vw 80vw 10vw;
+    width:100vw;
+}
+#control{
+    background-color: #3ee3e3;
+    height: 100px;
+}

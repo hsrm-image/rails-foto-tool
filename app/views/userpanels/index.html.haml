@@ -1,0 +1,13 @@
+!!! 5
+%h1 hallo
+%div#view
+    %div#control
+        %p= link_to "Images", userpanels_show_images_path, :remote => true 
+    %div#show
+        
+    %div#details
+
+:javascript
+    $(document).ready( function() {
+      alert('JQuery')
+    } );

@@ -13,8 +13,8 @@
   <body>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-    <p><%= link_to 'Log in', new_user_session_path%> <%= link_to 'Sign Out', destroy_user_session_path%></p>
-    <p><%= link_to 'Users', users_path%> <%= link_to 'Images', images_path%> <%= link_to 'Collections', collections_path%></p>
+    <p><%= link_to 'Log in', new_user_session_path%> <%= link_to 'Sign Out', destroy_user_session_path%> </p>
+    <p><%= link_to 'Users', users_path%> <%= link_to 'Images', images_path%> <%= link_to 'Collections', collections_path%> <%= link_to 'Userpanel', userpanel_path%></p>
     <%= yield %>
   </body>
 </html>
