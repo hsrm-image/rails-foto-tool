@@ -35,8 +35,6 @@ class CommentsController < ApplicationController
         format.html { redirect_to @image, notice: "Comment was successfully created." }
         format.json { render :show, status: :created, location: @comment }
       else
-        @comment.errors.full_messages.each {|message| puts(message)}
-        puts(session[:session_id].nil?)
         format.html { render 'images/show' }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
