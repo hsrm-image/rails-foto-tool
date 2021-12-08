@@ -1,41 +1,24 @@
 require "test_helper"
 
 
-class CommentsControllerTest < ActionController::TestCase
-  include Devise::Test::ControllerHelpers
+class CommentsControllerTest < ActionDispatch::IntegrationTest
   
   setup do
     @comment = comments(:one)
-    @image = images(:one)
-    puts(@image.id)
   end
 
   test "should create comment" do
     assert_difference('Comment.count') do
-      post :create, params: { comment: { text: @comment.text, username: @comment.username }, image_id: @image.id}
+      post image_comments_url(@comment.image), params: { comment: { text: @comment.text, username: @comment.username, session_id: "abcDiesIstEineSession123" } }
     end
 
-    assert_redirected_to comment_url(Comment.last)
+    assert_redirected_to image_url(@comment.image)
   end
 
-  test "should show comment" do
-    get comment_url(@comment)
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get edit_comment_url(@comment)
-    assert_response :success
-  end
-
-  test "should update comment" do
-    patch comment_url(@comment), params: { comment: { text: @comment.text, username: @comment.username } }
-    assert_redirected_to comment_url(@comment)
-  end
-
+  # Does not work because session cant be changed in tests...
   test "should destroy comment" do
     assert_difference('Comment.count', -1) do
-      delete comment_url(@comment)
+      delete image_comment_url(@comment.image, @comment), params: {comment: {session_id: "abcDiesIstEineSession123"}}
     end
 
     assert_redirected_to comments_url

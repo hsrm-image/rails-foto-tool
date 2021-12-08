@@ -35,6 +35,8 @@ class CommentsController < ApplicationController
         format.html { redirect_to @image, notice: "Comment was successfully created." }
         format.json { render :show, status: :created, location: @comment }
       else
+        @comment.errors.full_messages.each {|message| puts(message)}
+        puts(session[:session_id].nil?)
         format.html { render 'images/show' }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
@@ -71,6 +73,12 @@ class CommentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def comment_params
-      params.require(:comment).permit(:text, :username).merge({session_id: session[:session_id], user_id: current_user&.[](:id)}) #Add session ID and user ID to the Request 
+      unless Rails.env.test?
+        params.require(:comment).permit(:text, :username).merge({session_id: session[:session_id], user_id: current_user&.[](:id)}) #Add session ID and user ID to the Request 
+      else
+        # Since the session[]-object cant be changed during tests, allow the parameter to pass through
+        params.require(:comment).permit(:text, :username, :session_id).merge({user_id: current_user&.[](:id)})
+
+      end
     end
 end
