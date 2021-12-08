@@ -1,0 +1,11 @@
+# ActiveStorage::Blob.generate_unique_secure_token
+# in rails c to generate key
+# https://stackoverflow.com/questions/50453596/activestorage-fixtures-attachments
+image_file_one_blob:
+  key: ipm7ibsg23csmekv3mqhfftxjdih
+  filename: sample.png
+  content_type: image/png
+  metadata: '{"identified":true,"analyzed":true}'
+  byte_size: <%= File.size('tmp/storage/ip/m7/ipm7ibsg23csmekv3mqhfftxjdih') %>
+  checksum: <%= Digest::MD5.file('tmp/storage/ip/m7/ipm7ibsg23csmekv3mqhfftxjdih').base64digest %>
+  service_name: test

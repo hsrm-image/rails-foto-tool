@@ -3,7 +3,10 @@
 one:
   text: MyText
   username: MyString
-
+  session_id: abcde123
+  image: one
 two:
   text: MyText
   username: MyString
+  session_id: abcde123
+  image: two
