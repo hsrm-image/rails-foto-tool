@@ -7,4 +7,9 @@ class UserpanelsController < ApplicationController
             format.js{}
           end
     end
+    def show_collections
+        respond_to do |format|
+            format.js{}
+          end
+    end
 end

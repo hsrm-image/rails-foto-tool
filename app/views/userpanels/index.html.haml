@@ -1,13 +1,10 @@
 !!! 5
-%h1 hallo
 %div#view
     %div#control
-        %p= link_to "Images", userpanels_show_images_path, :remote => true 
+        %h3 categories
+        %div= link_to "Images", userpanels_show_images_path, :remote => true 
+        %div= link_to "Collections", userpanels_show_collections_path, :remote => true 
     %div#show
-        
+        %h3 Default Placeholder
     %div#details
-
-:javascript
-    $(document).ready( function() {
-      alert('JQuery')
-    } );
+        %div details
