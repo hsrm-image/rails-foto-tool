@@ -8,6 +8,10 @@ class Image < ApplicationRecord
     # Activerecord
     has_one_attached :image_file
 
+
+    # Kaminari
+    paginates_per 5
+
     def get_ratings
         return Rating.where(rateable_id: id, rateable_type: "Image")
     end

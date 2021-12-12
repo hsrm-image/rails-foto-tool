@@ -1,19 +1,18 @@
 = javascript_pack_tag 'images', 'data-turbolinks-track': 'reload'
 %h1 Listing images
 
-.cards-container
-  - @images.each do |image|
-    - img = image.image_file.variant(resize_to_limit: [250, nil])
-    .card
-      .user-link
-        = link_to image.owner do 
-          .user-info
-            .pp= image_tag(image.owner.avatar.variant(resize_to_limit: [40, 40]).processed) if image.owner.avatar.attached?
-            .username= image.owner.name
-      = link_to image do
-        .image-link
-          .image= image_tag url_for(img.processed)
-          = image.title
+= link_to 'New Image', new_image_path
+
+#cards-container
+  = render @images
+.page-load-status
+  .infinite-scroll-request
+    %h2 Loading...
+  .infinite-scroll-last{style: "display: none;"}
+    %hr
+    %h2 End
+  .infinite-scroll-error{style: "display: none;"}
+    %h2 Error loading next images
 
 
 %table
@@ -37,6 +36,4 @@
 %br
 
 
-
-
-= link_to 'New Image', new_image_path
+= paginate @images
