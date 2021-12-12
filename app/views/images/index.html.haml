@@ -1,4 +1,20 @@
+= javascript_pack_tag 'images', 'data-turbolinks-track': 'reload'
 %h1 Listing images
+
+.cards-container
+  - @images.each do |image|
+    - img = image.image_file.variant(resize_to_limit: [250, nil])
+    .card
+      .user-link
+        = link_to image.owner do 
+          .user-info
+            .pp= image_tag(image.owner.avatar.variant(resize_to_limit: [40, 40]).processed) if image.owner.avatar.attached?
+            .username= image.owner.name
+      = link_to image do
+        .image-link
+          .image= image_tag url_for(img.processed)
+          = image.title
+
 
 %table
   %thead
@@ -19,5 +35,8 @@
         %td= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
+
+
+
 
 = link_to 'New Image', new_image_path
