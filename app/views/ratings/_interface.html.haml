@@ -1,10 +1,8 @@
 - unless session[:session_id].nil?
   %input{:type=>"hidden", :value=>session[:session_id], :name=>:session_id}
-  %ul#rating
+  #rating
     - user_rate = (@image.get_rate(session[:session_id])&.rating) || 0
     - (1..5).each do |i|
-      - puts(user_rate)
-      %li{class: "rating-star" + (user_rate >= i ? " star-active" : " star-inactive"), id: "star_#{i}", "data-rateable-type": "Image", "data-rateable-id": "#{@image.id}", "data-stars": "#{i}"}
-        Star!
+      %i{:class => "rating-star bi bi-star" + (user_rate >= i ? "-fill" : ""), id: "star_#{i}", "data-rateable-type": "Image", "data-rateable-id": "#{@image.id}", "data-stars": "#{i}"}
 - else 
   Please activate cookies to rate!

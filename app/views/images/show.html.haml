@@ -29,13 +29,14 @@
 \|
 = link_to 'Back', images_path
 
-%h3 New Comment
-= render 'comments/form'
-%h2
-  =@image.comments.count
-  Comments
-// The last comment is empty because it gets created by 'render'
-= render @image.comments[0...-1].reverse
+#comments
+  %h3 New Comment
+  = render 'comments/form'
+  %h2
+    =@image.comments.count
+    Comments
+  // The last comment is empty because it gets created by 'render'
+  = render @image.comments[0...-1].reverse
 
 
 

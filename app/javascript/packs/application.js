@@ -10,6 +10,8 @@ import "channels"
 import "jquery"
 require('masonry-layout')
 require('jquery-bridget')
+import 'bootstrap-icons/font/bootstrap-icons.css'
+
 
 Rails.start()
 Turbolinks.start()

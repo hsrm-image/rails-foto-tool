@@ -6,11 +6,11 @@
 var set_stars = function(stars) {
     for(var i=1; i<=5; i++) {
         if(i <= stars) {
-            $('#star_' + i).addClass("star-active");
-            $('#star_' + i).removeClass("star-inactive");
+            $('#star_' + i).addClass("bi-star-fill");
+            $('#star_' + i).removeClass("bi-star");
         } else {
-            $('#star_' + i).removeClass("star-active");
-            $('#star_' + i).addClass("star-inactive");
+            $('#star_' + i).removeClass("bi-star-fill");
+            $('#star_' + i).addClass("bi-star");
         }
     }
 }
