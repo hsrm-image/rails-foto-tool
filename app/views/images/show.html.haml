@@ -7,8 +7,15 @@
 %p
   %b Description:
   = @image.description
-%p
-  %b Image File:
+
+= link_to @image.previous do
+  .pagination#paginationL
+    \<
+= link_to @image.next do
+  .pagination#paginationR
+    \>
+
+#main-image
   = image_tag @image.image_file
 %p
   %b Owner:
