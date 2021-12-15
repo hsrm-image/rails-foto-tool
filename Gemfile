@@ -64,3 +64,6 @@ gem "image_processing"
 gem "mini_magick"
 
 gem 'aws-sdk-s3'
+
+gem 'activestorage-validator'
+gem 'active_storage_drag_and_drop'

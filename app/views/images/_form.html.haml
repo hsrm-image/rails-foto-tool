@@ -14,7 +14,9 @@
     = f.text_area :description
   .field 
     = f.label :image_file
-    = f.file_field :image_file
+    = f.drag_and_drop_file_field :image_file do 
+      Drop the file here!
+      %b pls
 
   .actions
     = f.submit 'Save'
