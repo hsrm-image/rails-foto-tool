@@ -8,6 +8,10 @@ class ImagesController < ApplicationController
 
   # GET /images/1 or /images/1.json
   def show
+    @rating = Rating.new
+    @rating.rateable_type = "Image"
+    @rating.rateable_id = @image.id
+    @rating.session_id = session[:session_id]
   end
 
   # GET /images/new

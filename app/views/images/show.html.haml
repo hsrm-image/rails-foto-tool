@@ -1,3 +1,4 @@
+= javascript_pack_tag 'rating', 'data-turbolinks-track': 'reload'
 %p#notice= notice
 
 %p
@@ -12,6 +13,22 @@
 %p
   %b Owner:
   = link_to @image.owner.name, @image.owner
+
+= render 'ratings/interface'
+= render 'ratings/score', locals: {rateable: @image}
+
+
 = link_to 'Edit', edit_image_path(@image)
 \|
 = link_to 'Back', images_path
+
+%h3 New Comment
+= render 'comments/form'
+%h2
+  =@image.comments.count
+  Comments
+// The last comment is empty because it gets created by 'render'
+= render @image.comments[0...-1].reverse
+
+
+
