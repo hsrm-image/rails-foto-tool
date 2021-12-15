@@ -14,6 +14,10 @@ class Image < ApplicationRecord
 
 
 
+
+    # Kaminari
+    paginates_per 5
+
     def get_ratings
         return Rating.where(rateable_id: id, rateable_type: "Image")
     end
@@ -30,5 +34,13 @@ class Image < ApplicationRecord
 
     def get_rate(session_id) # TODO move this function to the user model?
         Rating.where(rateable_id: id, rateable_type: "Image", session_id: session_id).first
+    end
+
+    def next
+        Image.where("id > ?", id).order("id ASC").first || Image.first
+    end
+    
+    def previous
+        Image.where("id < ?", id).order("id DESC").first || Image.last
     end
 end

@@ -1,4 +1,19 @@
+= javascript_pack_tag 'images', 'data-turbolinks-track': 'reload'
 %h1 Listing images
+
+= link_to 'New Image', new_image_path
+
+#cards-container
+  = render @images
+.page-load-status
+  .infinite-scroll-request
+    %h2 Loading...
+  .infinite-scroll-last{style: "display: none;"}
+    %hr
+    %h2 End
+  .infinite-scroll-error{style: "display: none;"}
+    %h2 Error loading next images
+
 
 %table
   %thead
@@ -20,4 +35,5 @@
 
 %br
 
-= link_to 'New Image', new_image_path
+
+= paginate @images

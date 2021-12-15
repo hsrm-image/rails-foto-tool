@@ -71,6 +71,12 @@ class CommentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def comment_params
-      params.require(:comment).permit(:text, :username).merge({session_id: session[:session_id], user_id: current_user&.[](:id)}) #Add session ID and user ID to the Request 
+      unless Rails.env.test?
+        params.require(:comment).permit(:text, :username).merge({session_id: session[:session_id], user_id: current_user&.[](:id)}) #Add session ID and user ID to the Request 
+      else
+        # Since the session[]-object cant be changed during tests, allow the parameter to pass through
+        params.require(:comment).permit(:text, :username, :session_id).merge({user_id: current_user&.[](:id)})
+
+      end
     end
 end

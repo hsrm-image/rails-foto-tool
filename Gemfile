@@ -65,5 +65,9 @@ gem "mini_magick"
 
 gem 'aws-sdk-s3'
 
+
+gem 'kaminari'
+
 gem 'activestorage-validator'
 gem 'active_storage_drag_and_drop'
+
