@@ -1,23 +1,18 @@
 require "test_helper"
 
-class CommentsControllerTest < ActionDispatch::IntegrationTest
+
+class CommentsControllerTest < ActionController::TestCase
+  include Devise::Test::ControllerHelpers
+  
   setup do
     @comment = comments(:one)
-  end
-
-  test "should get index" do
-    get comments_url
-    assert_response :success
-  end
-
-  test "should get new" do
-    get new_comment_url
-    assert_response :success
+    @image = images(:one)
+    puts(@image.id)
   end
 
   test "should create comment" do
     assert_difference('Comment.count') do
-      post comments_url, params: { comment: { text: @comment.text, username: @comment.username } }
+      post :create, params: { comment: { text: @comment.text, username: @comment.username }, image_id: @image.id}
     end
 
     assert_redirected_to comment_url(Comment.last)

@@ -1,7 +1,12 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  rating: 
+  rating: 4
+  rateable_type: Image
+  rateable_id: 1
 
 two:
-  rating: 
+  rating: 5
+  rateable_type: Collection
+  rateable_id: 2
+

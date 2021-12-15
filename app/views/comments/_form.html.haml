@@ -1,5 +1,10 @@
-= form_with model: [@image, @image.comments.build] do |f|
-
+= form_with model: [@image, @comment] do |f|
+  - if @comment.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@comment.errors.count, "error")} prohibited this comment from being saved:"
+      %ul
+        - @comment.errors.full_messages.each do |message|
+          %li= message
   .field
     = f.label :username
     - if user_signed_in?
