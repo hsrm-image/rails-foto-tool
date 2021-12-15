@@ -16,3 +16,9 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+
+//TODO own file maybe?
+import ActiveStorageDragAndDrop from 'active_storage_drag_and_drop'
+
+ActiveStorageDragAndDrop.start()

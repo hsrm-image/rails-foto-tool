@@ -131,7 +131,6 @@
 
 
 
-
 // Pagination (Left/Right arrow)
 .pagination {
     position: fixed;
@@ -166,3 +165,18 @@
         top: unset;
     }
 }
+
+label.asdndzone {
+    box-sizing: border-box;
+    display: block;
+    border: 3px solid #ff0000;
+    border-radius: 6px;
+    min-height: 220px;
+    max-width: 310px;
+    width: 100%;
+    padding: 99px 20px 20px;
+    text-align: center;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 21px;
+    letter-spacing: 0.6px;
+  }

@@ -11,6 +11,8 @@
  * It is generally better to create a new file per style scope.
  *
  *
+ *= require active_storage_drag_and_drop
  *= require_tree .
  *= require_self
+ *
  */
