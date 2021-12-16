@@ -1,4 +1,5 @@
-= form_with model: [@image, @comment] do |f|
+= javascript_pack_tag 'comment', 'data-turbolinks-track': 'reload'
+= form_with model: [@image, @comment], :html => { :id => "new-comment-form", :multipart => true, "data-remote": true }, remote: true, format: :js do |f|
   - if @comment.errors.any?
     #error_explanation
       %h2= "#{pluralize(@comment.errors.count, "error")} prohibited this comment from being saved:"
@@ -16,4 +17,4 @@
     = f.label :text
     = f.text_area :text
   .actions
-    = f.submit 'Save'
+    = f.submit 'Save', :onclick => "Rails.fire(form, 'submit')"
