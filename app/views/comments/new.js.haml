@@ -5,3 +5,4 @@
   toastr.success("#{escape_javascript (flash[:success])}", "", {"positionClass": "toast-bottom-center"});
   $("#comments-list").prepend($("#{escape_javascript (render @comment)}").hide().delay(500).show('slow')); 
   $("#comment_text").val('');
+  $("#comment-count").text("#{escape_javascript (nr_comments)}" + " Comments"); //TODO Translate

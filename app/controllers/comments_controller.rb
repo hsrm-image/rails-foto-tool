@@ -35,7 +35,7 @@ class CommentsController < ApplicationController
         format.html { redirect_to @image, notice: "Comment was successfully created." }
         format.json { render :show, status: :created, location: @comment }
         flash[:success] = "Comment was successfully created."
-        format.js {render "comments/new"}
+        format.js {render "comments/new", :locals => {:nr_comments => @image.comments.count}}
       else
         format.html { render 'images/show' }
         format.json { render json: @comment.errors, status: :unprocessable_entity }

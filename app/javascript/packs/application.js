@@ -17,7 +17,7 @@ import toastr from "toastr" // Notifications https://github.com/CodeSeven/toastr
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
-window.Rails = Rails;
+
 window.toastr = toastr; // very ugly but otherwise .js.erb files don't receive toastr
 window.$ = $;
 

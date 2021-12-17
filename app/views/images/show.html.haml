@@ -6,7 +6,7 @@
   = @image.title
 %p
   %b Description:
-  = @image.description
+  = simple_format(@image.description)
 
 = link_to @image.previous do
   .pagination#paginationL
@@ -32,7 +32,7 @@
 #comments
   %h3 New Comment
   = render 'comments/form'
-  %h2
+  %h2#comment-count
     =@image.comments.count
     Comments
   // The last comment is empty because it gets created by 'render'

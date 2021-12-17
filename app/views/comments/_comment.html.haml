@@ -14,7 +14,7 @@
         - (1..5).each do |i|
           %i{:class => "comment-rating bi bi-star" + (rating >= i ? "-fill" : "")}
   %p
-    = comment.text
+    = simple_format(comment.text)
 
   - if same_session?(comment.session_id) or same_user?(comment.user_id) or admin?
     = button_to 'Delete', image_comment_url(@image, comment), method: :delete, data: { confirm: 'Are you sure?' }
