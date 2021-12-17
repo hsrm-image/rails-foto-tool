@@ -36,7 +36,8 @@
     =@image.comments.count
     Comments
   // The last comment is empty because it gets created by 'render'
-  = render @image.comments[0...-1].reverse
+  #comments-list
+    = render @image.comments[0...-1].reverse
 
 
 

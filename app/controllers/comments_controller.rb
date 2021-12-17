@@ -34,10 +34,11 @@ class CommentsController < ApplicationController
       if @comment.save
         format.html { redirect_to @image, notice: "Comment was successfully created." }
         format.json { render :show, status: :created, location: @comment }
+        flash[:success] = "Comment was successfully created."
         format.js {render "comments/new"}
       else
-        #format.html { render 'images/show' }
-        #format.json { render json: @comment.errors, status: :unprocessable_entity }
+        format.html { render 'images/show' }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
         format.js {render "comments/new"}
       end
     end
