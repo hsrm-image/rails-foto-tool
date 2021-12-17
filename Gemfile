@@ -71,3 +71,5 @@ gem 'kaminari'
 gem 'activestorage-validator'
 gem 'active_storage_drag_and_drop'
 
+# Reading exif-data from images https://github.com/exiftool-rb/exiftool.rb
+gem 'exiftool_vendored'
