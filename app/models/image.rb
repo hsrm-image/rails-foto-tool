@@ -43,4 +43,8 @@ class Image < ApplicationRecord
     def previous
         Image.where("id < ?", id).order("id DESC").first || Image.last
     end
+
+
+
+    
 end

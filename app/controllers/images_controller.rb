@@ -40,6 +40,7 @@ class ImagesController < ApplicationController
       if @image.save
         format.html { redirect_to @image, notice: "Image was successfully created." }
         format.json { render :show, status: :created, location: @image }
+        AnalyseImageJob.perform_later @image 
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @image.errors, status: :unprocessable_entity }

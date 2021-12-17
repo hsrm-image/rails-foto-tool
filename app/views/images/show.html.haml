@@ -24,10 +24,13 @@
 = render 'ratings/interface'
 = render 'ratings/score', locals: {rateable: @image}
 
+= render 'exif'
 
 = link_to 'Edit', edit_image_path(@image)
 \|
 = link_to 'Back', images_path
+\|
+= link_to 'Delete', @image, method: :delete, data: { confirm: 'Are you sure?' }
 
 #comments
   %h3 New Comment
