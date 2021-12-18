@@ -1,12 +1,10 @@
-= javascript_pack_tag 'rating', 'data-turbolinks-track': 'reload'
+= javascript_pack_tag 'rating', 'image', 'data-turbolinks-track': 'reload'
 %p#notice= notice
 
 %p
   %b Title:
   = @image.title
-%p
-  %b Description:
-  = simple_format(@image.description)
+
 
 = link_to @image.previous do
   .pagination#paginationL
@@ -24,7 +22,19 @@
 = render 'ratings/interface'
 = render 'ratings/score', locals: {rateable: @image}
 
-= render 'exif'
+#description
+  #description-preview
+    #preview-text
+      = @image.description
+    = link_to "Read more", '', id: "extend-description"
+  #description-full{style: "display: none;"}
+    = simple_format(@image.description)
+    %hr
+    #description-exif
+      = render 'exif'
+    = link_to "Read less", '', id: "truncate-description"
+
+%hr
 
 = link_to 'Edit', edit_image_path(@image)
 \|

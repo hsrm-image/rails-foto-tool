@@ -166,6 +166,41 @@
     }
 }
 
+#description{
+    padding: 10px;
+    border-color: rgba(0,0,0,0.5);
+    border-width: 3px;
+    border-style: solid;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 600px;
+    #preview-text{
+        white-space: nowrap; /* forces text to single line */
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    #description{
+        max-width: 60vw;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #description{
+        max-width: 90vw;
+    }
+}
+
+
+
+
+
+
+// Upload
+
 label.asdndzone {
     box-sizing: border-box;
     display: block;
@@ -179,4 +214,4 @@ label.asdndzone {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 21px;
     letter-spacing: 0.6px;
-  }
+}
