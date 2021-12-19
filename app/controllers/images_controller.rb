@@ -1,5 +1,5 @@
 class ImagesController < ApplicationController
-  before_action :set_image, only: %i[ show edit update destroy ]
+  before_action :set_image, only: %i[ show edit update destroy analyse ]
 
   # GET /images or /images.json
   def index
@@ -47,6 +47,21 @@ class ImagesController < ApplicationController
       end
     end
   end
+
+
+  def analyse
+    respond_to do |format|
+      if @image.image_file.attached?
+        AnalyseImageJob.perform_later @image
+        format.html { redirect_to @image, notice: "Image will be analysed in background." }
+        format.js {render 'layouts/toast', locals: { :method => "success", :message => "Now re-analysing exif-data in Background. Please refresh this page in a few Seconds.", :title => ""}}
+      else
+        format.html { redirect_to @image, notice: "No image!" }
+        format.js {render 'layouts/toast', locals: { :method => "error", :message => "Error: No image attached!", :title => ""}}
+      end
+    end
+  end
+
 
   # PATCH/PUT /images/1 or /images/1.json
   def update

@@ -1,4 +1,8 @@
+// Disable turbolinks for this page, because it breaks the infinite scroll on some browsers (Duplicate images)
+- content_for(:body_attributes) do
+  data-turbolinks="false" 
 = javascript_pack_tag 'images', 'data-turbolinks-track': 'reload'
+
 %h1 Listing images
 
 = link_to 'New Image', new_image_path

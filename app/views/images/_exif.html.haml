@@ -1,27 +1,37 @@
-%p
+-unless @image.exif_camera_maker.nil?
+  %p
     Maker:
     = @image.exif_camera_maker
-%p
+-unless @image.exif_camera_model.nil?
+  %p
     Model:
     = @image.exif_camera_model
-%p
+-unless @image.exif_lens_model.nil?
+  %p
     Lens:
     = @image.exif_lens_model
-%p
+-unless @image.exif_focal_length.nil?
+  %p
     Focal Length:
     = @image.exif_focal_length
-%p
-    Aperture:
+    mm
+-unless @image.exif_aperture.nil?
+  %p
+    Aperture:&nbsp
+    %span>f/
     = @image.exif_aperture
-%p
+-unless @image.exif_exposure.nil?
+  %p
     Exposure:
     = @image.exif_exposure
-%p
-    ISO:
-    = @image.exif_iso
-%p
+    s
+-unless @image.exif_iso.nil?
+  %p
+    ISO: ISO-
+    %span>= @image.exif_iso
+-unless @image.exif_gps_latitude.nil? or @image.exif_gps_longitude.nil?
+  %p
     LAT:
     = @image.exif_gps_latitude
-%p
     LON:
     = @image.exif_gps_longitude

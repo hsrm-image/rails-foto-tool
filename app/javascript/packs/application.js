@@ -20,6 +20,7 @@ ActiveStorage.start()
 
 window.toastr = toastr; // very ugly but otherwise .js.erb files don't receive toastr
 window.$ = $;
+window.jquery = $;
 
 //TODO own file maybe?
 import ActiveStorageDragAndDrop from 'active_storage_drag_and_drop'

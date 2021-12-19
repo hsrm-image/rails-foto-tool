@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :ratings
   resources :collections
   resources :images do
+    patch :analyse, on: :member
     resources :comments
   end
   resources :tags
