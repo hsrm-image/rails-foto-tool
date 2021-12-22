@@ -1,5 +1,5 @@
 - img = image.image_file.variant(resize_to_limit: [250, nil])
-.card
+%div{:class => "card" + (image.processed ? "" : " processing")}
     .user-link
         = link_to image.owner do 
             .user-info

@@ -21,6 +21,7 @@
     clear: both;
 }
 
+
 .card { 
     display:inline-block;
     width: 250px; 
@@ -73,6 +74,12 @@
         }
     }
     
+}
+
+.card.processing {
+    border-color: hsla(34, 100%, 50%, 0.5);
+    background-color: grey;
+    opacity: 0.5;
 }
 
 .page-load-status {

@@ -8,10 +8,10 @@
   = @image.title
 
 
-= link_to @image.previous do
+= link_to @image.previous(current_user) do
   .pagination#paginationL
     \<
-= link_to @image.next do
+= link_to @image.next(current_user) do
   .pagination#paginationR
     \>
 

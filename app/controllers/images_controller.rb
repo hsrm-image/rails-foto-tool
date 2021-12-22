@@ -3,18 +3,23 @@ class ImagesController < ApplicationController
 
   # GET /images or /images.json
   def index
-    @images = Image.order(:created_at).page(params[:page])
+    if current_user
+      @images = Image.order(:created_at).page(params[:page]) 
+    else
+      @images = Image.where(:processed => true).order(:created_at).page(params[:page]) 
+    end
   end
 
   # GET /images/1 or /images/1.json
   def show
-    @rating = Rating.new
-    @rating.rateable_type = "Image"
-    @rating.rateable_id = @image.id
-    @rating.session_id = session[:session_id]
-
-    @image = Image.find(params[:id])
-    @comment = @image.comments.new
+    if current_user or Image.find(params[:id]).processed
+      @image = Image.find(params[:id])
+      @comment = @image.comments.new
+     else
+      respond_to do |format|
+        format.html { redirect_to images_url, notice: "This image is not visible" }
+      end
+    end
   end
 
   # GET /images/new

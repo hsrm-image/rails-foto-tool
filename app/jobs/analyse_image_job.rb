@@ -32,6 +32,6 @@ class AnalyseImageJob < ApplicationJob
 
     image.processed = true
 
-    image.save 
+    image.save!
   end
 end

@@ -28,23 +28,26 @@ class Image < ApplicationRecord
         1.0 * sum / get_ratings.count
     end
 
-    def has_rated?(session_id) # TODO move this function to the user model?
+    def has_rated?(session_id)
         Rating.where(rateable_id: id, rateable_type: "Image", session_id: session_id).count > 0
     end
 
-    def get_rate(session_id) # TODO move this function to the user model?
+    def get_rate(session_id)
         Rating.where(rateable_id: id, rateable_type: "Image", session_id: session_id).first
     end
 
-    def next
-        Image.where("id > ?", id).order("id ASC").first || Image.first
+    def next(logged_in)
+        all = get_visible(logged_in)
+        all.where("id > ?", id).order("id ASC").first || all.first
     end
     
-    def previous
-        Image.where("id < ?", id).order("id DESC").first || Image.last
+    def previous(logged_in)
+        all = get_visible(logged_in)
+        all.where("id < ?", id).order("id DESC").first || all.last
     end
 
-
-
-    
+    def get_visible(logged_in)
+        # Only get the images that the user can view
+        logged_in ? Image.all : Image.where(:processed => true)
+    end
 end
