@@ -70,3 +70,9 @@ gem 'kaminari'
 
 gem 'activestorage-validator'
 gem 'active_storage_drag_and_drop'
+
+# invite new Users https://github.com/scambra/devise_invitable
+gem 'devise_invitable'
+
+# Do not send out Mails, instead view them in Browser https://github.com/ryanb/letter_opener
+gem "letter_opener", group: :development
