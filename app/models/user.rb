@@ -9,4 +9,8 @@ class User < ApplicationRecord
 
     # Activerecord
     has_one_attached :avatar 
+
+    def count_admins
+      User.where(:admin => true).count
+    end
 end
