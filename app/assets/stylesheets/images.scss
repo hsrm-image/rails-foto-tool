@@ -2,8 +2,16 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-
-.widget{
-    max-width: 100px;
-    max-height: 100px;
+.widget {
+	max-width: 100px;
+	max-height: 100px;
+	border: solid white 1px;
+	box-shadow: 0 0px 4px 0px white;
+}
+.widget-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: fit-content;
+	margin-right: 2vw;
 }

@@ -1,3 +1,5 @@
-%div
-    = image_tag image.image_file, class: "widget"
-    %span.widget-title= image.title
+= link_to userpanels_show_details_path(img: image.id), :remote => true  do
+	.widget-container
+		= image_tag image.image_file, class: "widget"
+		%br/
+		%span.widget-title= image.title
