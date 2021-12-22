@@ -1,4 +1,6 @@
-= javascript_pack_tag 'rating', 'data-turbolinks-track': 'reload'
+= javascript_pack_tag 'rating', 'image', 'data-turbolinks-track': 'reload'
+- unless @image.processed
+  %span#processing{style: "display: none;"} This image is not yet publicly visible because it is still processing.
 %p#notice= notice
 
 %p
@@ -14,7 +16,8 @@
     \>
 
 #main-image
-  = image_tag @image.image_file
+  -if @image.image_file.attached?
+    = image_tag @image.image_file
 %p
   %b Owner:
   = link_to @image.owner.name, @image.owner

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_17_175120) do
+ActiveRecord::Schema.define(version: 2021_12_22_093751) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 2021_12_17_175120) do
     t.integer "exif_iso"
     t.float "exif_gps_latitude"
     t.float "exif_gps_longitude"
+    t.boolean "processed", default: false
     t.index ["owner_id"], name: "index_images_on_owner_id"
   end
 

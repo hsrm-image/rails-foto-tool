@@ -7,7 +7,7 @@ class Image < ApplicationRecord
 
     # Activerecord
     has_one_attached :image_file
-    validates :image_file, presence: true, blob: { content_type: :image, size_range: 1..(Rails.configuration.x.image.max_file_size) } # supported options: :image, :audio, :video, :text
+    validates :image_file, presence: true, blob: { content_type: :image, size_range: 1..(Rails.configuration.x.image.max_file_size) }, on: :create # supported options: :image, :audio, :video, :text
     # https://github.com/marinosoftware/active_storage_drag_and_drop
     # or
     # https://web-crunch.com/posts/rails-drag-drop-active-storage-stimulus-dropzone

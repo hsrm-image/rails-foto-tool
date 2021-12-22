@@ -25,8 +25,13 @@ class AnalyseImageJob < ApplicationJob
       image.exif_gps_longitude ||= d + m / 60 + s / 3600
     end
 
-    # TODO strip exif from image?
-    # TODO add boolean "processing" to db?
-    image.save!
+    file = MiniMagick::Image.open(image.image_file)
+    file.auto_orient # Turn the image if neccessary
+    file.strip # Strip Exif
+    image.image_file.attach(io: StringIO.open(file.to_blob), filename: image.image_file.blob.filename.to_s)
+
+    image.processed = true
+
+    image.save 
   end
 end
