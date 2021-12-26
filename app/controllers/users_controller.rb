@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   include Authenticate
-  before_action :authenticate_admin!, only: %i[ destroy ]
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :authenticate_admin!#, only: %i[ index show edit update destroy admin ]
+  before_action :set_user, only: %i[ show edit update destroy admin ]
 
   # GET /users or /users.json
   def index
@@ -19,6 +19,20 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+  end
+
+  # PATCH /users/1/admin
+  def admin
+    admin = !@user.admin
+    respond_to do |format|
+      if @user.update({admin: admin})
+        format.html { redirect_to @user, notice: "User was successfully updated." }
+        format.json { render :show, status: :ok, location: @user }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # POST /users or /users.json

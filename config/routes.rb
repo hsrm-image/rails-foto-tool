@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
     put 'users' => 'devise/registrations#update', :as => 'user_registration'
   end
-  
+
   resources :ratings
   resources :collections
   resources :images do
@@ -15,7 +15,9 @@ Rails.application.routes.draw do
     resources :comments
   end
   resources :tags
-  resources :users
+  resources :users, only: [:index, :show, :delete] do
+    patch :admin, on: :member
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root to: "images#index"
 end

@@ -5,10 +5,18 @@
   = @user.name
 %p
   %b Admin:
-  = @user.admin
+  = @user.admin ? "Yes" : "No"
+  = link_to "Change", admin_user_path(@user), method: :patch, data: {confirm: 'Are you sure?'}
 %p
   %b Avatar:
   = image_tag @user.avatar.variant(resize_to_limit: [100, 100]) if @user.avatar.attached?
-= link_to 'Edit', edit_user_path(@user)
-\|
+%p
+  %b Mail:
+  = mail_to @user.email, @user.email
+%p 
+  %b Member since:
+  = @user.created_at.strftime("%d.%m.%Y")
+%p 
+  %b Invited by:
+  = link_to(User.find(@user.invited_by_id).name, User.find(@user.invited_by_id)) unless @user.invited_by_id.nil?
 = link_to 'Back', users_path
