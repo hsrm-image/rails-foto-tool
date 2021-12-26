@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: {
+  devise_for :users, :skip => [:registrations], controllers: {
     registrations: 'users/registrations',
     invitations: 'users/invitations'
   }
-
+  as :user do
+    get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
+    put 'users' => 'devise/registrations#update', :as => 'user_registration'
+  end
+  
   resources :ratings
   resources :collections
   resources :images do
