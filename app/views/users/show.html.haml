@@ -6,7 +6,7 @@
 %p
   %b Admin:
   = @user.admin ? "Yes" : "No"
-  = link_to "Change", admin_user_path(@user), method: :patch, data: {confirm: 'Are you sure?'}
+  = link_to "Change", admin_user_path(@user), method: :patch, data: {confirm: 'Are you sure?'}, remote: true
 %p
   %b Avatar:
   = image_tag @user.avatar.variant(resize_to_limit: [100, 100]) if @user.avatar.attached?

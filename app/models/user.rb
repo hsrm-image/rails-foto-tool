@@ -10,7 +10,14 @@ class User < ApplicationRecord
     # Activerecord
     has_one_attached :avatar 
 
-    def count_admins
-      User.where(:admin => true).count
+    
+    def is_last_admin
+      admin && User.where(:admin => true).count <= 1
+    end
+
+    def can_revoke_admin(current_user)
+      errors.add(:user, "Cannot revoke permissions of last Admin") if is_last_admin
+      errors.add(:user, "Cannot edit your own Permissions") if id == current_user[:id]
+      return errors.empty?
     end
 end

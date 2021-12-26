@@ -24,12 +24,15 @@ class UsersController < ApplicationController
   # PATCH /users/1/admin
   def admin
     admin = !@user.admin
+    valid = (admin == false && @user.can_revoke_admin(current_user)) || admin == true
+
     respond_to do |format|
-      if @user.update({admin: admin})
+      if valid and @user.update({admin: admin}) #TODO not revoking own / Last admin permissions
         format.html { redirect_to @user, notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, errors: @user.errors }
+        format.js {render 'layouts/toast', locals: { :method => "error", :message => @user.errors.messages.values.flatten, :title => ""}}
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -65,10 +68,14 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: "User was successfully destroyed." }
-      format.json { head :no_content }
+      unless(@user.is_last_admin)
+        @user.destroy
+        format.html { redirect_to users_url, notice: "User was successfully destroyed." }
+        format.json { head :no_content }
+      else
+        format.js {render 'layouts/toast', locals: { :method => "error", :message => "You cannot delete the last Admin", :title => ""}}
+      end
     end
   end
 

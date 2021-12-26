@@ -1,1 +1,3 @@
-toastr.#{ j method }("#{ j message }", "#{ j title }", {"positionClass": "toast-bottom-center"}); //TODO position into global options
+- msg = Array(message)
+- msg.each do |m|
+  toastr.#{ j method }("#{ j m }", "#{ j title }", {"positionClass": "toast-bottom-center"}); //TODO position into global options

@@ -26,8 +26,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # DELETE /resource
   def destroy
-    if current_user.admin and current_user.count_admins <= 1
-      redirect_to edit_user_registration_path, notice: "You cannot delete the last Admin"
+    if current_user.is_last_admin
+      respond_to do |format|
+        format.js {render 'layouts/toast', locals: { :method => "error", :message => "You cannot delete the last Admin!", :title => ""}}
+      end
     else
       super
     end
