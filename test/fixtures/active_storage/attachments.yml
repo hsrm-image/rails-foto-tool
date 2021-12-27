@@ -2,3 +2,8 @@ image_file_one:
   name: image_file
   record: one (Image)
   blob: image_file_one_blob
+
+image_file_one:
+  name: image_file
+  record: two (Image)
+  blob: image_file_one_blob

@@ -10,7 +10,7 @@
     = simple_format(@image.description)
     %hr
     #description-exif
-      = render 'exif'
+      = render 'images/exif'
       = link_to "Re-analyse exif", analyse_image_path(@image, :format => "js"), method: :patch, remote: true
     = link_to "Read less", '', id: "truncate-description"
     // https://developer.here.com/pricing#plan-details

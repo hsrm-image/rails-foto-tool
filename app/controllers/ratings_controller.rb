@@ -67,8 +67,6 @@ class RatingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def rating_params
-      params.require(:rating).permit(:rating, :rateable_type, :rateable_id, :session_id)
-      #params.require(:rateable_type).permit(:rating, :rateable_type, :rateable_id)
-      #params.require(:rateable_id).permit(:rating, :rateable_type, :rateable_id)
+      params.require(:rating).permit(:rating, :rateable_type, :rateable_id).merge({session_id: session[:session_id]})
     end
 end
