@@ -1,12 +1,18 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+imageOne:
   rating: 4
-  rateable_type: Image
-  rateable_id: 1
+  rateable: one (Image)
+  session_id: "123456"
 
-two:
+imageTwo:
+  rating: 1
+  rateable: one (Image)
+  session_id: "abcdefg123"
+
+collectionOne:
   rating: 5
   rateable_type: Collection
   rateable_id: 2
+  session_id: "123456"
 

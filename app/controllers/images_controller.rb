@@ -1,5 +1,6 @@
 class ImagesController < ApplicationController
   before_action :set_image, only: %i[ show edit update destroy analyse ]
+  before_action :authenticate_user!, only: %i[ edit update destroy analyse new create ]
 
   # GET /images or /images.json
   def index
@@ -24,13 +25,7 @@ class ImagesController < ApplicationController
 
   # GET /images/new
   def new
-    if current_user
-      @image = Image.new
-     else
-      respond_to do |format|
-        format.html { redirect_to images_url, notice: "You are not logged in" }
-      end
-    end
+    @image = Image.new
   end
 
   # GET /images/1/edit

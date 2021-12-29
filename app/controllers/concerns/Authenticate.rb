@@ -1,7 +1,7 @@
 module Authenticate
   extend ActiveSupport::Concern
   include ApplicationHelper
-  
+
   def authenticate_admin!
     authenticate_user!
     deny unless admin?
@@ -18,7 +18,7 @@ module Authenticate
   private
   def deny
     flash[:alert] = "You have no permissions to do this"
-    redirect_back(fallback_location: root_path)
+    redirect_back(fallback_location: root_path, status: :unauthorized)
     return false
   end
 end

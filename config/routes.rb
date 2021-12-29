@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     delete 'users' => 'users/registrations#destroy', :as => 'delete_user_registration'
   end
 
-  resources :ratings
+  resources :ratings, only: [:create, :destroy]
   resources :collections
   resources :images do
     patch :analyse, on: :member
