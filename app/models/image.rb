@@ -23,17 +23,15 @@ class Image < ApplicationRecord
     end
 
     def get_score
-        sum = 0
-        get_ratings.each{ |x| sum += x.rating }
-        1.0 * sum / get_ratings.count
+        1.0 * get_ratings.sum(:rating) / get_ratings.count 
     end
 
     def has_rated?(session_id)
-        Rating.where(rateable_id: id, rateable_type: "Image", session_id: session_id).count > 0
+        get_ratings.where(session_id: session_id).count > 0
     end
 
     def get_rate(session_id)
-        Rating.where(rateable_id: id, rateable_type: "Image", session_id: session_id).first
+        get_ratings.where(session_id: session_id).first
     end
 
     def next(logged_in)
