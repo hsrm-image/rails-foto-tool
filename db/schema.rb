@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_22_163519) do
+ActiveRecord::Schema.define(version: 2022_01_04_091054) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -63,10 +63,11 @@ ActiveRecord::Schema.define(version: 2021_11_22_163519) do
     t.string "username"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "rating_id"
     t.integer "image_id", null: false
+    t.string "session_id", null: false
+    t.integer "user_id"
     t.index ["image_id"], name: "index_comments_on_image_id"
-    t.index ["rating_id"], name: "index_comments_on_rating_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "images", force: :cascade do |t|
@@ -75,6 +76,7 @@ ActiveRecord::Schema.define(version: 2021_11_22_163519) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "owner_id"
+    t.string "file"
     t.index ["owner_id"], name: "index_images_on_owner_id"
   end
 
@@ -84,12 +86,14 @@ ActiveRecord::Schema.define(version: 2021_11_22_163519) do
   end
 
   create_table "ratings", force: :cascade do |t|
-    t.float "rating"
+    t.integer "rating"
+    t.string "session_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "rateable_type", null: false
     t.integer "rateable_id", null: false
     t.index ["rateable_type", "rateable_id"], name: "index_ratings_on_rateable"
+    t.index ["session_id", "rateable_type", "rateable_id"], name: "index_user_on_rateable", unique: true
   end
 
   create_table "tags", force: :cascade do |t|
@@ -116,6 +120,6 @@ ActiveRecord::Schema.define(version: 2021_11_22_163519) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "collections", "users", column: "owner_id"
   add_foreign_key "comments", "images"
-  add_foreign_key "comments", "ratings"
+  add_foreign_key "comments", "users"
   add_foreign_key "images", "users", column: "owner_id"
 end

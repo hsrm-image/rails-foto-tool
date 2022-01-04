@@ -1,5 +1,5 @@
 = link_to userpanels_show_details_path(img: image.id), :remote => true  do
 	.widget-container
-		= image_tag image.image_file, class: "widget"
+		= image_tag(image.file.url, alt: 'Image', class: 'widget') if image.file?
 		%br/
 		%span.widget-title= image.title

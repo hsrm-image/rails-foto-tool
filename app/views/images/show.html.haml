@@ -7,7 +7,7 @@
 	= @image.description
 %p
 	%b Image File:
-	= image_tag @image.image_file
+	= image_tag(@image.file.url, alt: 'Image') if @image.file?
 %p
 	%b Owner:
 	= link_to @image.owner.name, @image.owner

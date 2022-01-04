@@ -1,4 +1,11 @@
 %h1 Images
+= form_for @image, :html => {:class => "dropzone", :id=>'Upload'} do |f|
+	.fallback
+		= f.file_field :file
 .img-container
 	- @images.each do |image|
 		= render image
+:javascript
+	$('#Upload').dropzone({
+		paramName: 'image[file]',
+	})
