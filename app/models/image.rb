@@ -16,7 +16,7 @@ class Image < ApplicationRecord
 
 
     # Kaminari
-    paginates_per 5
+    paginates_per 3
 
     def get_ratings
         return Rating.where(rateable_id: id, rateable_type: "Image")

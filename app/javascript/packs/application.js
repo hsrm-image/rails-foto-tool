@@ -9,7 +9,6 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "jquery"
 import {} from 'jquery-ujs'
-require('masonry-layout')
 require('jquery-bridget')
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import toastr from "toastr" // Notifications https://github.com/CodeSeven/toastr
