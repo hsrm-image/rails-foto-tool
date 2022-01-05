@@ -16,7 +16,7 @@ class ImagesControllerTestVisitor < ActionDispatch::IntegrationTest
   end
 
   test "should not create image" do
-    file = fixture_file_upload(Rails.root.join('public', 'test.png'), 'image/png')
+    file = fixture_file_upload(Rails.root.join('test', 'fixtures', 'files', 'test.png'), 'image/png')
     assert_no_difference('ActiveStorage::Attachment.count') do
       assert_no_difference('Image.count') do
         post images_url, params: { image: { description: @image.description, title: @image.title, image_file: file} }
