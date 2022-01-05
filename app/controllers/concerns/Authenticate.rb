@@ -18,7 +18,7 @@ module Authenticate
   private
   def deny
     flash[:alert] = "You have no permissions to do this"
-    redirect_back(fallback_location: root_path, status: :unauthorized)
+    redirect_back(fallback_location: root_path)# , status: :unauthorized # TODO
     return false
   end
 end
