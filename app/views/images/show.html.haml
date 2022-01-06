@@ -3,11 +3,6 @@
   %span#processing{style: "display: none;"} This image is not yet publicly visible because it is still processing.
 %p#notice= notice
 
-%p
-  %b Title:
-  = @image.title
-
-
 = link_to @image.previous(current_user) do
   .pagination#paginationL
     \<
@@ -18,29 +13,21 @@
 #main-image
   -if @image.image_file.attached?
     = image_tag @image.image_file
-%p
-  %b Owner:
-  = link_to @image.owner.name, @image.owner
+
+%h1#image-title= @image.title
 
 = render 'ratings/interface'
 = render 'ratings/score', locals: {rateable: @image}
 
 = render 'images/description'
 
-%hr
-
-= link_to 'Edit', edit_image_path(@image)
-\|
-= link_to 'Back', images_path
-\|
-= link_to 'Delete', @image, method: :delete, data: { confirm: 'Are you sure?' }
+%hr.description-comment
 
 #comments
-  %h3 New Comment
-  = render 'comments/form'
   %h2#comment-count
     =@image.comments.count
     Comments
+  = render 'comments/form'
   // The last comment is empty because it gets created by 'render'
   #comments-list
     = render @image.comments[0...-1].reverse

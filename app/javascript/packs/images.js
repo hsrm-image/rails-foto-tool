@@ -6,7 +6,7 @@ imagesLoaded.makeJQueryPlugin( $ );
 jQueryBridget( 'infiniteScroll', InfiniteScroll, $ );
 
 $(function(){
-    var $grid = $('.grid')
+    let $grid = $('.grid')
     
     $grid.imagesLoaded().progress( function() {   });
     

@@ -2,4 +2,3 @@
 %li{:class => "grid-element" +(image.processed ? "" : " processing")}
     = link_to image do
         = image_tag url_for(img.processed)
-        //= image.title

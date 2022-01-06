@@ -6,14 +6,12 @@
         - @comment.errors.full_messages.each do |message|
           %li= message
   .field
-    = f.label :username
     - if user_signed_in?
       // Autofill username if User is logged in
       = f.text_field :username, value: current_user[:name], readonly: true
     - else
-      = f.text_field :username 
+      = f.text_field :username, placeholder: "Your Name..."
   .field
-    = f.label :text
-    = f.text_area :text
+    = f.text_area :text, placeholder: "Your Comment..."
   .actions
     = f.submit 'Save'
