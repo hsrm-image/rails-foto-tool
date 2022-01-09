@@ -2,3 +2,5 @@
 .changeProp
 	= @image.title
 	= @image.id
+.deleteButton
+	= link_to 'Destroy', @image, method: :delete, data: { confirm: 'Are you sure?' }

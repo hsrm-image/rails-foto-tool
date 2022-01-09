@@ -37,9 +37,9 @@ class ImagesController < ApplicationController
 
 	# POST /images or /images.json
 	def create
-		#@image = current_user.images.new(image_params)
 		@image = Image.new(image_params)
 		@image.owner = current_user
+		@image.title = @image.file.identifier
 
 		respond_to do |format|
 			if @image.save
@@ -79,10 +79,7 @@ class ImagesController < ApplicationController
 	def destroy
 		@image.destroy
 		respond_to do |format|
-			format.html do
-				redirect_to images_url,
-				            notice: 'Image was successfully destroyed.'
-			end
+			format.html { redirect_back(fallback_location: root_path) }
 			format.json { head :no_content }
 		end
 	end

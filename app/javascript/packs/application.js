@@ -17,3 +17,5 @@ import Dropzone from 'dropzone'
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+window.Dropzone = Dropzone

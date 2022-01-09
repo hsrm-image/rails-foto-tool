@@ -1,11 +1,16 @@
 %h1 Images
-= form_for @image, :html => {:class => "dropzone", :id=>'Upload'} do |f|
+= form_for @image, :html => {:class => "dropzone", :id=>'upload'} do |f|
 	.fallback
 		= f.file_field :file
 .img-container
 	- @images.each do |image|
 		= render image
 :javascript
-	$('#Upload').dropzone({
+	let drop = undefined
+	drop = new window.Dropzone('#upload', {
 		paramName: 'image[file]',
+	})
+
+	drop.on('complete', file => {
+		drop.removeFile(file)
 	})
