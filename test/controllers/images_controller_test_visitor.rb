@@ -12,7 +12,7 @@ class ImagesControllerTestVisitor < ActionDispatch::IntegrationTest
 
   test "should not get new" do
     get new_image_url
-    assert_redirected_to new_user_session_path
+    assert_redirected_to root_url
   end
 
   test "should not create image" do
@@ -23,7 +23,7 @@ class ImagesControllerTestVisitor < ActionDispatch::IntegrationTest
       end
     end
     
-    assert_redirected_to new_user_session_path
+    assert_redirected_to root_url
   end
 
   test "should show processed image" do
@@ -39,12 +39,12 @@ class ImagesControllerTestVisitor < ActionDispatch::IntegrationTest
 
   test "should not get edit" do
     get edit_image_url(@image)
-    assert_redirected_to new_user_session_path
+    assert_redirected_to root_url
   end
 
   test "should not update image" do
     patch image_url(@image), params: { image: { description: @image.description, title: @image.title } }
-    assert_redirected_to new_user_session_path
+    assert_redirected_to root_url
   end
 
   test "should not destroy image" do
@@ -54,6 +54,6 @@ class ImagesControllerTestVisitor < ActionDispatch::IntegrationTest
       end
     end
 
-    assert_redirected_to new_user_session_path
+    assert_redirected_to root_url
   end
 end

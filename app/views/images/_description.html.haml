@@ -11,12 +11,10 @@
     %hr
     #description-exif
       = render 'images/exif'
-      - unless current_user.nil? and false
+      - unless current_user.nil?
         = link_to "Re-analyse exif", analyse_image_path(@image, :format => "js"), method: :patch, remote: true
         \|
         = link_to 'Edit', edit_image_path(@image)
-        \|
-        = link_to 'Back', images_path
         \|
         = link_to 'Delete', @image, method: :delete, data: { confirm: 'Are you sure?' }
     = link_to "Read less", '', id: "truncate-description"

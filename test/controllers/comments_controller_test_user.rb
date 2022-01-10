@@ -54,8 +54,7 @@ class CommentsControllerTestUser < ActionDispatch::IntegrationTest
     assert_no_difference('Comment.count') do
       delete image_comment_url(comments(:one).image, comments(:one)), headers: { "HTTP_REFERER": image_url(@comment.image) }
     end
-    #assert_redirected_to image_url(@comment.image)
-    assert_response :unauthorized
+    assert_redirected_to image_url(@comment.image)
   end
 
   test "should destroy comment from other user as admin" do

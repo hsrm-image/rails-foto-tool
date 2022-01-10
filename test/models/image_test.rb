@@ -9,6 +9,8 @@ class ImageTest < ActiveSupport::TestCase
     image = Image.new()
     image.image_file = images(:one).image_file.blob
     image.owner = images(:one).owner
+    image.title = images(:one).title
+    image.description = images(:one).description
     image.save!
     return image
   end
