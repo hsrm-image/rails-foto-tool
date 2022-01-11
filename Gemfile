@@ -76,3 +76,6 @@ gem 'devise_invitable'
 
 # Do not send out Mails, instead view them in Browser https://github.com/ryanb/letter_opener
 gem "letter_opener", group: :development
+
+# Use the mail-account of the HS-RM
+gem 'ruby-ntlm'
