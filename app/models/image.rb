@@ -8,5 +8,5 @@ class Image < ApplicationRecord
 	# Activerecord
 	has_one_attached :image_file
 
-	mount_uploader :file, ImageUploader
+	#mount_uploader :file, ImageUploader
 end

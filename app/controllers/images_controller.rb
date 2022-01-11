@@ -22,16 +22,6 @@ class ImagesController < ApplicationController
 		end
 	end
 
-	def create_drop
-		puts image_params
-		@image = current_user.images.new(image_params)
-		if @image.save
-			format.html do
-				redirect_to @image, notice: 'Image was successfully created.'
-			end
-		end
-	end
-
 	# GET /images/1/edit
 	def edit; end
 
@@ -39,7 +29,7 @@ class ImagesController < ApplicationController
 	def create
 		@image = Image.new(image_params)
 		@image.owner = current_user
-		@image.title = @image.file.identifier
+		@image.title = image_params[:image_file].original_filename
 
 		respond_to do |format|
 			if @image.save
@@ -93,6 +83,6 @@ class ImagesController < ApplicationController
 
 	# Only allow a list of trusted parameters through.
 	def image_params
-		params.require(:image).permit(:title, :description, :file)
+		params.require(:image).permit(:title, :description, :image_file)
 	end
 end

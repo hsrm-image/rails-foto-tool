@@ -19,3 +19,4 @@ Turbolinks.start()
 ActiveStorage.start()
 
 window.Dropzone = Dropzone
+window.ActiveStorage = ActiveStorage

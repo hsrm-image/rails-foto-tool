@@ -69,5 +69,4 @@ gem 'mini_magick'
 gem 'aws-sdk-s3'
 
 gem 'activestorage-validator'
-gem 'carrierwave', '~> 2.0'
 gem 'dropzonejs-rails'
