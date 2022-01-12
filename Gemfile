@@ -82,3 +82,5 @@ gem "letter_opener", group: :development
 
 # Use the mail-account of the HS-RM
 gem 'ruby-ntlm'
+
+gem 'dropzonejs-rails'
