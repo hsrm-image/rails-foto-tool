@@ -18,9 +18,6 @@
 		const url = input.dataset.directUploadUrl
 		const token = input.dataset.directUploadToken
 		const attachmentName = input.dataset.directUploadAttachmentName
-		file.title = file.filename
-		console.log(file)
-		console.log(url, token, attachmentName)
 		const upload = new window.ActiveStorage.DirectUpload(
 			file,
 			url,
@@ -31,5 +28,6 @@
 			console.log('blob: ', blob)
 			if (error) return
 			console.log('direct-upload:success')
+			$('#show').html("<%= j render(partial: 'show_images') %>")
 		})
 	})

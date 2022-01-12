@@ -22,8 +22,13 @@ class UserpanelsController < ApplicationController
 		respond_to { |format| format.js {} }
 	end
 	def show_details
-		print params['img']
 		@image = Image.find(params['img'])
+		@details = details_filter(@image.attributes)
+		puts @details.class
+
 		respond_to { |format| format.js {} }
+	end
+	def details_filter(attr)
+		attr.except!('file', 'id', 'owner_id')
 	end
 end

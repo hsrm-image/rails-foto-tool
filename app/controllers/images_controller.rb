@@ -51,16 +51,7 @@ class ImagesController < ApplicationController
 	def update
 		respond_to do |format|
 			if @image.update(image_params)
-				format.html do
-					redirect_to @image,
-					            notice: 'Image was successfully updated.'
-				end
-				format.json { render :show, status: :ok, location: @image }
-			else
-				format.html { render :edit, status: :unprocessable_entity }
-				format.json do
-					render json: @image.errors, status: :unprocessable_entity
-				end
+				format.html { redirect_to userpanels_path, format: 'js' }
 			end
 		end
 	end
@@ -83,6 +74,8 @@ class ImagesController < ApplicationController
 
 	# Only allow a list of trusted parameters through.
 	def image_params
-		params.require(:image).permit(:title, :description, :image_file)
+		params
+			.require(:image)
+			.permit(:title, :description, :image_file, :updated_at, :created_at)
 	end
 end

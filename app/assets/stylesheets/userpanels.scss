@@ -4,16 +4,26 @@
 body {
 	margin: 0px;
 }
+#outer {
+	display: flex;
+	height: 100%;
+}
 #view {
 	display: grid;
-	grid-template-columns: 10vw 80vw 10vw;
-	height: calc(100vh - 8vh);
+	grid-template-columns: 10vw 70vw 20vw;
+	grid-template-rows: 1fr;
 	color: #fff;
+	flex-grow: 1;
 }
 #control {
 	background-color: #304747;
 	height: 100%;
 	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+}
+.box {
+	flex: 1 1 auto;
 }
 #details {
 	background-color: #304747;
