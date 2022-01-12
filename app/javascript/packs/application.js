@@ -8,9 +8,10 @@ import Turbolinks from 'turbolinks'
 import * as ActiveStorage from '@rails/activestorage'
 import 'channels'
 import 'jquery'
-require('masonry-layout')
+import {} from 'jquery-ujs'
 require('jquery-bridget')
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import toastr from 'toastr' // Notifications https://github.com/CodeSeven/toastr
 import Dropzone from 'dropzone'
 
 Rails.start()
@@ -19,3 +20,6 @@ ActiveStorage.start()
 
 window.Dropzone = Dropzone
 window.ActiveStorage = ActiveStorage
+window.toastr = toastr // very ugly but otherwise .js.erb files don't receive toastr
+window.$ = $
+window.jquery = $

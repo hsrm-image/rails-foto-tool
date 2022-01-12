@@ -1,0 +1,34 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title RailsFotoTool
+    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  %body{ "data-turbolinks" => (request.path == '/images' ? "false" : "true") }
+    #navbar
+      %ul
+        %li{ :id => is_active?("images")}= link_to 'Images', images_path
+        %li{ :id => is_active?("collections")}= link_to 'Collections', collections_path
+        - if admin?
+          %li{ :id => is_active?("users", "invitations")}= link_to 'Users', users_path
+        - if current_user.nil?
+          %li{ :id => is_active?("session")}
+            = link_to new_user_session_path do
+              %i{:class => "bi bi-person"} 
+        - else
+          %li{ :id => is_active?("session", "edit-registration")}
+            .dropdown 
+              %button.dropbtn
+                = current_user.name
+                %i{:class => "bi bi-person"}
+              .dropdown-content
+                = link_to "Account Settings", edit_user_registration_path
+                = link_to "Sign out", destroy_user_session_path
+    %p.notice= notice
+    %p.alert= alert
+    #content
+      = yield

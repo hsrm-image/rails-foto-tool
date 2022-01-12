@@ -21,5 +21,11 @@ module RailsFotoTool
 
     # Set the maximum filesize for images
     config.x.image.max_file_size = 5.megabyte
+
+    # Please edit this variable to reflect the URL of the Server
+    config.x.mail.root_url = "localhost:3000"
+
+    # The mail address the Server should send mails from
+    config.x.mail.sender_address = "please@change-me.com"
   end
 end

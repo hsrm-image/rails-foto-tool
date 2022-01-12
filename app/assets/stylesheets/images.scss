@@ -32,6 +32,13 @@
 	display: block;
 	clear: both;
 }
+.grid-element.processing {
+	border-color: hsl(34, 100%, 50%);
+	background-color: grey;
+	a {
+		opacity: 0.2;
+	}
+}
 
 .card {
 	display: inline-block;
@@ -86,8 +93,59 @@
 	}
 }
 
-.page-load-status {
-	text-align: center;
+.grid {
+	padding: 0;
+	list-style: none;
+	position: relative;
+	width: calc(100% - 10px);
+	margin: 0 auto;
+
+	height: 100%;
+	border-style: solid;
+	border-color: white;
+	border-width: 5px;
+}
+.grid li {
+	position: relative;
+	float: left;
+	overflow: hidden;
+	width: -webkit-calc(100% / 3 - 10px);
+	max-width: calc(100% / 3 - 10px);
+	height: calc((100vw - 20px) / 3 - 2.5vw);
+	border-style: solid;
+	border-color: white;
+	border-width: 5px;
+}
+.grid li a img {
+	max-width: 100%;
+	z-index: 4;
+	position: relative;
+	transition: 1s all ease;
+	-webkit-transition: 1s all ease;
+}
+
+.grid li a,
+.grid li a img {
+	display: block;
+	width: 100%;
+	cursor: pointer;
+	height: 100%;
+}
+@media screen and (max-width: 1000px) {
+	.grid li {
+		width: -webkit-calc((95vw - 10px) / 1);
+		max-width: calc((95vw - 10px) / 1);
+		height: calc((95vw - 10px) / 1);
+		border-style: solid;
+		border-color: white;
+		border-bottom-width: 5px;
+	}
+}
+
+.grid:after {
+	content: '';
+	display: block;
+	clear: both;
 }
 
 // Show
@@ -96,9 +154,15 @@
 #score-area {
 	margin-left: 0;
 	margin-right: 0;
+	margin-bottom: 20px;
 	display: flex;
 	justify-content: center;
 
+	bottom: 20px;
+	left: 0;
+	width: 100%;
+}
+.bi-star {
 	bottom: 20px;
 	left: 0;
 	width: 100%;
@@ -167,6 +231,56 @@
 		top: unset;
 	}
 }
+
+#image-title {
+	margin: 50px 0;
+	display: flex;
+	justify-content: center;
+	color: gray;
+	bottom: 20px;
+	left: 0;
+	width: 100%;
+	font-size: 26px;
+	font-weight: 500;
+}
+
+#description {
+	padding: 10px;
+	border-color: rgba(0, 0, 0, 0.5);
+	border-width: 3px;
+	border-style: solid;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 580px;
+	#preview-text {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+	}
+}
+.description-comment {
+	margin-top: 50px;
+	max-width: 600px;
+}
+
+@media screen and (max-width: 900px) {
+	#description,
+	.description-comment {
+		max-width: 60vw;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	#description,
+	.description-comment {
+		max-width: 90vw;
+	}
+}
+
+// Upload
 
 label.asdndzone {
 	box-sizing: border-box;

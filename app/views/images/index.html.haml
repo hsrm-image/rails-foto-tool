@@ -1,9 +1,10 @@
 = javascript_pack_tag 'images', 'data-turbolinks-track': 'reload'
+
 %h1 Listing images
 
 = link_to 'New Image', new_image_path
 
-#cards-container
+%ol.grid
   = render @images
 .page-load-status
   .infinite-scroll-request

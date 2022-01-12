@@ -6,6 +6,15 @@ image_file_one_blob:
   filename: sample.png
   content_type: image/png
   metadata: '{"identified":true,"analyzed":true}'
-  byte_size: <%= File.size('tmp/storage/ip/m7/ipm7ibsg23csmekv3mqhfftxjdih') %>
-  checksum: <%= Digest::MD5.file('tmp/storage/ip/m7/ipm7ibsg23csmekv3mqhfftxjdih').base64digest %>
+  byte_size: <%= File.size(Rails.root.join('tmp', 'storage', 'ip', 'm7', 'ipm7ibsg23csmekv3mqhfftxjdih')) %>
+  checksum: <%= Digest::MD5.file(Rails.root.join('tmp', 'storage', 'ip', 'm7', 'ipm7ibsg23csmekv3mqhfftxjdih')).base64digest %>
+  service_name: test
+
+image_file_two_blob:
+  key: 2az6wccbpbjuv09zb78mkwf9pysm
+  filename: exif.jpg
+  content_type: image/jpg
+  metadata: '{"identified":true,"analyzed":true}'
+  byte_size: <%= File.size(Rails.root.join('tmp', 'storage', '2a', 'z6', '2az6wccbpbjuv09zb78mkwf9pysm')) %>
+  checksum: <%= Digest::MD5.file(Rails.root.join('tmp', 'storage', '2a', 'z6', '2az6wccbpbjuv09zb78mkwf9pysm')).base64digest %>
   service_name: test

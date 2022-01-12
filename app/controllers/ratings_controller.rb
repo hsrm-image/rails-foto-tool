@@ -27,7 +27,7 @@ class RatingsController < ApplicationController
 
     respond_to do |format|
       if @rating.save
-        # format.html { redirect_back fallback_location: root_path, notice: "Rating was successfully created." }
+        #format.html { redirect_back fallback_location: root_path, notice: "Rating was successfully created." }
         format.json { render json: {rating: @rating.rateable.get_score, nr_ratings: @rating.rateable.get_ratings.count} }
         format.js
       else
@@ -67,8 +67,6 @@ class RatingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def rating_params
-      params.require(:rating).permit(:rating, :rateable_type, :rateable_id, :session_id)
-      #params.require(:rateable_type).permit(:rating, :rateable_type, :rateable_id)
-      #params.require(:rateable_id).permit(:rating, :rateable_type, :rateable_id)
+      params.require(:rating).permit(:rating, :rateable_type, :rateable_id).merge({session_id: session[:session_id]})
     end
 end

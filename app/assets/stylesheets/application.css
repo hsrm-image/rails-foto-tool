@@ -15,5 +15,5 @@
  *= require_tree .
  *= require_self
  *= require dropzone/dropzone
- *
+ *= require 'toastr'
  */

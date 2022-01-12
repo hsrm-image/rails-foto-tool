@@ -10,3 +10,10 @@ two:
   username: MyString
   session_id: abcde123
   image: two
+
+userOne:
+  text: MyText
+  username: MyString
+  session_id: abcde123
+  image: two
+  user: one
