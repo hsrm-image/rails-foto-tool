@@ -1,22 +1,22 @@
 = javascript_pack_tag 'description', 'data-turbolinks-track': 'reload'
 #description
-  %p
-    %b= @image.created_at.strftime("%e.%m.%Y")
-  #description-preview
-    #preview-text
-      = truncate(@image.description, length: 200)
-    = link_to "Read more", '', id: "extend-description"
-  #description-full{style: "display: none;"}
-    = simple_format(@image.description)
-    %hr
-    #description-exif
-      = render 'images/exif'
-      - unless current_user.nil?
-        = link_to "Re-analyse exif", analyse_image_path(@image, :format => "js"), method: :patch, remote: true
-        \|
-        = link_to 'Edit', edit_image_path(@image)
-        \|
-        = link_to 'Delete', @image, method: :delete, data: { confirm: 'Are you sure?' }
-    = link_to "Read less", '', id: "truncate-description"
-    // https://developer.here.com/pricing#plan-details
-    // https://developers.google.com/maps?hl=de
+	%p
+		%b= l @image.created_at.to_date
+	#description-preview
+		#preview-text
+			= truncate(@image.description, length: 200)
+		= link_to t(".more"), '', id: "extend-description"
+	#description-full{style: 'display: none;'}
+		= simple_format(@image.description)
+		%hr/
+		#description-exif
+			= render 'images/exif'
+			- unless current_user.nil?
+				= link_to t(".analyse"), analyse_image_path(@image, :format => "js"), method: :patch, remote: true
+				|
+				= link_to t(".edit"), edit_image_path(@image)
+				|
+				= link_to t(".delete"), @image, method: :delete, data: { confirm: t("application.confirmation") }
+		= link_to t(".less"), '', id: "truncate-description"
+		/ / https://developer.here.com/pricing#plan-details
+		/ / https://developers.google.com/maps?hl=de
