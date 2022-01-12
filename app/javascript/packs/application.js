@@ -3,15 +3,14 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-//Sprocket Zone
-//= require dropzone
-
 import Rails from '@rails/ujs'
 import Turbolinks from 'turbolinks'
 import * as ActiveStorage from '@rails/activestorage'
 import 'channels'
 import 'jquery'
-// Needs to be imported here in order to work further along in the project
+require('masonry-layout')
+require('jquery-bridget')
+import 'bootstrap-icons/font/bootstrap-icons.css'
 import Dropzone from 'dropzone'
 
 Rails.start()

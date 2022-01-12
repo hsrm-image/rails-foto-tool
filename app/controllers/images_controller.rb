@@ -1,13 +1,21 @@
 class ImagesController < ApplicationController
 	before_action :set_image, only: %i[show edit update destroy]
 
-	# GET /images or /images.json
-	def index
-		@images = Image.all
-	end
+  # GET /images or /images.json
+  def index
+    @images = Image.order(:created_at).page(params[:page])
+  end
 
-	# GET /images/1 or /images/1.json
-	def show; end
+  # GET /images/1 or /images/1.json
+  def show
+    @rating = Rating.new
+    @rating.rateable_type = "Image"
+    @rating.rateable_id = @image.id
+    @rating.session_id = session[:session_id]
+
+    @image = Image.find(params[:id])
+    @comment = @image.comments.new
+  end
 
 	# GET /images/new
 	def new

@@ -3,6 +3,11 @@ require "test_helper"
 class ImagesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @image = images(:one)
+    get new_user_session_path
+    @owner = users(:one)
+    sign_in @owner
+    post user_session_url
+    #users.each {|user| puts(user.id)}
   end
 
   test "should get index" do
@@ -16,10 +21,10 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create image" do
-    assert_difference('Image.count') do
-      post images_url, params: { image: { description: @image.description, title: @image.title } }
-    end
 
+    assert_difference('Image.count') do
+      post images_url, params: { image: { description: @image.description, title: @image.title} }
+    end
     assert_redirected_to image_url(Image.last)
   end
 

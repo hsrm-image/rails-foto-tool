@@ -3,6 +3,7 @@
 one:
   title: MyString
   description: MyText
+  owner: one
 
 two:
   title: MyString

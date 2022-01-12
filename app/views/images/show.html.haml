@@ -1,16 +1,41 @@
+= javascript_pack_tag 'rating', 'data-turbolinks-track': 'reload'
 %p#notice= notice
 %p
 	%b Title:
 	= @image.title
 %p
-	%b Description:
-	= @image.description
+  %b Description:
+  = @image.description
+
+= link_to @image.previous do
+  .pagination#paginationL
+    \<
+= link_to @image.next do
+  .pagination#paginationR
+    \>
+
+#main-image
+  = image_tag @image.image_file
 %p
-	%b Image File:
-	= image_tag @image.image_file
-%p
-	%b Owner:
-	= link_to @image.owner.name, @image.owner
+  %b Owner:
+  = link_to @image.owner.name, @image.owner
+
+= render 'ratings/interface'
+= render 'ratings/score', locals: {rateable: @image}
+
+
 = link_to 'Edit', edit_image_path(@image)
 |
 = link_to 'Back', images_path
+
+#comments
+  %h3 New Comment
+  = render 'comments/form'
+  %h2
+    =@image.comments.count
+    Comments
+  // The last comment is empty because it gets created by 'render'
+  = render @image.comments[0...-1].reverse
+
+
+

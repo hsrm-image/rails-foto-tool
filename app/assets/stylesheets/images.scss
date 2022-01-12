@@ -16,18 +16,169 @@
 	margin-right: 2vw;
 }
 
+//Index
+
+#cards-container {
+	margin: 0;
+	padding: 0;
+	width: 80vw;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+#cards-container:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.card {
+	display: inline-block;
+	width: 250px;
+	border: 2px solid #333;
+	border-color: hsla(0, 0%, 0%, 0.5);
+	border-radius: 5px;
+	margin-bottom: 10px; // Vertical spacing
+	a {
+		text-decoration: none;
+	}
+	:hover {
+		background-color: transparent;
+	}
+	:visited {
+		color: #000;
+	}
+	.image-link {
+		width: 100%;
+		.image {
+			border-radius: 20px;
+			overflow: hidden;
+			img {
+				display: block;
+			}
+		}
+	}
+
+	.user-link {
+		width: 50%;
+		font-size: 20px;
+		text-decoration: none;
+		:hover {
+			color: #000;
+		}
+		.user-info {
+			display: flex;
+			justify-content: left;
+			margin: 5px;
+
+			.pp {
+				border-radius: 50%;
+				overflow: hidden;
+				width: 40px;
+				height: 40px;
+			}
+			.username {
+				padding-left: 10px;
+				padding-top: 10px;
+			}
+		}
+	}
+}
+
+.page-load-status {
+	text-align: center;
+}
+
+// Show
+
+#rating,
+#score-area {
+	margin-left: 0;
+	margin-right: 0;
+	display: flex;
+	justify-content: center;
+
+	bottom: 20px;
+	left: 0;
+	width: 100%;
+}
+
+.bi-star-fill {
+	color: gold;
+}
+
+.rating-star {
+	font-size: 50px;
+}
+@media screen and (max-width: 600px) {
+	.rating-star {
+		font-size: 10vw;
+	}
+}
+
+#main-image {
+	img {
+		height: auto;
+		width: auto;
+		margin-left: auto;
+		margin-right: auto;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		overflow-x: hidden;
+		max-width: 85vw;
+		max-height: 90vh;
+	}
+}
+
+// Pagination (Left/Right arrow)
+.pagination {
+	position: fixed;
+	width: 50px;
+	height: 50px;
+	line-height: 45px;
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-style: solid;
+	border-width: 3px;
+	border-color: #fff;
+	color: #fff;
+	font-size: x-large;
+	font-weight: 400;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+#paginationL {
+	left: 20px;
+	top: 50vh;
+}
+
+#paginationR {
+	right: 20px;
+	top: 50vh;
+}
+
+@media screen and (max-width: 600px) {
+	#paginationL,
+	#paginationR {
+		bottom: 20px;
+		top: unset;
+	}
+}
 
 label.asdndzone {
-    box-sizing: border-box;
-    display: block;
-    border: 3px solid #ff0000;
-    border-radius: 6px;
-    min-height: 220px;
-    max-width: 310px;
-    width: 100%;
-    padding: 99px 20px 20px;
-    text-align: center;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 21px;
-    letter-spacing: 0.6px;
-  }
+	box-sizing: border-box;
+	display: block;
+	border: 3px solid #ff0000;
+	border-radius: 6px;
+	min-height: 220px;
+	max-width: 310px;
+	width: 100%;
+	padding: 99px 20px 20px;
+	text-align: center;
+	font-family: 'Nunito Sans', sans-serif;
+	font-size: 21px;
+	letter-spacing: 0.6px;
+}

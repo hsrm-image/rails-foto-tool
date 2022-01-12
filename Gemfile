@@ -63,10 +63,14 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'haml-rails'
 
 # Manipulate images, eg. Thumbnails
-gem 'image_processing'
-gem 'mini_magick'
+gem "image_processing"
+gem "mini_magick"
 
 gem 'aws-sdk-s3'
 
+
+gem 'kaminari'
+
 gem 'activestorage-validator'
-gem 'dropzonejs-rails'
+gem 'active_storage_drag_and_drop'
+
