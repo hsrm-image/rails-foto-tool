@@ -1,5 +1,7 @@
 %h1 Listing users
 
+= link_to 'Invite new user', new_user_invitation_path
+
 %table
   %thead
     %tr
@@ -15,8 +17,7 @@
         %td= user.name
         %td= user.admin
         %td= link_to 'Show', user
-        %td= link_to 'Edit', edit_user_path(user)
-        %td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, remote: true
 
 %br
 

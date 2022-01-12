@@ -4,7 +4,16 @@ one:
   title: MyString
   description: MyText
   owner: one
+  processed: true
 
 two:
   title: MyString
   description: MyText
+  owner: two
+  processed: true
+
+processing:
+  title: MyString
+  description: MyText
+  owner: two
+  processed: false

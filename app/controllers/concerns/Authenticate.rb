@@ -1,7 +1,11 @@
 module Authenticate
   extend ActiveSupport::Concern
   include ApplicationHelper
-  
+
+  def authenticate_user_custom!
+    deny if current_user.nil?
+  end
+
   def authenticate_admin!
     authenticate_user!
     deny unless admin?
@@ -17,8 +21,10 @@ module Authenticate
 
   private
   def deny
-    flash[:alert] = "You have no permissions to do this"
-    redirect_back(fallback_location: root_path)
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: root_path, notice: "You have no permissions to do this") }
+      format.js {render 'layouts/toast', locals: { :method => "error", :message => "You have no permissions to do this", :title => ""}}
+    end
     return false
   end
 end

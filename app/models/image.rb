@@ -7,7 +7,9 @@ class Image < ApplicationRecord
 
     # Activerecord
     has_one_attached :image_file
-    validates :image_file, presence: true, blob: { content_type: :image, size_range: 1..(Rails.configuration.x.image.max_file_size) } # supported options: :image, :audio, :video, :text
+    validates :image_file, presence: true, blob: { content_type: :image, size_range: 1..(Rails.configuration.x.image.max_file_size) }, on: :create # supported options: :image, :audio, :video, :text
+    validates :title, length: {in: 0..50}
+    validates :description, length: {in: 0..1000}
     # https://github.com/marinosoftware/active_storage_drag_and_drop
     # or
     # https://web-crunch.com/posts/rails-drag-drop-active-storage-stimulus-dropzone
@@ -16,31 +18,36 @@ class Image < ApplicationRecord
 
 
     # Kaminari
-    paginates_per 5
+    paginates_per 3
 
     def get_ratings
         return Rating.where(rateable_id: id, rateable_type: "Image")
     end
 
     def get_score
-        sum = 0
-        get_ratings.each{ |x| sum += x.rating }
-        1.0 * sum / get_ratings.count
+        1.0 * get_ratings.sum(:rating) / get_ratings.count 
     end
 
-    def has_rated?(session_id) # TODO move this function to the user model?
-        Rating.where(rateable_id: id, rateable_type: "Image", session_id: session_id).count > 0
+    def has_rated?(session_id)
+        get_ratings.where(session_id: session_id).count > 0
     end
 
-    def get_rate(session_id) # TODO move this function to the user model?
-        Rating.where(rateable_id: id, rateable_type: "Image", session_id: session_id).first
+    def get_rate(session_id)
+        get_ratings.where(session_id: session_id).first
     end
 
-    def next
-        Image.where("id > ?", id).order("id ASC").first || Image.first
+    def next(logged_in)
+        all = get_visible(logged_in)
+        all.where("id > ?", id).order("id ASC").first || all.first
     end
     
-    def previous
-        Image.where("id < ?", id).order("id DESC").first || Image.last
+    def previous(logged_in)
+        all = get_visible(logged_in)
+        all.where("id < ?", id).order("id DESC").first || all.last
+    end
+
+    def get_visible(logged_in)
+        # Only get the images that the user can view
+        logged_in ? Image.all : Image.where(:processed => true)
     end
 end

@@ -1,11 +1,4 @@
-- img = image.image_file.variant(resize_to_limit: [250, nil])
-.card
-    .user-link
-        = link_to image.owner do 
-            .user-info
-                .pp= image_tag(image.owner.avatar.variant(resize_to_limit: [40, 40]).processed) if image.owner.avatar.attached?
-                .username= image.owner.name
+- img = image.image_file.variant(resize_to_fill: [250, 250])
+%li{:class => "grid-element" +(image.processed ? "" : " processing")}
     = link_to image do
-        .image-link
-            .image= image_tag url_for(img.processed)
-            = image.title
+        = image_tag url_for(img.processed)
