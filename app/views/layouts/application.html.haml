@@ -32,6 +32,16 @@
 							.dropdown-content
 								= link_to t('application.account'), edit_user_registration_path
 								= link_to t('application.sign_out'), destroy_user_session_path
+				%li
+					.dropdown
+						%button.dropbtn
+							%i.bi.bi-translate
+							= t("flag")
+						.dropdown-content
+							- I18n.available_locales.each do |lang|
+								= link_to url_for( :locale => lang ) do
+									= t("flag", locale: lang)
+									= t("language_name", locale: lang)
 		%p.notice= notice
 		%p.alert= alert
 		#content

@@ -13,7 +13,7 @@
 			%th= t(".member_since")
 			%th= t(".images")
 			%th= t(".comments")
-			%th
+			%th= t(".show")
 	%tbody
 		- @users.each do |user|
 			%tr{class: user.invitation_accepted? ? "accepted" : "pending"}

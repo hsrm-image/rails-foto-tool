@@ -1,4 +1,6 @@
 de:
+    language_name: 'Deutsch'
+    flag: '🇩🇪'
     application:
         images: Bilder
         collections: Sammlungen

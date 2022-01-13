@@ -1,116 +1,117 @@
-// Shamelessly stolen from https://www.w3schools.com/css/tryit.asp?filename=trycss_navbar_sticky and https://www.w3schools.com/howto/howto_css_dropdown_navbar.asp 
+// Shamelessly stolen from https://www.w3schools.com/css/tryit.asp?filename=trycss_navbar_sticky and https://www.w3schools.com/howto/howto_css_dropdown_navbar.asp
 #navbar {
-    position: -webkit-sticky; /* Safari */
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    margin: 0;
-    
+	position: -webkit-sticky; /* Safari */
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	margin: 0;
 
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        background-color: #333;
-        overflow: hidden;
-      }
-      
-    li {
-        float: left;
-    }
-    
-    li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-    }
-    
-    li a:hover {
-        background-color: #111;
-    }
-    
-    #active {
-        background-color: #4CAF50;
-    }
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		background-color: #333;
+		overflow: hidden;
+	}
 
-    li:last-child {
-        float:right;
-    }
+	li {
+		float: left;
+	}
 
-    /* The dropdown container */
-    .dropdown {
-        float: left;
-        overflow: hidden;
-    }
+	li a {
+		display: block;
+		color: white;
+		text-align: center;
+		padding: 14px 16px;
+		text-decoration: none;
+	}
 
-    /* Dropdown button */
-    .dropdown .dropbtn {
-        border: none;
-        outline: none;
-        color: white;
-        padding: 14px 16px;
-        background-color: inherit;
-        font-family: inherit; /* Important for vertical align on mobile phones */
-        margin: 0; /* Important for vertical align on mobile phones */
-    }
+	li a:hover {
+		background-color: #111;
+	}
 
-    /* Dropdown content (hidden by default) */
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #333;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 101;
-        right: 0; 
-        left: auto;
-    }
+	#active {
+		background-color: #4caf50;
+	}
 
-    /* Show the dropdown menu on hover */
-    .dropdown:hover .dropdown-content {
-        display: block;
-    }
+	li:last-child,
+	li:nth-last-child(2) {
+		float: right;
+	}
+
+	/* The dropdown container */
+	.dropdown {
+		float: left;
+		overflow: hidden;
+	}
+
+	/* Dropdown button */
+	.dropdown .dropbtn {
+		border: none;
+		outline: none;
+		color: white;
+		padding: 14px 16px;
+		background-color: inherit;
+		font-family: inherit; /* Important for vertical align on mobile phones */
+		margin: 0; /* Important for vertical align on mobile phones */
+	}
+
+	/* Dropdown content (hidden by default) */
+	.dropdown-content {
+		display: none;
+		position: absolute;
+		background-color: #333;
+		min-width: 160px;
+		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+		z-index: 101;
+		right: 0;
+		left: auto;
+	}
+
+	/* Show the dropdown menu on hover */
+	.dropdown:hover .dropdown-content {
+		display: block;
+	}
 }
 
-#content{
-    margin: 15px;
+#content {
+	margin: 15px;
 }
 
 .field input {
-    max-width: 600px;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    background-color: white;
-    padding: 12px 20px;
-    width: 100%;
+	max-width: 600px;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
+	background-color: white;
+	padding: 12px 20px;
+	width: 100%;
 }
 
 form {
-    max-width: 600px;
-    align-content: center;
-    margin-left: auto;
-    margin-right: auto;
+	max-width: 600px;
+	align-content: center;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 textarea {
-    width: 100%;
-    height: 200px;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    resize: vertical;
+	width: 100%;
+	height: 200px;
+	padding: 12px 20px;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	background-color: #f8f8f8;
+	resize: vertical;
 }
 
-.field input[type="checkbox"] {
-    //TODO
+.field input[type='checkbox'] {
+	//TODO
 }
 
-h1, h2 {
-    text-align: center;
+h1,
+h2 {
+	text-align: center;
 }
