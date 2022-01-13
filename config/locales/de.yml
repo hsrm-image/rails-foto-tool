@@ -6,6 +6,9 @@ de:
         account: Konto bearbeiten
         sign_out: Abmelden
         confirmation: Sind Sie sicher?
+        back: Zurück
+        'yes': Ja
+        'no': Nein
 
     images:
         index:
@@ -51,6 +54,36 @@ de:
             ratings:
                 one: Bewertung
                 other: Bewertungen
+    users:
+        model:
+            delete_last: Der letzte Administrator kann nicht gelöscht werden
+            edit_own: Die eigenen Berechtigungen können nicht editiert werden
+        show:
+            name: 'Nutzername:'
+            admin: 'Administrator:'
+            change: Ändern
+            mail: 'E-Mail:'
+            member_since: 'Mitglied seit:'
+            invited_at: 'Eingeladen am:'
+            invited: 'Eingeladen von:'
+            not_yet_accepted: 'Die Einladung dieses Nutzers steht noch aus.'
+            delete: Nutzer Löschen
+            confirm: 'Sind Sie sicher? Dies wird auch alle %{images} Bilder und %{comments} Kommentare des Nutzers löschen'
+            images: 'Anzahl Bilder hochgeladen:'
+            comments: 'Anzahl Kommentare gepostet:'
+        index:
+            title: Alle Nutzer
+            show: Info
+            name: Name
+            admin: Admin
+            images: Bilder
+            comments: Kommentare
+            member_since: Mitglied seit
+            info: 'Hinweis:'
+            table_info: 'Bei orange markierten Benutzern steht die Einladung noch aus.'
+            table_info_2: "Hier markiert 'Mitglied seit' das Datum der Einladung"
+            invite: Neuen Nutzer einladen
+
     #
     #
     #
@@ -130,38 +163,38 @@ de:
     datetime:
         distance_in_words:
             about_x_hours:
-                one: etwa eine Stunde
+                one: etwa einer Stunde
                 other: etwa %{count} Stunden
             about_x_months:
-                one: etwa ein Monat
+                one: etwa einem Monat
                 other: etwa %{count} Monate
             about_x_years:
-                one: etwa ein Jahr
+                one: etwa einem Jahr
                 other: etwa %{count} Jahre
             almost_x_years:
-                one: fast ein Jahr
+                one: fast einem Jahr
                 other: fast %{count} Jahre
             half_a_minute: eine halbe Minute
             less_than_x_seconds:
-                one: weniger als eine Sekunde
+                one: weniger als einer Sekunde
                 other: weniger als %{count} Sekunden
             less_than_x_minutes:
-                one: weniger als eine Minute
+                one: weniger als einer Minute
                 other: weniger als %{count} Minuten
             over_x_years:
-                one: mehr als ein Jahr
+                one: mehr als einem Jahr
                 other: mehr als %{count} Jahre
             x_seconds:
-                one: eine Sekunde
+                one: einer Sekunde
                 other: '%{count} Sekunden'
             x_minutes:
-                one: eine Minute
+                one: einer Minute
                 other: '%{count} Minuten'
             x_days:
-                one: ein Tag
+                one: einem Tag
                 other: '%{count} Tagen'
             x_months:
-                one: ein Monat
+                one: einem Monat
                 other: '%{count} Monaten'
         prompts:
             second: Sekunde
@@ -194,9 +227,9 @@ de:
             present: darf nicht ausgefüllt werden
             required: muss ausgefüllt werden
             taken: ist bereits vergeben
-            not_saved: 
+            not_saved:
                 one: '1 Fehler verhindert das Speichern von %{resource}'
-                one: '%{count} Fehler verhindern das Speichern von %{resource}'
+                other: '%{count} Fehler verhindern das Speichern von %{resource}'
             too_long:
                 one: ist zu lang (über 1 Zeichen)
                 other: ist zu lang (über %{count} Zeichen)

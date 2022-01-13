@@ -19,8 +19,8 @@ de:
                 password_confirmation: Passwortbestätigung
                 remember_created_at: Angemeldet bleiben vom
                 remember_me: Angemeldet bleiben
-                reset_password_sent_at: Passwort-Zurücksetzen-E-Mail gesendet am
-                reset_password_token: Passwort-Zurücksetzen-Token
+                reset_password_sent_at: Passwort-Zurücksetz-E-Mail gesendet am
+                reset_password_token: Passwort-Zurücksetz-Token
                 sign_in_count: Anzahl Anmeldungen
                 unconfirmed_email: Unbestätigte E-Mail-Adresse
                 unlock_token: Entsperrungs-Token
@@ -65,7 +65,7 @@ de:
                 greeting: Hallo %{recipient}!
                 instruction: Jemand hat einen Link angefordert, um Dein Passwort zu ändern. Klicke auf den unten aufgeführten Link um das Passwort zu ändern.
                 instruction_2: Bitte ignoriere diese E-Mail, wenn du kein neues Passwort angefordert hast.
-                instruction_3: Das Passwort wird nicht geändert bis Du den obenstehenden Link abrufst und ein neues Passwort bestimmst.
+                instruction_3: Das Passwort wird nicht geändert, bis Du den obenstehenden Link abrufst und ein neues Passwort bestimmst.
                 subject: Anleitung für das Zurücksetzen Deines Passworts
             unlock_instructions:
                 action: Mein Konto entsperren
@@ -96,11 +96,13 @@ de:
                 are_you_sure: Bist Du sicher?
                 cancel_my_account: Konto löschen
                 currently_waiting_confirmation_for_email: Warte auf Bestätigung von %{email}.
-                leave_blank_if_you_don_t_want_to_change_it: freilassen, wenn Du das nicht ändern willst
-                title: '%{resource} bearbeiten'
+                leave_blank_if_you_don_t_want_to_change_it: Freilassen, wenn Du es nicht ändern willst
+                title: 'Account bearbeiten'
                 unhappy: Unzufrieden?
                 update: Aktualisieren
-                we_need_your_current_password_to_confirm_your_changes: wir benötigen Dein aktuelles Passwort, um die Änderung zu bestätigen
+                we_need_your_current_password_to_confirm_your_changes: wir benötigen Dein aktuelles Passwort, um die Änderungen zu bestätigen
+                characters_minimum: 'mindestens %{count} Zeichen'
+                only_admins_can_see_this: Nur Administrationen können dies sehen
             new:
                 sign_up: Registrieren
             signed_up: Du hast Dich erfolgreich registriert.

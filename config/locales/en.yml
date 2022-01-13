@@ -37,6 +37,9 @@ en:
         account: Edit Account
         sign_out: Sign Out
         confirmation: 'Are you sure?'
+        back: Back
+        'yes': 'yes'
+        'no': 'no'
 
     images:
         index:
@@ -81,7 +84,35 @@ en:
             ratings:
                 one: rating
                 other: ratings
-
+    users:
+        model:
+            delete_last: The last Admin cannot be deleted
+            edit_own: You cannot change your own permissions
+        show:
+            name: 'Username:'
+            admin: 'Admin:'
+            change: Change
+            mail: 'E-Mail:'
+            member_since: 'Registered since:'
+            invited_at: 'Invited at:'
+            invited: 'Invited by:'
+            not_yet_accepted: 'This users invitation is still pending.'
+            delete: Delete User
+            confirm: 'Are you sure? This will also delete all %{images} Images and %{comments} comments from this User'
+            images: 'Number of Images:'
+            comments: 'Number of comments:'
+        index:
+            title: Listing Users
+            show: Info
+            name: Name
+            admin: Admin
+            images: Images
+            comments: Comments
+            member_since: Registered since
+            info: 'Note:'
+            table_info: 'If a users registration is pending, he will be marked orange.'
+            table_info_2: "In this case 'Registered since' is the date of invitation"
+            invite: Invite new User
     #
     #
     #
