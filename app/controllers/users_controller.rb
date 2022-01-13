@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     valid = (admin == false && @user.can_revoke_admin(current_user)) || admin == true
 
     respond_to do |format|
-      if valid and @user.update({admin: admin}) #TODO not revoking own / Last admin permissions
+      if valid and @user.update({admin: admin})
         format.html { redirect_to @user, notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else

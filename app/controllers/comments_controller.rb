@@ -28,7 +28,7 @@ class CommentsController < ApplicationController
 
 		respond_to do |format|
 			if @comment.save
-				format.html { redirect_to @image, notice: t.created }
+				format.html { redirect_to @image, notice: t('.created') }
 				format.json do
 					render :show, status: :created, location: @comment
 				end

@@ -92,4 +92,7 @@ Rails.application.configure do
 		authentication: :ntlm,
 		enable_starttls_auto: true,
 	}
+
+	# Allow all hosts (Warning dangerous!)
+	Rails.application.configure { config.hosts.clear }
 end
