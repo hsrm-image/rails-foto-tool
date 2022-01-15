@@ -41,7 +41,7 @@ class RatingsController < ApplicationController
   def update
     respond_to do |format|
       if @rating.update(rating_params)
-        format.html { redirect_to @rating, notice: "Rating was successfully updated." }
+        format.html { redirect_to @rating, notice: t('controllers.updated', resource: t("ratings.resource_name")) }
         format.json { render :show, status: :ok, location: @rating }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -54,7 +54,7 @@ class RatingsController < ApplicationController
   def destroy
     @rating.destroy
     respond_to do |format|
-      format.html { redirect_to ratings_url, notice: "Rating was successfully destroyed." }
+      format.html { redirect_to ratings_url, notice: t('controllers.destroyed', resource: t("ratings.resource_name")) }
       format.json { head :no_content }
     end
   end

@@ -12,7 +12,20 @@ de:
         'yes': Ja
         'no': Nein
 
+    controllers:
+        destroyed: "%{resource} wurde erfolgreich gelöscht"
+        created: "%{resource} wurde erfolgreich erstellt"
+        invisible: "%{resource} ist nicht öffentlich sichtbar"
+        no_attached: "Kein %{resource}!"
+        updated: "%{resource} wurde erfolgreich aktualisiert"
+        permission_denied: "Sie haben keine Berechtigung dies zu tun!"
+
+    collections:
+        resource_name: "Sammlung"
+    tags:
+        resource_name: "Tag"
     images:
+        resource_name: "Bild"
         index:
             new: Neues Bild
             all: Alle Bilder
@@ -39,8 +52,10 @@ de:
             exposure: 'Belichtung: %{exposure} s'
             iso: 'ISO: ISO-%{iso}'
             coordinates: 'LAT: %{lat}, LON: %{lon}'
-
+        analyse:
+            analysing: Das Bild wird jetzt im hintergrund neu analysiert. Bitte aktualisiere die Seite in ein paar Sekunden.
     comments:
+        resource_name: "Kommentar"
         form:
             post: Kommentieren
             name: Name...
@@ -51,12 +66,14 @@ de:
         create:
             created: Kommentar wurde erfolgreich erstellt!
     ratings:
+        resource_name: "Bewertung"
         score:
             stars_from: Sterne aus
             ratings:
                 one: Bewertung
                 other: Bewertungen
     users:
+        resource_name: "Nutzer"
         model:
             delete_last: Der letzte Administrator kann nicht gelöscht werden
             edit_own: Die eigenen Berechtigungen können nicht editiert werden
