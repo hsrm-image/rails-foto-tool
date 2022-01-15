@@ -35,4 +35,28 @@ body {
 .img-container {
 	display: flex;
 	padding: 1vw;
+	flex-wrap: wrap;
+}
+#content {
+	margin: 0px;
+}
+.notice,
+.alert {
+	display: none;
+}
+.deleteButton {
+	height: 2em;
+	border: solid 1px red;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 2em;
+	width: fit-content;
+	padding: 3px;
+	color: red;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 3em;
+	a {
+		text-decoration: none;
+	}
 }

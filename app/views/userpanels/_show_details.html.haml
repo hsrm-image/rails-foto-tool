@@ -1,41 +1,46 @@
 %h3 details
 .changeBox
-	:erb
-		<% @details.each do |attr_name, attr_val| %>
-			<div class='changeProp'>
-			<span><%= attr_name %></span>
-			<input class="<%='edit_'+attr_name%> " value="<%=attr_val%>"/>
-			</div>
-		<%end%>
-	-# I do not know why but haml just prints a string representationt of the @detail object at the end of the each function...
-	-# why?! i did not order that. just used the ERB Filter one, it does what it's supposed to
-	-# =  @details.each do | attr_name, attr_val|
-	-# .changeProp
-	-# = attr_name
-	-# %input{type: 'text', value: attr_val, class: 'attr_edit_'+attr_name.to_s}/
-.deleteButton
-	= link_to 'Destroy', @image, method: :delete
+	- @details.each do | attr_name, attr_val|
+		.changeProp
+			= attr_name
+			%input{
+				type: 'text',
+				value: attr_val,
+				class: 'attr_edit_'+attr_name.to_s
+			}/
+= link_to  @image, method: :delete do
+	.deleteButton
+		Delete  @image.title
 :javascript
 	//setup before functions
 	var typingTimer //timer identifier
 	var doneTypingInterval = 2000 //time in ms
+	$('.deleteButton').on('click', () => {
+		sessionStorage.setItem('nextDestination', 'images')
+	})
 
-	$('[class^=edit]').on('keyup', () => {
+	$('[class^=attr_edit_]').on('keyup', () => {
 		clearTimeout(typingTimer)
 		typingTimer = setTimeout(updateImage, doneTypingInterval)
 	})
-	$('[class^=edit]').on('keydown', function () {
+	$('[class^=attr_edit_]').on('keydown', function () {
 		clearTimeout(typingTimer)
 	})
 
 	function updateImage() {
 		let img_info = {
-			title: $('.edit_title ').val(),
-			description: $('.edit_description').val(),
-			created_at: $('.edit_created_at').val(),
-			updated_at: $('.edit_updated_at').val(),
+			title: $('.attr_edit_title').val(),
+			description: $('.attr_edit_description').val(),
+			camera_maker: $('.attr_edit_exif_camera_maker').val(),
+			camera_model: $('.attr_edit_exif_camera_model').val(),
+			lens_model: $('.attr_edit_exif_lens_model').val(),
+			focal_length: $('.attr_edit_exif_focal_length').val(),
+			aperture: $('.attr_edit_exif_aperture').val(),
+			exposure: $('.attr_edit_exif_exposure').val(),
+			iso: $('.attr_edit_exif_iso').val(),
+			gps_latitude: $('.attr_edit_exif_gps_latitude').val(),
+			gps_longitude: $('.attr_edit_exif_gps_longitude').val(),
 		}
-		console.log(img_info)
 		$.ajax({
 			url: '/images/' + '#{@image.id}',
 			type: 'PUT',
@@ -46,5 +51,6 @@
 				},
 			},
 		}).done(() => {
+			$.ajax('userpanels/show_images.js')
 		})
 	}
