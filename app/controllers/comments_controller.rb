@@ -32,7 +32,7 @@ class CommentsController < ApplicationController
 				format.json do
 					render :show, status: :created, location: @comment
 				end
-				flash[:success] = t ('.created')
+				flash[:success] = t('.created')
 				format.js do
 					render 'comments/new',
 					       locals: {
@@ -57,7 +57,7 @@ class CommentsController < ApplicationController
 			if @comment.update(comment_params)
 				format.html do
 					redirect_to @comment,
-					            notice: 'Comment was successfully updated.'
+					            notice: t('controllers.updated', resource: t("comments.resource_name"))
 				end
 				format.json { render :show, status: :ok, location: @comment }
 			else
@@ -75,7 +75,7 @@ class CommentsController < ApplicationController
 		respond_to do |format|
 			format.html do
 				redirect_to @comment.image,
-				            notice: 'Comment was successfully deleted.'
+				            notice: t('controllers.destroyed', resource: t("comments.resource_name"))
 			end
 			format.json { head :no_content }
 		end

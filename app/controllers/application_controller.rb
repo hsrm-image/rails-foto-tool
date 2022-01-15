@@ -1,16 +1,13 @@
 class ApplicationController < ActionController::Base
 	before_action :configure_permitted_parameters, if: :devise_controller?
-	around_action :switch_locale
+	prepend_before_action  :set_locale
 
-	def switch_locale(&action)
-		locale =
-			params[:locale] || extract_locale_from_accept_language_header ||
-				I18n.default_locale
-		I18n.with_locale(locale, &action)
+	def set_locale
+		I18n.locale = params[:locale] || extract_locale_from_accept_language_header || I18n.default_locale
 	end
 
-	def default_url_options
-		{ locale: I18n.locale }
+	def self.default_url_options(options={})
+		options.merge({ :locale => I18n.locale })
 	end
 
 	protected

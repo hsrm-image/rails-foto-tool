@@ -25,7 +25,7 @@ class ImagesController < ApplicationController
 		else
 			respond_to do |format|
 				format.html do
-					redirect_to images_url, notice: 'This image is not visible'
+					redirect_to images_url, notice: t("controllers.invisible", resource: t("images.resource_name"))
 				end
 			end
 		end
@@ -49,7 +49,7 @@ class ImagesController < ApplicationController
 			if @image.save
 				format.html do
 					redirect_to @image,
-					            notice: 'Image was successfully created.'
+					            notice: t('controllers.created', resource: t("images.resource_name"))
 				end
 				format.json { render :show, status: :created, location: @image }
 				AnalyseImageJob.perform_later @image
@@ -68,24 +68,24 @@ class ImagesController < ApplicationController
 				AnalyseImageJob.perform_later @image
 				format.html do
 					redirect_to @image,
-					            notice: 'Image will be analysed in background.'
+					            notice: t('.analysing')
 				end
 				format.js do
 					render 'layouts/toast',
 					       locals: {
 							method: 'success',
 							message:
-								'Now re-analysing exif-data in Background. Please refresh this page in a few Seconds.',
+								t('.analysing'),
 							title: '',
 					       }
 				end
 			else
-				format.html { redirect_to @image, notice: 'No image!' }
+				format.html { redirect_to @image, notice: t('controllers.no_attached', resource: t("images.resource_name")) }
 				format.js do
 					render 'layouts/toast',
 					       locals: {
 							method: 'error',
-							message: 'Error: No image attached!',
+							message: t('controllers.no_attached', resource: t("images.resource_name")),
 							title: '',
 					       }
 				end
@@ -106,7 +106,7 @@ class ImagesController < ApplicationController
 	def destroy
 		@image.destroy
 		respond_to do |format|
-			format.html { redirect_back(fallback_location: root_path) }
+			format.html { redirect_to images_path, notice: t("controllers.destroyed", resource: t("images.resource_name")) }
 			format.json { head :no_content }
 		end
 	end

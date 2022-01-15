@@ -43,7 +43,20 @@ en:
         'yes': 'yes'
         'no': 'no'
 
+    controllers:
+        destroyed: "%{resource} was successfully deleted"
+        created: "%{resource} was successfully created"
+        invisible: "%{resource} is not publicly visible"
+        no_attached: "No %{resource} attached!"
+        updated: "%{resource} was successfully updated"
+        permission_denied: "You have no permission to do this!"
+
+    collections:
+        resource_name: "Collection"
+    tags:
+        resource_name: "Tag"
     images:
+        resource_name: "Image"
         index:
             new: New Image
             all: All Images
@@ -70,7 +83,10 @@ en:
             analyse: Re-analyse exif
             delete: Delete
             edit: Edit
+        analyse:
+            analysing: Now re-analysing exif-data in Background. Please refresh this page in a few Seconds.
     comments:
+        resource_name: "Comment"
         form:
             post: Comment
             name: Your Name...
@@ -81,12 +97,14 @@ en:
         create:
             created: Comment was successfully created!
     ratings:
+        resource_name: "Rating"
         score:
             stars_from: Stars from
             ratings:
                 one: rating
                 other: ratings
     users:
+        resource_name: "User"
         model:
             delete_last: The last Admin cannot be deleted
             edit_own: You cannot change your own permissions
