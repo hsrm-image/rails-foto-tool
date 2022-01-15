@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ImagesControllerTestUser < ActionDispatch::IntegrationTest
+class ImagesControllerUserTest < ActionDispatch::IntegrationTest
 	setup do
 		@image = images(:one)
 		@owner = users(:one)
@@ -71,6 +71,6 @@ class ImagesControllerTestUser < ActionDispatch::IntegrationTest
 			assert_difference('Image.count', -1) { delete image_url(@image) }
 		end
 
-		assert_redirected_to root_url
+		assert_redirected_to images_url
 	end
 end

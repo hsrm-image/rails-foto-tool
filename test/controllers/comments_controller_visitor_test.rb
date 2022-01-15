@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CommentsControllerTestUser < ActionDispatch::IntegrationTest
+class CommentsControllerVisitorTest < ActionDispatch::IntegrationTest
 	setup { @comment = comments(:one) }
 
 	test 'should not create comment without text' do

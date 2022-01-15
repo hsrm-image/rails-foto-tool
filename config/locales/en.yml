@@ -91,6 +91,7 @@ en:
             post: Comment
             name: Your Name...
             comment: Your Comment...
+            no_session: Please activate cookies to comment!
         comment:
             time_ago: '%{time} ago'
             delete: Delete
@@ -103,6 +104,8 @@ en:
             ratings:
                 one: rating
                 other: ratings
+        interface:
+            no_session: Please activate cookies to rate!
     users:
         resource_name: "User"
         model:

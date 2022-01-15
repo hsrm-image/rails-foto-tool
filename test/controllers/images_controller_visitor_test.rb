@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ImagesControllerTestVisitor < ActionDispatch::IntegrationTest
+class ImagesControllerVisitorTest < ActionDispatch::IntegrationTest
 	setup { @image = images(:one) }
 
 	test 'should get index' do

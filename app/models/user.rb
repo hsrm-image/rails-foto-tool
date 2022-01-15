@@ -9,7 +9,7 @@ class User < ApplicationRecord
 	       :validatable
 	has_many :images, dependent: :destroy, foreign_key: 'owner_id'
 	has_many :collections, dependent: :destroy, foreign_key: 'owner_id'
-	has_many :comments
+	has_many :comments, dependent: :destroy
 
 	# Activerecord
 	has_one_attached :avatar

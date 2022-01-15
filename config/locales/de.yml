@@ -60,6 +60,7 @@ de:
             post: Kommentieren
             name: Name...
             comment: Kommentar...
+            no_session: Cookies müssen zum kommentieren aktiv sein!
         comment:
             time_ago: 'vor %{time}'
             delete: Löschen
@@ -72,6 +73,8 @@ de:
             ratings:
                 one: Bewertung
                 other: Bewertungen
+        interface:
+            no_session: Cookies müssen zum bewerten aktiv sein!
     users:
         resource_name: "Nutzer"
         model:

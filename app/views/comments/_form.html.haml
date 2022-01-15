@@ -6,13 +6,16 @@
 			%ul
 				- @comment.errors.full_messages.each do |message|
 					%li= message
-	.field
-		- if user_signed_in?
-			/ / Autofill username if User is logged in
-			= f.text_field :username, value: current_user[:name], readonly: true
-		- else
-			= f.text_field :username, placeholder: t(".name")
-	.field
-		= f.text_area :text, placeholder: t(".comment")
-	.actions
-		= f.submit t(".post")
+	- unless session[:session_id].nil? 
+		.field
+			- if user_signed_in?
+				/ / Autofill username if User is logged in
+				= f.text_field :username, value: current_user[:name], readonly: true
+			- else
+				= f.text_field :username, placeholder: t(".name")
+		.field
+			= f.text_area :text, placeholder: t(".comment")
+		.actions
+			= f.submit t(".post")
+	- else 
+		= t(".no_session")

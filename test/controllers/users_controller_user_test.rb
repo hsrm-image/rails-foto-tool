@@ -1,18 +1,19 @@
 require "test_helper"
 
-class UsersControllerTest < ActionDispatch::IntegrationTest
+class UsersControllerUserTest < ActionDispatch::IntegrationTest
   setup do
 		@user = users(:one)
+		sign_in @user
   end
 
   test "should not get index" do
     get users_url
-    assert_redirected_to new_user_session_url
+    assert_redirected_to root_url
   end
 
   test "should not show user" do
     get user_url(@user)
-    assert_redirected_to new_user_session_url
+    assert_redirected_to root_url
   end
 
   test "should not make user admin" do
@@ -20,7 +21,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert !User.find(other_user.id).admin
 
     patch admin_user_url(other_user)
-    assert_redirected_to new_user_session_url
+    assert_redirected_to root_url
 
     assert !User.find(other_user.id).admin
   end

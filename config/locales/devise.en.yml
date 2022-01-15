@@ -14,7 +14,7 @@ en:
             last_attempt: 'You have one more attempt before your account is locked.'
             not_found_in_database: 'Invalid %{authentication_keys} or password.'
             timeout: 'Your session expired. Please sign in again to continue.'
-            eeeunauthenticated: 'You need to sign in or sign up before continuing.se'
+            unauthenticated: 'You need to sign in or sign up before continuing.'
             unconfirmed: 'You have to confirm your email address before continuing.'
         mailer:
             confirmation_instructions:
@@ -54,7 +54,7 @@ en:
                 leave_blank_if_you_don_t_want_to_change_it: Leave blank if you dont want to change this
                 are_you_sure: Are you sure?
                 cancel_my_account: Delete account
-                unhappy: aaaa?
+                unhappy: Unhappy?
                 update: Update
                 we_need_your_current_password_to_confirm_your_changes: Please enter your current password to confirm these changes
                 characters_minimum: 'at least %{count} characters'

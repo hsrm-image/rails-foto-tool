@@ -1,6 +1,6 @@
 require "test_helper"
 
-class RatingsControllerTestImages < ActionDispatch::IntegrationTest
+class RatingsControllerImagesTest < ActionDispatch::IntegrationTest
   setup do
     @rating = ratings(:imageOne)
   end
