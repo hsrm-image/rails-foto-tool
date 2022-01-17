@@ -65,7 +65,7 @@ en:
             error: Error loading next images
         show:
             comments_count:
-                one: 'one Comment'
+                one: '%{count} Comment'
                 other: '%{count} Comments'
             processing: This image is not yet publicly visible because it is still processing.
         exif:
@@ -95,6 +95,7 @@ en:
         comment:
             time_ago: '%{time} ago'
             delete: Delete
+            registered: "This is a registered user"
         create:
             created: Comment was successfully created!
     ratings:
