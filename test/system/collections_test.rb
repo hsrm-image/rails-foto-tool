@@ -3,6 +3,7 @@ require "application_system_test_case"
 class CollectionsTest < ApplicationSystemTestCase
   setup do
     @collection = collections(:one)
+    perform_enqueued_jobs
   end
 
   test "visiting the index" do

@@ -4,6 +4,7 @@ class RatingsTest < ApplicationSystemTestCase
   setup do
     @rating = ratings(:imageTwo)
     @image = images(:one)
+    perform_enqueued_jobs
   end
 
   test "creating a rating" do

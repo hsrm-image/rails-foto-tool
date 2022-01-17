@@ -4,6 +4,7 @@ class UsersTest < ApplicationSystemTestCase
   setup do
     @user = users(:one)
     @admin = users(:adminOne)
+    perform_enqueued_jobs
   end
 
   test "signing in correctly" do
