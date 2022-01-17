@@ -121,7 +121,12 @@ textarea {
 }
 
 .field input[type='checkbox'] {
-	//TODO
+	width: auto;
+}
+
+.field input[type='checkbox'] + label{
+	width: fit-content;
+	display: inline;
 }
 
 h1,

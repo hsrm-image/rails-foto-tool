@@ -18,78 +18,15 @@
 
 //Index
 
-#cards-container {
-	margin: 0;
-	padding: 0;
-	width: 80vw;
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
-}
-
-#cards-container:after {
-	content: '';
-	display: block;
-	clear: both;
-}
 .grid-element.processing {
+	box-sizing: border-box;
 	border-color: hsl(34, 100%, 50%);
-	background-color: grey;
+	border-style: dashed;
+	border-width: 10px;
+	background: repeating-linear-gradient(45deg, transparent, transparent 20px, #a6a6a6 20px, #a6a6a6 40px);
+	background-clip: padding-box;
 	a {
-		opacity: 0.2;
-	}
-}
-
-.card {
-	display: inline-block;
-	width: 250px;
-	border: 2px solid #333;
-	border-color: hsla(0, 0%, 0%, 0.5);
-	border-radius: 5px;
-	margin-bottom: 10px; // Vertical spacing
-	a {
-		text-decoration: none;
-	}
-	:hover {
-		background-color: transparent;
-	}
-	:visited {
-		color: #000;
-	}
-	.image-link {
-		width: 100%;
-		.image {
-			border-radius: 20px;
-			overflow: hidden;
-			img {
-				display: block;
-			}
-		}
-	}
-
-	.user-link {
-		width: 50%;
-		font-size: 20px;
-		text-decoration: none;
-		:hover {
-			color: #000;
-		}
-		.user-info {
-			display: flex;
-			justify-content: left;
-			margin: 5px;
-
-			.pp {
-				border-radius: 50%;
-				overflow: hidden;
-				width: 40px;
-				height: 40px;
-			}
-			.username {
-				padding-left: 10px;
-				padding-top: 10px;
-			}
-		}
+		opacity: 0.5;
 	}
 }
 
@@ -97,24 +34,19 @@
 	padding: 0;
 	list-style: none;
 	position: relative;
-	width: calc(100% - 10px);
+	width: 100%;
 	margin: 0 auto;
 
 	height: 100%;
-	border-style: solid;
-	border-color: white;
-	border-width: 5px;
+	display: grid;
+	grid-template-columns: repeat(3,calc(100% / 3));
+	grid-gap: 10px;
+	overflow-x: hidden;
 }
 .grid li {
-	position: relative;
-	float: left;
-	overflow: hidden;
-	width: -webkit-calc(100% / 3 - 10px);
-	max-width: calc(100% / 3 - 10px);
-	height: calc((100vw - 20px) / 3 - 2.5vw);
-	border-style: solid;
-	border-color: white;
-	border-width: 5px;
+	//height: calc((100vw - 20px) / 3 - 2.5vw);
+	width: calc(100% - 20px);
+	max-width: calc(100% - 10px);
 }
 .grid li a img {
 	max-width: 100%;
@@ -131,9 +63,9 @@
 	cursor: pointer;
 	height: 100%;
 }
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1000px) { // min-width
 	.grid li {
-		width: -webkit-calc((95vw - 10px) / 1);
+		//width: -webkit-calc((95vw - 10px) / 1);
 		max-width: calc((95vw - 10px) / 1);
 		height: calc((95vw - 10px) / 1);
 		border-style: solid;
@@ -275,21 +207,4 @@
 	.description-comment {
 		max-width: 90vw;
 	}
-}
-
-// Upload
-
-label.asdndzone {
-	box-sizing: border-box;
-	display: block;
-	border: 3px solid #ff0000;
-	border-radius: 6px;
-	min-height: 220px;
-	max-width: 310px;
-	width: 100%;
-	padding: 99px 20px 20px;
-	text-align: center;
-	font-family: 'Nunito Sans', sans-serif;
-	font-size: 21px;
-	letter-spacing: 0.6px;
 }

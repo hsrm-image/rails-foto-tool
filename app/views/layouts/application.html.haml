@@ -9,7 +9,8 @@
 		= csp_meta_tag
 		= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
 		= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-	%body{'data-turbolinks': (request.path == '/images' ? "false" : "true")}
+	- @body_attributes ||= {}
+	%body{@body_attributes}
 		#navbar
 			%ul
 				%li{id: is_active?("images")}
