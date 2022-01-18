@@ -33,5 +33,8 @@ module RailsFotoTool
 
 		# The mail address the Server should send mails from
 		config.x.mail.sender_address = 'please@change-me.com'
+
+		# Change the size of the preview images on the main page (changing this causes all images to rerender)
+		config.x.image.preview_image_size = 800
 	end
 end

@@ -39,15 +39,20 @@
 
 	height: 100%;
 	display: grid;
-	grid-template-columns: repeat(3,calc(100% / 3));
+	grid-template-columns: repeat(1, calc(100% / 3));
 	grid-gap: 10px;
 	overflow-x: hidden;
 }
+
 .grid li {
-	//height: calc((100vw - 20px) / 3 - 2.5vw);
-	width: calc(100% - 20px);
-	max-width: calc(100% - 10px);
+	width: calc((95vw - 10px) / 1);
+	max-width: calc((95vw - 10px) / 1);
+	height: calc((95vw - 10px) / 1);
+	border-style: solid;
+	border-color: white;
+	border-bottom-width: 5px;
 }
+
 .grid li a img {
 	max-width: 100%;
 	z-index: 4;
@@ -63,14 +68,14 @@
 	cursor: pointer;
 	height: 100%;
 }
-@media screen and (max-width: 1000px) { // min-width
+@media screen and (min-width: 900px) {
 	.grid li {
-		//width: -webkit-calc((95vw - 10px) / 1);
-		max-width: calc((95vw - 10px) / 1);
-		height: calc((95vw - 10px) / 1);
-		border-style: solid;
-		border-color: white;
-		border-bottom-width: 5px;
+		height: calc((100vw - 20px) / 3 - 2.5vw);
+		width: calc(100% - 20px);
+		max-width: calc(100% - 10px);
+	}
+	.grid {
+		grid-template-columns: repeat(3,calc(100% / 3));
 	}
 }
 
@@ -102,11 +107,11 @@
 }
 
 .rating-star {
-	font-size: 50px;
+	font-size: 10vw;
 }
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 600px) {
 	.rating-star {
-		font-size: 10vw;
+		font-size: 50px;
 	}
 }
 
@@ -143,21 +148,25 @@
 	overflow: hidden;
 }
 
+#paginationL,
+#paginationR {
+	bottom: 50px;
+	top: unset;
+}
+
 #paginationL {
 	left: 20px;
-	top: 50vh;
 }
 
 #paginationR {
 	right: 20px;
-	top: 50vh;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 600px) {
 	#paginationL,
 	#paginationR {
-		bottom: 20px;
-		top: unset;
+		top: 50vh;
+		bottom: unset;
 	}
 }
 
@@ -181,7 +190,6 @@
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	max-width: 580px;
 	#preview-text {
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -190,21 +198,29 @@
 		-webkit-box-orient: vertical;
 	}
 }
+#description,
 .description-comment {
-	margin-top: 50px;
-	max-width: 600px;
+	max-width: 90vw;
 }
 
-@media screen and (max-width: 900px) {
+.description-comment {
+	margin-top: 50px;
+}
+
+@media screen and (min-width: 600px) {
 	#description,
 	.description-comment {
 		max-width: 60vw;
 	}
 }
 
-@media screen and (max-width: 600px) {
-	#description,
+@media screen and (min-width: 900px) {
+	#description {
+		max-width: 580px;
+	}
 	.description-comment {
-		max-width: 90vw;
+		max-width: 600px;
 	}
 }
+
+

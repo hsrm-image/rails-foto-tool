@@ -30,6 +30,6 @@
 %p
 	%b= t(".invited")
 	= link_to(User.find(@user.invited_by_id).name, User.find(@user.invited_by_id)) unless @user.invited_by_id.nil?
-= link_to(t(".delete"), @user, method: :delete, data: { confirm: t(".confirm", images: @user.images.count, comments: @user.comments.count) }) unless @user.id == current_user.id
+= link_to(t(".delete"), @user, method: :delete, data: { confirm: t(".confirm", images: @user.images.count, comments: @user.comments.count) }, class: "custom-button danger-button") unless @user.id == current_user.id
 %br/
 = link_to t("application.back"), users_path

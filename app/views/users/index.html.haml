@@ -1,5 +1,4 @@
 %h1= t (".title")
-= link_to t(".invite"), new_user_invitation_path
 %p
 	%b= t(".info")
 	= t(".table_info")
@@ -28,3 +27,4 @@
 				%td= user.comments.count
 				%td= link_to t(".show"), user
 %br/
+= link_to t(".invite"), new_user_invitation_path, {class: "custom-button"}
