@@ -1,22 +1,21 @@
-.comment{:class => ("same-user" if same_session?(comment.session_id))}
-  %p
-    - if comment.user_id.nil?
-      %b= comment.username 
-    - else
-      %b= link_to User.find(comment.user_id).name, User.find(comment.user_id) 
-    %span> &nbsp(
-    = time_ago_in_words(comment.created_at)
-    ago)
-    %br
-    .comment-stars
-      - if @image.get_rate(comment.session_id)
-        - rating = @image.get_rate(comment.session_id).rating
-        - (1..5).each do |i|
-          %i{:class => "comment-rating bi bi-star" + (rating >= i ? "-fill" : "")}
-  %p
-    = simple_format(comment.text)
-
-  - if same_session?(comment.session_id) or same_user?(comment.user_id) or admin?
-    = button_to 'Delete', image_comment_url(@image, comment), method: :delete, data: { confirm: 'Are you sure?' }
-
-
+.comment{class: ("same-user" if same_session?(comment.session_id))}
+	%p
+		- if comment.user_id.nil?
+			%b= comment.username
+		- else
+			%b
+				= link_to User.find(comment.user_id).name, User.find(comment.user_id)
+		%span> &nbsp(
+		= t(".time_ago", time: time_ago_in_words(comment.created_at)) + ")"
+		%br/
+		.comment-stars
+			- if @image.get_rate(comment.session_id)
+				- rating = @image.get_rate(comment.session_id).rating
+				- (1..5).each do |i|
+					%i{
+						class: "comment-rating bi bi-star" + (rating >= i ? "-fill" : "")
+					}
+	%p
+		= simple_format(comment.text)
+	- if same_session?(comment.session_id) or same_user?(comment.user_id) or admin?
+		= button_to t(".delete"), image_comment_url(@image, comment), method: :delete, data: { confirm: t("application.confirmation") }

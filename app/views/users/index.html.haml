@@ -1,24 +1,30 @@
-%h1 Listing users
-
-= link_to 'Invite new user', new_user_invitation_path
-
-%table
-  %thead
-    %tr
-      %th Name
-      %th Admin
-      %th
-      %th
-      %th
-
-  %tbody
-    - @users.each do |user|
-      %tr
-        %td= user.name
-        %td= user.admin
-        %td= link_to 'Show', user
-        %td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, remote: true
-
-%br
-
-
+%h1= t (".title")
+= link_to t(".invite"), new_user_invitation_path
+%p
+	%b= t(".info")
+	= t(".table_info")
+	%br/
+	= t(".table_info_2")
+%table#usertable
+	%thead
+		%tr
+			%th= t(".name")
+			%th= t(".admin")
+			%th= t(".member_since")
+			%th= t(".images")
+			%th= t(".comments")
+			%th= t(".show")
+	%tbody
+		- @users.each do |user|
+			%tr{class: user.invitation_accepted? ? "accepted" : "pending"}
+				%td= user.name
+				%td= user.admin ? t("application.yes") : t("application.no")
+				%td
+					- if user.invitation_accepted? and !user.invitation_accepted_at.nil?
+						= l user.invitation_accepted_at.to_date
+					- else
+						= l user.created_at.to_date
+				%td= user.images.count
+				%td= user.comments.count
+				%td= link_to t(".show"), user
+%br/

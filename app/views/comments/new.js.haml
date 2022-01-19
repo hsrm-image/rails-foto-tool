@@ -1,8 +1,8 @@
 - if @comment.errors.any?
   - @comment.errors.full_messages.each do |msg|
-    toastr.error("#{escape_javascript (msg)}", "", {"positionClass": "toast-bottom-center"});
+    toastr.error("#{escape_javascript (msg)}");
 - else
-  toastr.success("#{escape_javascript (flash[:success])}", "", {"positionClass": "toast-bottom-center"});
+  toastr.success("#{escape_javascript (flash[:success])}");
   $("#comments-list").prepend($("#{escape_javascript (render @comment)}").hide().delay(500).show('slow')); 
   $("#comment_text").val('');
   $("#comment-count").text("#{escape_javascript (nr_comments)}" + " Comments"); //TODO Translate

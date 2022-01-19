@@ -11,7 +11,7 @@ imageTwo:
   session_id: "abcdefg123"
 
 imageThree:
-  rating: 3
+  rating: 5
   rateable: processing (Image)
   session_id: "abcdefg123"
 

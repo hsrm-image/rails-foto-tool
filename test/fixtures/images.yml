@@ -1,19 +1,19 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
+  title: This is image 1
   description: MyText
   owner: one
   processed: true
 
 two:
-  title: MyString
+  title: MyString 2
   description: MyText
   owner: two
   processed: true
 
 processing:
-  title: MyString
+  title: MyString 3
   description: MyText
   owner: two
   processed: false
