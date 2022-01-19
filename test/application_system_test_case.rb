@@ -7,4 +7,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   Rails.application.routes.default_url_options[:host] = 'localhost:3000'
   driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
+
+  include ActiveJob::TestHelper 
 end

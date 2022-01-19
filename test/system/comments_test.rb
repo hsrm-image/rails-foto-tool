@@ -6,6 +6,7 @@ class CommentsTest < ApplicationSystemTestCase
     @image = images(:one)
     @user = users(:one)
     @admin = users(:adminOne)
+    perform_enqueued_jobs
   end
 
   test "writing a comment as visitor" do

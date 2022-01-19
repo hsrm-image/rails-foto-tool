@@ -4,6 +4,7 @@ class ImagesTest < ApplicationSystemTestCase
   setup do
     @image = images(:one)
     @user = users(:adminOne)
+    perform_enqueued_jobs
   end
 
   test "visiting the index" do
