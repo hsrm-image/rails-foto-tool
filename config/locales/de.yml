@@ -64,6 +64,7 @@ de:
         comment:
             time_ago: 'vor %{time}'
             delete: Löschen
+            registered: "Dies ist ein registrierter Benutzer"
         create:
             created: Kommentar wurde erfolgreich erstellt!
     ratings:

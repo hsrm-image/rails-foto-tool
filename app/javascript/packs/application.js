@@ -37,11 +37,11 @@ window.jquery = $
 $( document ).on('turbolinks:load', function() {
     let notice = $(".notice").text();
     if(notice) {
-        toastr.success(notice); //TODO position into global options
+        toastr.success(notice); 
     }
 
     let alert = $(".alert").text();
     if(alert) {
-        toastr.error(alert); //TODO position into global options
+        toastr.error(alert);
     }
 });

@@ -91,7 +91,7 @@
 	margin: 15px;
 }
 
-.field input {
+.field input, .field_with_errors {
 	max-width: 600px;
 	box-sizing: border-box;
 	border: 2px solid #ccc;
@@ -121,7 +121,12 @@ textarea {
 }
 
 .field input[type='checkbox'] {
-	//TODO
+	width: auto;
+}
+
+.field input[type='checkbox'] + label{
+	width: fit-content;
+	display: inline;
 }
 
 h1,

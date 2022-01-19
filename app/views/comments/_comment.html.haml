@@ -1,12 +1,10 @@
 .comment{class: ("same-user" if same_session?(comment.session_id))}
 	%p
-		- if comment.user_id.nil?
+		%span{class: comment.user_id.nil? ? "" : "registered-user", title: comment.user_id.nil? ? "" : t(".registered")}
 			%b= comment.username
-		- else
-			%b
-				= link_to User.find(comment.user_id).name, User.find(comment.user_id)
-		%span> &nbsp(
-		= t(".time_ago", time: time_ago_in_words(comment.created_at)) + ")"
+			- unless comment.user_id.nil?
+				%i.bi.bi-check-circle
+		%span{title: l(comment.created_at, :format => :long)}= "(" + t(".time_ago", time: time_ago_in_words(comment.created_at)) + ")"
 		%br/
 		.comment-stars
 			- if @image.get_rate(comment.session_id)
