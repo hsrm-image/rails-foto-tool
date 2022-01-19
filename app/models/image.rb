@@ -50,4 +50,12 @@ class Image < ApplicationRecord
         # Only get the images that the user can view
         logged_in ? Image.all : Image.where(:processed => true)
     end
+
+    def preview
+        image_file.variant(resize_to_fill: [Rails.configuration.x.image.preview_image_size, Rails.configuration.x.image.preview_image_size])
+    end
+
+    def description_short
+        description.truncate(200)
+    end
 end
