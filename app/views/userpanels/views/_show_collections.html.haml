@@ -1,0 +1,9 @@
+%h1 Collections
+.collection-container
+	#collectionButton
+		%span Create New Collection
+	:erb
+		<%- @collections.each do |col|%>
+			<%= render partial:'collections/userpanel_collection', object: col, as: 'collection'%>
+		<%end%>
+= javascript_pack_tag 'userpanel/show_collections', 'data-turbolinks-track': 'reload'

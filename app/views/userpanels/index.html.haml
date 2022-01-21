@@ -1,9 +1,17 @@
 #view
 	#control
 		%h3 categories
-		= link_to "Images", userpanels_show_images_path, :remote => true
-		= link_to "Collections", userpanels_show_collections_path, :remote => true
+		= link_to "Images", userpanel_show_images_path, :remote => true
+		= link_to "Collections", userpanel_show_collections_path, :remote => true
 	#show
 		%h3 Default Placeholder
 	#details
-= javascript_pack_tag 'userpanel_index', 'data-turbolinks-track': 'reload'
+= javascript_pack_tag 'userpanel/userpanel_index.js', 'data-turbolinks-track': 'reload'
+%style
+	:plain
+		body,
+		html {
+			margin: 0px;
+			height: 100%;
+			overflow: hidden;
+		}

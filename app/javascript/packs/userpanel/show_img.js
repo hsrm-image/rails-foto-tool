@@ -5,6 +5,7 @@ var input = document.querySelector('input[type=file]')
 if (!drop) {
 	drop = new Dropzone('#upload', {
 		paramName: 'image[image_file]',
+		parallelUploads: 1,
 	})
 }
 
@@ -19,11 +20,20 @@ drop.on('addedfile', file => {
 		attachmentName,
 	)
 	upload.create((error, blob) => {
-		console.log('blob: ', blob)
 		if (error) return
-		console.log('direct-upload:success')
 		//just requesting the correct partial gets it to display
 		// beacuse of ruby routing
-		$.ajax('userpanels/show_images.js')
+		$.ajax('userpanel/show_images.js')
 	})
+})
+
+drop.on('error', file => {
+	drop.removeFile(file)
+	console.log(file)
+	toastr.warning('Error while uploading:' + file.name)
+})
+
+drop.on('success', file => {
+	drop.removeFile(file)
+	$.ajax('userpanel/show_images.js')
 })

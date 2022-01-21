@@ -1,5 +1,6 @@
-- img = image.image_file.variant(resize_to_fill: [250, 250])
-= link_to userpanels_show_details_path(img: image.id), :remote => true  do
+- img = image.image_file.variant(resize_to_fill: [100, 100])
+= link_to userpanel_show_details_path(img: image.id), :remote => true  do
 	.widget-container
-		= image_tag url_for(img.processed), class:'widget'
-		%span.widget-title= image.title
+		= image_tag url_for(img.processed), class:'widget smal' if image.image_file.variant(resize_to_fill: [100, 100])
+		= image_tag url_for(image.image_file), class:'widget' if !image.image_file.variant(resize_to_fill: [100, 100])
+		%span.widget-title= truncate(image.title, :length=>10)

@@ -1,0 +1,6 @@
+- col = collection
+- img = col.images.first.image_file.variant(resize_to_fill: [100, 100]) if col.images.first
+= link_to userpanel_show_collection_details_path(collection_id: col.id), :remote => true  do
+	.widget-container
+		= image_tag url_for(img.processed), class:'widget smal'if col.images.first
+		%span.widget-title= truncate(col.name, :length=>10)

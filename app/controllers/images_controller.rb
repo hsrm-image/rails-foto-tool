@@ -1,5 +1,6 @@
 class ImagesController < ApplicationController
 	before_action :set_image, only: %i[show edit update destroy]
+	protect_from_forgery except: %i[new update]
 
 	# GET /images or /images.json
 	def index
@@ -30,7 +31,21 @@ class ImagesController < ApplicationController
 
 	# GET /images/new
 	def new
-		@image = Image.new
+		if current_user
+			@image = Image.new
+		else
+			respond_to do |format|
+				format.js do
+					render 'layouts/toast',
+					       locals: {
+							method: 'error',
+							message:
+								'Now re-analysing exif-data in Background. Please refresh this page in a few Seconds.',
+							title: '',
+					       }
+				end
+			end
+		end
 	end
 
 	# GET /images/1/edit
@@ -93,15 +108,46 @@ class ImagesController < ApplicationController
 
 	# PATCH/PUT /images/1 or /images/1.json
 	def update
-		@image.update(image_params)
+		if current_user
+			@image.update(image_params)
+		else 
+			respond_to do |format|
+				format.js do
+					render 'layouts/toast',
+					       locals: {
+							method: 'success',
+							message: 'Successfully deleted ' + @image.title,
+							title: '',
+					       }
+				end
+			end
+		end
 	end
 
 	# DELETE /images/1 or /images/1.json
 	def destroy
-		@image.destroy
-		respond_to do |format|
-			format.html { redirect_back(fallback_location: root_path) }
-			format.json { head :no_content }
+		if @image.destroy
+			respond_to do |format|
+				format.js do
+					render 'layouts/toast',
+					       locals: {
+							method: 'success',
+							message: 'Successfully deleted ' + @image.title,
+							title: '',
+					       }
+				end
+			end
+		else
+			respond_to do |format|
+				format.js do
+					render 'layouts/toast',
+					       locals: {
+							method: 'error',
+							message: 'Error whilst deleting ' + @image.title,
+							title: '',
+					       }
+				end
+			end
 		end
 	end
 

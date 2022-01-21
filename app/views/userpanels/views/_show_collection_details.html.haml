@@ -1,0 +1,10 @@
+%h3 Details
+.changeBox
+	- @editables.each do | attr_name, attr_val|
+		.changeProp
+			%span#img_id{data: { collection_id: @collection.id }}= attr_name
+			%input{
+				type: 'text',
+				value: attr_val,
+				class: 'attr_edit_'+attr_name.to_s
+			}/
