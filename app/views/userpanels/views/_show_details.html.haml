@@ -1,0 +1,31 @@
+- img = @image
+%h3 details
+%h4 Information
+.infoBox
+	- @informations.each do | attr_name, attr_val|
+		%span= attr_name
+		%span= (attr_val ? attr_val : '-')
+%h4 Properties
+.changeBox
+	- @editables.each do | attr_name, attr_val|
+		%span#img_id{data: { img_id: @image.id }}= attr_name
+		%input{type: 'text', value: attr_val, class: 'attr_edit_'+attr_name.to_s
+		}/
+- if !img.processed
+	.proccessButton{data: { img: img.id }}
+		Start Processing
+.changeProp
+	%span Collections
+	.collectionList
+		- @collections.each do |collection|
+			%div
+				%input{
+					type: 'checkbox',
+					checked: (img.collections.include? collection),
+					data: { collection: collection.id, img: img.id }
+				}/
+				%span= collection.name
+.deleteButton
+	Delete
+	%span= @image.title
+= javascript_pack_tag 'userpanel/show_details', 'data-turbolinks-track': 'reload'

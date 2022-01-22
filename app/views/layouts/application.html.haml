@@ -1,8 +1,9 @@
 !!!
 %html
 	%head
-		%meta{content: 'text/html; charset=UTF-8', 'http-equiv': 'Content-Type'
-		}/
+
+		%meta{content: 'text/html; charset=UTF-8', 'http-equiv': 'Content-Type'}/
+
 		%title RailsFotoTool
 		%meta{content: 'width=device-width,initial-scale=1', name: 'viewport'}/
 		= csrf_meta_tags
@@ -20,6 +21,7 @@
 				- if admin?
 					%li{id: is_active?("users", "invitations")}
 						= link_to t('application.users'), users_path
+
 				- if current_user.nil?
 					%li{id: is_active?("session")}
 						= link_to new_user_session_path do
@@ -31,6 +33,7 @@
 								= current_user.name
 								%i.bi.bi-person
 							.dropdown-content
+
 								= link_to t('application.account'), edit_user_registration_path
 								= link_to t('application.sign_out'), destroy_user_session_path
 				%li
@@ -43,6 +46,7 @@
 								= link_to url_for( :locale => lang ) do
 									= t("flag", locale: lang)
 									= t("language_name", locale: lang)
+
 		%p.notice= notice
 		%p.alert= alert
 		#content
