@@ -2,7 +2,13 @@ var typingTimer //timer identifier
 var doneTypingInterval = 2000 //time in ms
 var id = $('*[data-collection-id]').data().collectionId
 $('.deleteButton').on('click', () => {
-	$.ajax({url: 'collections/' + id, type: 'DELETE'}).done(() => {
+	$.ajax({
+		url: 'collections/' + id,
+		type: 'DELETE',
+		data: {
+			authenticity_token: $('meta[name="csrf-token"]').attr('content'),
+		},
+	}).done(() => {
 		toastr.success('Collection deleted')
 		setTimeout(() => {
 			$.ajax({url: 'userpanel/show_collections.js', type: 'GET'})
