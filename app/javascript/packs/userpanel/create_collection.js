@@ -9,10 +9,12 @@ $('.submitButton').on('click', () => {
 	$.ajax({
 		url: 'collections',
 		type: 'POST',
-		data: {collection: {name: title}},
+		data: {
+			collection: {name: title},
+			authenticity_token: $('meta[name="csrf-token"]').attr('content'),
+		},
 	}).done(() => {
 		$('.shadow').remove()
 		$.ajax({url: 'userpanel/show_collections'})
-		toastr.success('nice bro')
 	})
 })

@@ -2,9 +2,24 @@
 .changeBox
 	- @editables.each do | attr_name, attr_val|
 		.changeProp
-			%span#img_id{data: { collection_id: @collection.id }}= attr_name
+			%span{data: { collection_id: @collection.id }}= attr_name
 			%input{
 				type: 'text',
 				value: attr_val,
 				class: 'attr_edit_'+attr_name.to_s
 			}/
+%h4 Header Image
+.headerImages
+	- @collection.images.each do |img|
+		%div
+			%input{
+				type: 'checkbox',
+				checked: (@collection.header_image == img),
+				data: { img: img.id }
+			}/
+			= image_tag url_for(img.image_file.variant(resize_to_fill: [100, 100]).processed), data:{img: img.id}, class:'widget smal' if img.image_file.variant(resize_to_fill: [100, 100])
+			= image_tag url_for(img.image_file),data:{img: img.id}, class:'widget' if !img.image_file.variant(resize_to_fill: [100, 100])
+.deleteButton
+	Delete
+	%span= @collection.name
+= javascript_pack_tag 'userpanel/show_collection_details', 'data-turbolinks-track': 'reload'

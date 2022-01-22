@@ -1,6 +1,5 @@
 class CollectionsController < ApplicationController
 	before_action :set_collection, only: %i[show edit update destroy]
-	protect_from_forgery except: %i[create]
 
 	# GET /collections or /collections.json
 	def index
@@ -54,18 +53,17 @@ class CollectionsController < ApplicationController
 
 	# PATCH/PUT /collections/1 or /collections/1.json
 	def update
-		respond_to do |format|
-			if @collection.update(collection_params)
-				format.html do
-					redirect_to @collection,
-					            notice: 'Collection was successfully updated.'
-				end
-				format.json { render :show, status: :ok, location: @collection }
-			else
-				format.html { render :edit, status: :unprocessable_entity }
-				format.json do
-					render json: @collection.errors,
-					       status: :unprocessable_entity
+		if current_user
+			@collection.update(collection_params)
+		else
+			respond_to do |format|
+				format.js do
+					render 'layouts/toast',
+					       locals: {
+							method: 'error',
+							message: 'Not Authenticated',
+							title: '',
+					       }
 				end
 			end
 		end
@@ -73,13 +71,19 @@ class CollectionsController < ApplicationController
 
 	# DELETE /collections/1 or /collections/1.json
 	def destroy
-		@collection.destroy
-		respond_to do |format|
-			format.html do
-				redirect_to collections_url,
-				            notice: 'Collection was successfully destroyed.'
+		if current_user
+			@collection.destroy
+		else
+			respond_to do |format|
+				format.js do
+					render 'layouts/toast',
+					       locals: {
+							method: 'error',
+							message: 'Not Authenticated',
+							title: '',
+					       }
+				end
 			end
-			format.json { head :no_content }
 		end
 	end
 

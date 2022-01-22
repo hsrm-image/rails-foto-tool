@@ -11,6 +11,9 @@
 		%span#img_id{data: { img_id: @image.id }}= attr_name
 		%input{type: 'text', value: attr_val, class: 'attr_edit_'+attr_name.to_s
 		}/
+- if !img.processed
+	.proccessButton{data: { img: img.id }}
+		Start Processing
 .changeProp
 	%span Collections
 	.collectionList
@@ -23,5 +26,6 @@
 				}/
 				%span= collection.name
 .deleteButton
-	Delete  @image.title
+	Delete
+	%span= @image.title
 = javascript_pack_tag 'userpanel/show_details', 'data-turbolinks-track': 'reload'

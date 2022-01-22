@@ -21,19 +21,16 @@ drop.on('addedfile', file => {
 	)
 	upload.create((error, blob) => {
 		if (error) return
-		//just requesting the correct partial gets it to display
-		// beacuse of ruby routing
-		$.ajax('userpanel/show_images.js')
 	})
 })
 
 drop.on('error', file => {
 	drop.removeFile(file)
-	console.log(file)
 	toastr.warning('Error while uploading:' + file.name)
 })
 
-drop.on('success', file => {
-	drop.removeFile(file)
-	$.ajax('userpanel/show_images.js')
+drop.on('complete', () => {
+	setTimeout(() => {
+		$.ajax('userpanel/show_images.js')
+	}, 1000)
 })

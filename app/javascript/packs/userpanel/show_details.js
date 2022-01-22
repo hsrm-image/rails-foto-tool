@@ -2,7 +2,13 @@ var typingTimer //timer identifier
 var doneTypingInterval = 2000 //time in ms
 var id = $('#img_id').data().imgId
 $('.deleteButton').on('click', () => {
-	$.ajax({url: 'images/' + id, type: 'DELETE'}).done(() => {
+	$.ajax({
+		url: 'images/' + id,
+		type: 'DELETE',
+		data: {
+			authenticity_token: $('meta[name="csrf-token"]').attr('content'),
+		},
+	}).done(() => {
 		$.ajax({url: 'userpanel/show_images.js', type: 'GET'})
 	})
 })
@@ -16,6 +22,9 @@ $('.collectionList input[type="checkbox"]').on('click', e => {
 			data: {
 				image_id: clicked.data().img,
 				collection_id: clicked.data().collection,
+				authenticity_token: $('meta[name="csrf-token"]').attr(
+					'content',
+				),
 			},
 			type: 'POST',
 		}).done(() => {
@@ -27,12 +36,25 @@ $('.collectionList input[type="checkbox"]').on('click', e => {
 			data: {
 				image_id: clicked.data().img,
 				collection_id: clicked.data().collection,
+				authenticity_token: $('meta[name="csrf-token"]').attr(
+					'content',
+				),
 			},
 			type: 'POST',
 		}).done(() => {
 			toastr.success('Added to Collection(s)')
 		})
 	}
+})
+$('.proccessButton').on('click', e => {
+	$.ajax({
+		url: 'userpanel/startProccess',
+		data: {
+			image_id: $(e.target).data().img,
+			authenticity_token: $('meta[name="csrf-token"]').attr('content'),
+		},
+		type: 'POST',
+	})
 })
 
 $('[class^=attr_edit_]').on('keyup', () => {
@@ -65,6 +87,7 @@ function updateImage() {
 				title: img_info.title,
 				description: img_info.description,
 			},
+			authenticity_token: $('meta[name="csrf-token"]').attr('content'),
 		},
 	}).done(() => {
 		$.ajax('userpanel/show_images.js').done(() => {

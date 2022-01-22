@@ -1,6 +1,7 @@
 - col = collection
-- img = col.images.first.image_file.variant(resize_to_fill: [100, 100]) if col.images.first
+- img = col.header_image.image_file.variant(resize_to_fill: [100, 100]) if col.header_image
+- img = col.images.first.image_file.variant(resize_to_fill: [100, 100]) if !col.header_image && col.images.first
 = link_to userpanel_show_collection_details_path(collection_id: col.id), :remote => true  do
 	.widget-container
-		= image_tag url_for(img.processed), class:'widget smal'if col.images.first
+		= image_tag url_for(img.processed), class:'widget smal'if img
 		%span.widget-title= truncate(col.name, :length=>10)

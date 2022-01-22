@@ -1,6 +1,5 @@
 class ImagesController < ApplicationController
 	before_action :set_image, only: %i[show edit update destroy]
-	protect_from_forgery except: %i[new update]
 
 	# GET /images or /images.json
 	def index
@@ -55,7 +54,11 @@ class ImagesController < ApplicationController
 	def create
 		@image = Image.new(image_params)
 		@image.owner_id = current_user.id
-		@image.title = image_params[:image_file].original_filename
+		@image.title =
+			File.basename(
+				image_params[:image_file].original_filename,
+				File.extname(image_params[:image_file].original_filename),
+			)
 		@image.description = ''
 
 		respond_to do |format|
@@ -110,13 +113,13 @@ class ImagesController < ApplicationController
 	def update
 		if current_user
 			@image.update(image_params)
-		else 
+		else
 			respond_to do |format|
 				format.js do
 					render 'layouts/toast',
 					       locals: {
-							method: 'success',
-							message: 'Successfully deleted ' + @image.title,
+							method: 'error',
+							message: 'Error while updating',
 							title: '',
 					       }
 				end

@@ -47,8 +47,9 @@
 .alert {
 	display: none;
 }
-.deleteButton {
-	height: 2em;
+.deleteButton,
+.proccessButton {
+	height: fit-content;
 	border: solid 1px red;
 	text-align: center;
 	vertical-align: middle;
@@ -60,6 +61,10 @@
 	margin-right: auto;
 	margin-top: 3em;
 	cursor: pointer;
+}
+.proccessButton {
+	border-color: green;
+	color: green;
 }
 #upload {
 	width: 80%;
@@ -112,6 +117,8 @@
 	float: right;
 	margin-top: 1em;
 	margin-right: 25%;
+	user-select: none;
+	cursor: pointer;
 }
 .createText {
 	display: flex;
@@ -142,7 +149,8 @@
 	content: '\002b';
 }
 
-.collectionList {
+.collectionList,
+.headerImages {
 	display: flex;
 	background: #0000009a;
 	width: 80%;
@@ -150,8 +158,9 @@
 	margin-right: auto;
 	flex-direction: column;
 	border: #000000 solid 1px;
-	max-height: 150px;
+	height: 150px;
 	overflow-y: auto;
+	resize: vertical;
 	> div {
 		margin: 1em 0px 0px 1em;
 		display: flex;
@@ -165,4 +174,10 @@
 .changeBox {
 	display: grid;
 	grid-template-columns: 50% 50%;
+}
+
+.padding-element {
+	height: 50px;
+	width: 100%;
+	grid-column: 1/-1;
 }

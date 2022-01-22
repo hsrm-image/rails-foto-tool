@@ -34,6 +34,9 @@ Rails.application.routes.draw do
 	     to: 'userpanels#add_image_to_collection'
 	post 'userpanel/part_collection_image',
 	     to: 'userpanels#remove_image_from_collection'
+	post 'userpanel/set_collection_header',
+	     to: 'userpanels#set_collection_header'
+	post 'userpanel/startProccess', to: 'userpanels#startProccess'
 
 	# For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 	root to: 'images#index'
