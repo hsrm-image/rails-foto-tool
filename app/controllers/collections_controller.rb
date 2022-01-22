@@ -1,6 +1,6 @@
 class CollectionsController < ApplicationController
 	include Authenticate
-	before_action :authenticate_user!
+	before_action :authenticate_user!, only: %i[new edit create update destroy]
 	before_action :set_collection, only: %i[show edit update destroy]
 
 	# GET /collections or /collections.json
@@ -21,7 +21,6 @@ class CollectionsController < ApplicationController
 
 	# POST /collections or /collections.json
 	def create
-		puts(collection_params)
 		@collection = Collection.new(collection_params)
 		@collection.owner_id = current_user.id
 		respond_to do |format|

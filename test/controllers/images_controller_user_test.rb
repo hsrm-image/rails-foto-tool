@@ -59,18 +59,21 @@ class ImagesControllerUserTest < ActionDispatch::IntegrationTest
 		patch image_url(@image),
 		      params: {
 				image: {
-					description: @image.description,
-					title: @image.title,
+					description: @image.description + "abc",
+					title: @image.title + "def",
 				},
-		      }
-		assert_redirected_to userpanels_path
+			  }
+		assert_response :success
+		assert_equal Image.find(@image.id).description, @image.description + "abc"
+		assert_equal Image.find(@image.id).title, @image.title + "def"
+
 	end
 
 	test 'should destroy own image' do
 		assert_difference('ActiveStorage::Attachment.count', -1) do
-			assert_difference('Image.count', -1) { delete image_url(@image) }
+			assert_difference('Image.count', -1) { delete image_url(@image), xhr: true, as: :js }
 		end
 
-		assert_redirected_to images_url
+		assert_response :success
 	end
 end
