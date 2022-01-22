@@ -1,4 +1,6 @@
 class CollectionsController < ApplicationController
+	include Authenticate
+	before_action :authenticate_user!
 	before_action :set_collection, only: %i[show edit update destroy]
 
 	# GET /collections or /collections.json
@@ -19,73 +21,31 @@ class CollectionsController < ApplicationController
 
 	# POST /collections or /collections.json
 	def create
-		if current_user
-			puts(collection_params)
-			@collection = Collection.new(collection_params)
-			@collection.owner_id = current_user.id
-			respond_to do |format|
-				if @collection.save
-					format.js do
-						render 'layouts/toast',
-						       locals: {
-								method: 'success',
-								message: 'Collection created',
-								title: '',
-								position: 'toast-bottom-center',
-						       }
-					end
-				else
-					format.js do
-						render 'layouts/toast',
-						       locals: {
-								method: 'error',
-								message: 'Collection could not be created',
-								title: '',
-								position: 'toast-bottom-center',
-						       }
-					end
+		puts(collection_params)
+		@collection = Collection.new(collection_params)
+		@collection.owner_id = current_user.id
+		respond_to do |format|
+			if @collection.save
+				format.js do
+					render 'layouts/toast',
+							locals: {
+							method: 'success',
+							message: 'Collection created',
+							title: '',
+							}
 				end
 			end
-		else
-
-
 		end
 	end
 
 	# PATCH/PUT /collections/1 or /collections/1.json
 	def update
-		if current_user
-			@collection.update(collection_params)
-		else
-			respond_to do |format|
-				format.js do
-					render 'layouts/toast',
-					       locals: {
-							method: 'error',
-							message: 'Not Authenticated',
-							title: '',
-					       }
-				end
-			end
-		end
+		@collection.update(collection_params)
 	end
 
 	# DELETE /collections/1 or /collections/1.json
 	def destroy
-		if current_user
-			@collection.destroy
-		else
-			respond_to do |format|
-				format.js do
-					render 'layouts/toast',
-					       locals: {
-							method: 'error',
-							message: 'Not Authenticated',
-							title: '',
-					       }
-				end
-			end
-		end
+		@collection.destroy
 	end
 
 

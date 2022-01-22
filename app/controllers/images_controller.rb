@@ -1,7 +1,7 @@
 class ImagesController < ApplicationController
 	include Authenticate
 	before_action :set_image, only: %i[show edit update destroy analyse]
-	before_action :authenticate_user_custom!,
+	before_action :authenticate_user!,
 	              only: %i[edit update destroy analyse new create]
 
 	# GET /images or /images.json
