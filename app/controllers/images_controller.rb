@@ -1,5 +1,8 @@
 class ImagesController < ApplicationController
-	before_action :set_image, only: %i[show edit update destroy]
+	include Authenticate
+	before_action :set_image, only: %i[show edit update destroy analyse]
+	before_action :authenticate_user_custom!,
+	              only: %i[edit update destroy analyse new create]
 
 	# GET /images or /images.json
 	def index
@@ -22,7 +25,7 @@ class ImagesController < ApplicationController
 		else
 			respond_to do |format|
 				format.html do
-					redirect_to images_url, notice: 'This image is not visible'
+					redirect_to images_url, notice: t("controllers.invisible", resource: t("images.resource_name"))
 				end
 			end
 		end
@@ -45,6 +48,7 @@ class ImagesController < ApplicationController
 				end
 			end
 		end
+
 	end
 
 	# GET /images/1/edit
@@ -53,6 +57,7 @@ class ImagesController < ApplicationController
 	# POST /images or /images.json
 	def create
 		@image = Image.new(image_params)
+
 		@image.owner_id = current_user.id
 		@image.title =
 			File.basename(
@@ -60,6 +65,7 @@ class ImagesController < ApplicationController
 				File.extname(image_params[:image_file].original_filename),
 			)
 		@image.description = ''
+
 
 		respond_to do |format|
 			if @image.save
@@ -77,6 +83,7 @@ class ImagesController < ApplicationController
 			end
 		end
 	end
+
 
 	def analyse
 		respond_to do |format|

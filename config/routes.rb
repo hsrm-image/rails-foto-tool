@@ -1,27 +1,29 @@
 Rails.application.routes.draw do
-	devise_for :users,
-	           skip: [:registrations],
-	           controllers: {
-			invitations: 'users/invitations',
-	           }
-	as :user do
-		get 'users/edit' => 'users/registrations#edit',
-		    :as => 'edit_user_registration'
-		put 'users' => 'users/registrations#update', :as => 'user_registration'
-		delete 'users' => 'users/registrations#destroy',
-		       :as => 'delete_user_registration'
-	end
+	scope '(:locale)' do
+		devise_for :users,
+		           skip: [:registrations],
+		           controllers: {
+				invitations: 'users/invitations',
+		           }
+		as :user do
+			get 'users/edit' => 'users/registrations#edit',
+			    :as => 'edit_user_registration'
+			put 'users' => 'users/registrations#update',
+			    :as => 'user_registration'
+			delete 'users' => 'users/registrations#destroy',
+			       :as => 'delete_user_registration'
+		end
 
-	resources :ratings, only: %i[create destroy]
-	resources :collections
-	resources :images do
-		patch :analyse, on: :member
-		resources :comments
-	end
-	resources :tags
-	resources :users, only: %i[index show destroy] do
-		patch :admin, on: :member
-	end
+		resources :ratings, only: %i[create destroy]
+		resources :collections
+		resources :images do
+			patch :analyse, on: :member
+			resources :comments
+		end
+		resources :tags
+		resources :users, only: %i[index show destroy] do
+			patch :admin, on: :member
+		end
 
 	get :userpanel, to: 'userpanels#index'
 	get 'userpanel/show_images', to: 'userpanels#show_images'
@@ -38,6 +40,8 @@ Rails.application.routes.draw do
 	     to: 'userpanels#set_collection_header'
 	post 'userpanel/startProccess', to: 'userpanels#startProccess'
 
-	# For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-	root to: 'images#index'
+		# For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+		root to: 'images#index'
+	end
+
 end

@@ -8,7 +8,7 @@ class UserpanelsController < ApplicationController
 				format.html do
 					redirect_back(
 						fallback_location: root_path,
-						notice: 'You are not logged in',
+						notice: t("controllers.permission_denied"),
 					)
 				end
 			end

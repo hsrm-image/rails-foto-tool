@@ -1,25 +1,27 @@
 !!!
 %html
 	%head
+
 		%meta{content: 'text/html; charset=UTF-8', 'http-equiv': 'Content-Type'}/
+
 		%title RailsFotoTool
 		%meta{content: 'width=device-width,initial-scale=1', name: 'viewport'}/
 		= csrf_meta_tags
 		= csp_meta_tag
 		= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
 		= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-	%body{'data-turbolinks': (request.path == '/images' ? "false" : "true")}
+	- @body_attributes ||= {}
+	%body{@body_attributes}
 		#navbar
 			%ul
-				%li{id: is_active?("images")}= link_to 'Images', images_path
+				%li{id: is_active?("images")}
+					= link_to t('application.images'), images_path
 				%li{id: is_active?("collections")}
-					= link_to 'Collections', collections_path
-				- if !current_user.nil?
-					%li{id: is_active?("userpanels")}
-						= link_to 'Userpanel', userpanel_path
+					= link_to t('application.collections'), collections_path
 				- if admin?
 					%li{id: is_active?("users", "invitations")}
-						= link_to 'Users', users_path
+						= link_to t('application.users'), users_path
+
 				- if current_user.nil?
 					%li{id: is_active?("session")}
 						= link_to new_user_session_path do
@@ -31,8 +33,20 @@
 								= current_user.name
 								%i.bi.bi-person
 							.dropdown-content
-								= link_to "Account Settings", edit_user_registration_path
-								= link_to "Sign out", destroy_user_session_path
+
+								= link_to t('application.account'), edit_user_registration_path
+								= link_to t('application.sign_out'), destroy_user_session_path
+				%li
+					.dropdown
+						%button.dropbtn
+							%i.bi.bi-translate
+							= t("flag")
+						.dropdown-content
+							- I18n.available_locales.each do |lang|
+								= link_to url_for( :locale => lang ) do
+									= t("flag", locale: lang)
+									= t("language_name", locale: lang)
+
 		%p.notice= notice
 		%p.alert= alert
 		#content

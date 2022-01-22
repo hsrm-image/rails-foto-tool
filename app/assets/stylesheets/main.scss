@@ -1,3 +1,14 @@
+
+// I moved alert and notice to toast, so they are not displayed in the html anymore
+#notice, .notice {
+	color: green; 
+	display: none;
+}
+
+.alert {
+	color: red; 
+	display: none;
+}
 // Shamelessly stolen from https://www.w3schools.com/css/tryit.asp?filename=trycss_navbar_sticky and https://www.w3schools.com/howto/howto_css_dropdown_navbar.asp
 #navbar {
 	position: -webkit-sticky; /* Safari */
@@ -34,7 +45,9 @@
 		background-color: #4caf50;
 	}
 
-	li:last-child {
+
+	li:last-child,
+	li:nth-last-child(2) {
 		float: right;
 	}
 
@@ -77,7 +90,9 @@
 	margin: 15px;
 }
 
-.field input {
+
+.field input, .field_with_errors {
+
 	max-width: 600px;
 	box-sizing: border-box;
 	border: 2px solid #ccc;
@@ -107,7 +122,13 @@ textarea {
 }
 
 .field input[type='checkbox'] {
-	//TODO
+	width: auto;
+}
+
+.field input[type='checkbox'] + label{
+	width: fit-content;
+	display: inline;
+
 }
 
 h1,

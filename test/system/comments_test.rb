@@ -3,43 +3,119 @@ require "application_system_test_case"
 class CommentsTest < ApplicationSystemTestCase
   setup do
     @comment = comments(:one)
+    @image = images(:one)
+    @user = users(:one)
+    @admin = users(:adminOne)
+    perform_enqueued_jobs
   end
 
-  test "visiting the index" do
-    visit comments_url
-    assert_selector "h1", text: "Comments"
-  end
+  test "writing a comment as visitor" do
+    visit images_url
+    page.all('.grid-element').last.click
 
-  test "creating a Comment" do
-    visit comments_url
-    click_on "New Comment"
+    assert_difference "Comment.count", 1 do
+      fill_in "comment_username", with: @comment.username 
+      fill_in "comment_text", with: @comment.text
+      click_on I18n.t("comments.form.post")
 
-    fill_in "Text", with: @comment.text
-    fill_in "Username", with: @comment.username
-    click_on "Create Comment"
-
-    assert_text "Comment was successfully created"
-    click_on "Back"
-  end
-
-  test "updating a Comment" do
-    visit comments_url
-    click_on "Edit", match: :first
-
-    fill_in "Text", with: @comment.text
-    fill_in "Username", with: @comment.username
-    click_on "Update Comment"
-
-    assert_text "Comment was successfully updated"
-    click_on "Back"
-  end
-
-  test "destroying a Comment" do
-    visit comments_url
-    page.accept_confirm do
-      click_on "Destroy", match: :first
+      assert_text I18n.t("comments.create.created"), wait: 5
     end
+    within first(".comment") do
+      assert_text @comment.username 
+      assert_text @comment.text 
+    end
+  end
 
-    assert_text "Comment was successfully destroyed"
+  test "writing a comment as user" do
+    visit images_url
+    sign_in(@user)
+    page.all('.grid-element').last.click
+
+    assert_difference "Comment.count", 1 do
+      fill_in "comment_text", with: @comment.text
+      click_on I18n.t("comments.form.post")
+      
+      assert_text I18n.t("comments.create.created"), wait: 5
+      assert_button I18n.t("comments.comment.delete"), count: 1
+    end
+    within first(".comment") do
+      assert_text @user.name 
+      assert_text @comment.text 
+    end
+  end
+
+  test "deleting own comment as visitor" do
+    visit images_url
+    page.all('.grid-element').last.click
+
+    assert_no_button I18n.t("comments.comment.delete")
+
+    fill_in "comment_username", with: @comment.username 
+    fill_in "comment_text", with: @comment.text
+    click_on I18n.t("comments.form.post")
+    assert_text I18n.t("comments.create.created"), wait: 5
+
+    assert_difference "Comment.count", -1 do
+      accept_confirm do
+        assert_button I18n.t("comments.comment.delete"), count: 1
+        click_on I18n.t("comments.comment.delete")
+      end
+      assert_text I18n.t('controllers.destroyed', resource: I18n.t("comments.resource_name"))
+    end
+    
+  end
+
+
+  test "deleting own comment as user" do
+    @comment = Comment.new
+    @comment.session_id = @user.id
+    @comment.user_id = @user.id
+    @comment.image_id = @image.id
+    @comment.text = "ABCDEEEEE"
+    @comment.username = @user.name
+    @comment.save!
+
+    visit images_url
+    sign_in(@user)
+    page.all('.grid-element').last.click
+
+    assert_selector ".comment", minimum: 2 
+    assert_button I18n.t("comments.comment.delete"), count: 1
+
+    assert_difference "Comment.count", -1 do
+      accept_confirm do
+        click_on I18n.t("comments.comment.delete")
+      end
+      assert_text I18n.t('controllers.destroyed', resource: I18n.t("comments.resource_name"))
+    end
+  end
+
+
+  test "deleting others user comment as admin" do
+    visit images_url
+    sign_in(@admin)
+    page.all('.grid-element').last.click
+
+    assert_button I18n.t("comments.comment.delete"), count: page.all(".comment").count
+
+    assert_difference "Comment.count", -1 do
+      within first(".comment") do
+        accept_confirm do
+          click_on I18n.t("comments.comment.delete")
+        end
+      end
+
+      assert_text I18n.t('controllers.destroyed', resource: I18n.t("comments.resource_name"))
+    end
+  end
+
+  test "no comment without cookies" do
+    visit images_url
+    Capybara.current_session.driver.browser.manage.delete_all_cookies
+    page.all('.grid-element').last.click
+
+    assert_text I18n.t("comments.form.no_session")
+    assert_no_selector "#comment_text"
+    assert_no_selector "#comment_username"
   end
 end

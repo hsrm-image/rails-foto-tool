@@ -48,6 +48,7 @@ class CollectionsController < ApplicationController
 			end
 		else
 
+
 		end
 	end
 
@@ -86,6 +87,7 @@ class CollectionsController < ApplicationController
 			end
 		end
 	end
+
 
 	private
 

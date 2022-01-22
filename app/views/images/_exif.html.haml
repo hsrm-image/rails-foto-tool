@@ -1,37 +1,24 @@
--unless @image.exif_camera_maker.nil?
-  %p
-    Maker:
-    = @image.exif_camera_maker
--unless @image.exif_camera_model.nil?
-  %p
-    Model:
-    = @image.exif_camera_model
--unless @image.exif_lens_model.nil?
-  %p
-    Lens:
-    = @image.exif_lens_model
--unless @image.exif_focal_length.nil?
-  %p
-    Focal Length:
-    = @image.exif_focal_length
-    mm
--unless @image.exif_aperture.nil?
-  %p
-    Aperture:&nbsp
-    %span>f/
-    = @image.exif_aperture
--unless @image.exif_exposure.nil?
-  %p
-    Exposure:
-    = @image.exif_exposure
-    s
--unless @image.exif_iso.nil?
-  %p
-    ISO: ISO-
-    %span>= @image.exif_iso
--unless @image.exif_gps_latitude.nil? or @image.exif_gps_longitude.nil?
-  %p
-    LAT:
-    = @image.exif_gps_latitude
-    LON:
-    = @image.exif_gps_longitude
+- unless @image.exif_camera_maker.nil?
+	%p
+		= t(".maker", maker: @image.exif_camera_maker)
+- unless @image.exif_camera_model.nil?
+	%p
+		= t(".model", model: @image.exif_camera_model)
+- unless @image.exif_lens_model.nil?
+	%p
+		= t(".lens", lens: @image.exif_lens_model)
+- unless @image.exif_focal_length.nil?
+	%p
+		= t(".focal_length", length: @image.exif_focal_length)
+- unless @image.exif_aperture.nil?
+	%p
+		= t(".aperture", f_stop: @image.exif_aperture)
+- unless @image.exif_exposure.nil?
+	%p
+		= t(".exposure", exposure: @image.exif_exposure)
+- unless @image.exif_iso.nil?
+	%p
+		= t(".iso", iso: @image.exif_iso)
+- unless @image.exif_gps_latitude.nil? or @image.exif_gps_longitude.nil?
+	%p
+		= t(".coordinates", lat: @image.exif_gps_latitude, lon: @image.exif_gps_longitude)

@@ -22,8 +22,8 @@ module Authenticate
   private
   def deny
     respond_to do |format|
-      format.html { redirect_back(fallback_location: root_path, notice: "You have no permissions to do this") }
-      format.js {render 'layouts/toast', locals: { :method => "error", :message => "You have no permissions to do this", :title => ""}}
+      format.html { redirect_back(fallback_location: root_path, notice: t("controllers.permission_denied")) }
+      format.js {render 'layouts/toast', locals: { :method => "error", :message => t("controllers.permission_denied"), :title => ""}}
     end
     return false
   end

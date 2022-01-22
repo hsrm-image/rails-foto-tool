@@ -1,40 +1,16 @@
 = javascript_pack_tag 'images', 'data-turbolinks-track': 'reload'
-
-%h1 Listing images
-
-= link_to 'New Image', new_image_path
-
+- @body_attributes = {'data-turbolinks': "false"}
+%h1= t('.all')
+= link_to t('.new'), new_image_path
 %ol.grid
-  = render @images
+	= render @images
 .page-load-status
-  .infinite-scroll-request
-    %h2 Loading...
-  .infinite-scroll-last{style: "display: none;"}
-    %hr
-    %h2 End
-  .infinite-scroll-error{style: "display: none;"}
-    %h2 Error loading next images
-
-
-%table
-  %thead
-    %tr
-      %th Title
-      %th Description
-      %th
-      %th
-      %th
-
-  %tbody
-    - @images.each do |image|
-      %tr
-        %td= image.title
-        %td= image.description
-        %td= link_to 'Show', image
-        %td= link_to 'Edit', edit_image_path(image)
-        %td= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
-
+	.infinite-scroll-request
+		%h2= t('.loading')
+	.infinite-scroll-last{style: 'display: none;'}
+		%hr/
+		%h2= t('.done')
+	.infinite-scroll-error{style: 'display: none;'}
+		%h2= t('.error')
+%br/
 = paginate @images

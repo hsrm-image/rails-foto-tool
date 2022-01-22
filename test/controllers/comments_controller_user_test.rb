@@ -1,13 +1,11 @@
 require "test_helper"
 
-class CommentsControllerTestUser < ActionDispatch::IntegrationTest
+class CommentsControllerUserTest < ActionDispatch::IntegrationTest
   
   setup do
     @comment = comments(:userOne)
-    get new_user_session_path
     @owner = users(:one)
     sign_in @owner
-    post user_session_url
   end
 
   test "should create comment" do
@@ -58,10 +56,8 @@ class CommentsControllerTestUser < ActionDispatch::IntegrationTest
   end
 
   test "should destroy comment from other user as admin" do
-    get new_user_session_path
     @admin = users(:adminOne)
     sign_in @admin
-    post user_session_url
 
     assert_difference('Comment.count', -1) do
       delete image_comment_url(@comment.image, @comment)

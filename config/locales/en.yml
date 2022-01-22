@@ -30,10 +30,349 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
-  activerecord:
+    language_name: 'English'
+    flag: '🇺🇸'
+    application:
+        images: Images
+        collections: Collections
+        users: Users
+        account: Edit Account
+        sign_out: Sign Out
+        confirmation: 'Are you sure?'
+        back: Back
+        'yes': 'yes'
+        'no': 'no'
+
+    controllers:
+        destroyed: "%{resource} was successfully deleted"
+        created: "%{resource} was successfully created"
+        invisible: "%{resource} is not publicly visible"
+        no_attached: "No %{resource} attached!"
+        updated: "%{resource} was successfully updated"
+        permission_denied: "You have no permission to do this!"
+
+    collections:
+        resource_name: "Collection"
+    tags:
+        resource_name: "Tag"
+    images:
+        resource_name: "Image"
+        index:
+            new: New Image
+            all: All Images
+            loading: Loading...
+            done: End of Page
+            error: Error loading next images
+        show:
+            comments_count:
+                one: '%{count} Comment'
+                other: '%{count} Comments'
+            processing: This image is not yet publicly visible because it is still processing.
+        exif:
+            maker: 'Camera maker: %{maker}'
+            model: 'Camera model: %{model}'
+            lens: 'Lens: %{lens}'
+            focal_length: 'Focal length: %{length}mm'
+            aperture: 'Aperture: f/%{f_stop}'
+            exposure: 'Exposure: %{exposure} s'
+            iso: 'ISO: ISO-%{iso}'
+            coordinates: 'LAT: %{lat}, LON: %{lon}'
+        description:
+            more: Read More
+            less: Read Less
+            analyse: Re-analyse exif
+            delete: Delete
+            edit: Edit
+        analyse:
+            analysing: Now re-analysing exif-data in Background. Please refresh this page in a few Seconds.
+    comments:
+        resource_name: "Comment"
+        form:
+            post: Comment
+            name: Your Name...
+            comment: Your Comment...
+            no_session: Please activate cookies to comment!
+        comment:
+            time_ago: '%{time} ago'
+            delete: Delete
+            registered: "This is a registered user"
+        create:
+            created: Comment was successfully created!
+    ratings:
+        resource_name: "Rating"
+        score:
+            stars_from: Stars from
+            ratings:
+                one: rating
+                other: ratings
+        interface:
+            no_session: Please activate cookies to rate!
+    users:
+        resource_name: "User"
+        model:
+            delete_last: The last Admin cannot be deleted
+            edit_own: You cannot change your own permissions
+        show:
+            name: 'Username:'
+            admin: 'Admin:'
+            change: Change
+            mail: 'E-Mail:'
+            member_since: 'Registered since:'
+            invited_at: 'Invited at:'
+            invited: 'Invited by:'
+            not_yet_accepted: 'This users invitation is still pending.'
+            delete: Delete User
+            confirm: 'Are you sure? This will also delete all %{images} Images and %{comments} comments from this User'
+            images: 'Number of Images:'
+            comments: 'Number of comments:'
+        index:
+            title: Listing Users
+            show: Info
+            name: Name
+            admin: Admin
+            images: Images
+            comments: Comments
+            member_since: Registered since
+            info: 'Note:'
+            table_info: 'If a users registration is pending, he will be marked orange.'
+            table_info_2: "In this case 'Registered since' is the date of invitation"
+            invite: Invite new User
+    #
+    #
+    #
+    #
+    # Default stuff:
+
+    views:
+        pagination:
+            first: '&laquo; First'
+            last: 'Last &raquo;'
+            previous: '&lsaquo; Prev'
+            next: 'Next &rsaquo;'
+            truncate: '&hellip;'
+
+    activerecord:
+        errors:
+            messages:
+                record_invalid: 'Validation failed: %{errors}'
+                restrict_dependent_destroy:
+                    has_one: Cannot delete record because a dependent %{record} exists
+                    has_many: Cannot delete record because dependent %{record} exist
+    date:
+        abbr_day_names:
+            - Sun
+            - Mon
+            - Tue
+            - Wed
+            - Thu
+            - Fri
+            - Sat
+        abbr_month_names:
+            -
+            - Jan
+            - Feb
+            - Mar
+            - Apr
+            - May
+            - Jun
+            - Jul
+            - Aug
+            - Sep
+            - Oct
+            - Nov
+            - Dec
+        day_names:
+            - Sunday
+            - Monday
+            - Tuesday
+            - Wednesday
+            - Thursday
+            - Friday
+            - Saturday
+        formats:
+            default: '%Y-%m-%d'
+            long: '%B %d, %Y'
+            short: '%b %d'
+        month_names:
+            -
+            - January
+            - February
+            - March
+            - April
+            - May
+            - June
+            - July
+            - August
+            - September
+            - October
+            - November
+            - December
+        order:
+            - :year
+            - :month
+            - :day
+    datetime:
+        distance_in_words:
+            about_x_hours:
+                one: about 1 hour
+                other: about %{count} hours
+            about_x_months:
+                one: about 1 month
+                other: about %{count} months
+            about_x_years:
+                one: about 1 year
+                other: about %{count} years
+            almost_x_years:
+                one: almost 1 year
+                other: almost %{count} years
+            half_a_minute: half a minute
+            less_than_x_seconds:
+                one: less than 1 second
+                other: less than %{count} seconds
+            less_than_x_minutes:
+                one: less than a minute
+                other: less than %{count} minutes
+            over_x_years:
+                one: over 1 year
+                other: over %{count} years
+            x_seconds:
+                one: 1 second
+                other: '%{count} seconds'
+            x_minutes:
+                one: 1 minute
+                other: '%{count} minutes'
+            x_days:
+                one: 1 day
+                other: '%{count} days'
+            x_months:
+                one: 1 month
+                other: '%{count} months'
+            x_years:
+                one: 1 year
+                other: '%{count} years'
+        prompts:
+            second: Second
+            minute: Minute
+            hour: Hour
+            day: Day
+            month: Month
+            year: Year
     errors:
-      messages: # Active storage validator: https://github.com/aki77/activestorage-validator/blob/master/config/locales/en.yml
-        content_type: "is not a valid file format"
-        min_size_error: "File size should be greater than %{min_size}"
-        max_size_error: "File size should be less than %{max_size}"
+        format: '%{attribute} %{message}'
+        messages:
+            accepted: must be accepted
+            blank: can't be blank
+            confirmation: doesn't match %{attribute}
+            empty: can't be empty
+            equal_to: must be equal to %{count}
+            even: must be even
+            exclusion: is reserved
+            greater_than: must be greater than %{count}
+            greater_than_or_equal_to: must be greater than or equal to %{count}
+            inclusion: is not included in the list
+            invalid: is invalid
+            less_than: must be less than %{count}
+            less_than_or_equal_to: must be less than or equal to %{count}
+            model_invalid: 'Validation failed: %{errors}'
+            not_a_number: is not a number
+            not_an_integer: must be an integer
+            odd: must be odd
+            other_than: must be other than %{count}
+            present: must be blank
+            required: must exist
+            taken: has already been taken
+            too_long:
+                one: is too long (maximum is 1 character)
+                other: is too long (maximum is %{count} characters)
+            too_short:
+                one: is too short (minimum is 1 character)
+                other: is too short (minimum is %{count} characters)
+            wrong_length:
+                one: is the wrong length (should be 1 character)
+                other: is the wrong length (should be %{count} characters)
+        template:
+            body: 'There were problems with the following fields:'
+            header:
+                one: 1 error prohibited this %{model} from being saved
+                other: '%{count} errors prohibited this %{model} from being saved'
+    helpers:
+        select:
+            prompt: Please select
+        submit:
+            create: Create %{model}
+            submit: Save %{model}
+            update: Update %{model}
+            page_entries_info:
+        entry:
+            zero: 'entries'
+            one: 'entry'
+            other: 'entries'
+        one_page:
+            display_entries:
+            zero: 'No %{entry_name} found'
+            one: 'Displaying <b>1</b> %{entry_name}'
+            other: 'Displaying <b>all %{count}</b> %{entry_name}'
+        more_pages:
+            display_entries: 'Displaying %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> of <b>%{total}</b> in total'
+    number:
+        currency:
+            format:
+                delimiter: ','
+                format: '%u%n'
+                precision: 2
+                separator: '.'
+                significant: false
+                strip_insignificant_zeros: false
+                unit: '$'
+        format:
+            delimiter: ','
+            precision: 3
+            separator: '.'
+            significant: false
+            strip_insignificant_zeros: false
+        human:
+            decimal_units:
+                format: '%n %u'
+                units:
+                    billion: Billion
+                    million: Million
+                    quadrillion: Quadrillion
+                    thousand: Thousand
+                    trillion: Trillion
+                    unit: ''
+            format:
+                delimiter: ''
+                precision: 3
+                significant: true
+                strip_insignificant_zeros: true
+            storage_units:
+                format: '%n %u'
+                units:
+                    byte:
+                        one: Byte
+                        other: Bytes
+                    eb: EB
+                    gb: GB
+                    kb: KB
+                    mb: MB
+                    pb: PB
+                    tb: TB
+        percentage:
+            format:
+                delimiter: ''
+                format: '%n%'
+        precision:
+            format:
+                delimiter: ''
+    support:
+        array:
+            last_word_connector: ', and '
+            two_words_connector: ' and '
+            words_connector: ', '
+    time:
+        am: am
+        formats:
+            default: '%a, %d %b %Y %H:%M:%S %z'
+            long: '%B %d, %Y %H:%M'
+            short: '%d %b %H:%M'
+        pm: pm

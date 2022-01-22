@@ -7,13 +7,20 @@
     border-radius: 10px;
     margin: 10px 0;
     padding: 5px;
+
+    .registered-user{
+        .bi {
+            color: rgb(49, 97, 201);
+        }
+    }
 }
 
 #comments{
     display: block;
     margin-left: auto;
     margin-right: auto;
-    max-width: 600px;
+    
+    max-width: 90vw;
     
     #comment_text {
         width: 100%;
@@ -36,14 +43,16 @@
     }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (min-width: 600px) {
     #comments{
         max-width: 60vw;
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 900px) {
     #comments{
-        max-width: 90vw;
+        max-width: 600px;
+        
     }
 }
+
