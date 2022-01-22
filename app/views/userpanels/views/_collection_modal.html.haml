@@ -3,8 +3,8 @@
 		%form
 			.cross
 			.createText
-				%label Title
-				%input{name: 'title', placeholder: 'Title', type: 'text'}/
+				%label= t('.title')
+				%input{name: 'title', placeholder: t('.title'), type: 'text'}/
 			.submitButton
-				%span create
+				%span= t('.create')
 = javascript_pack_tag 'userpanel/create_collection', 'data-turbolinks-track': 'reload'

@@ -13,19 +13,19 @@ de:
         'no': Nein
 
     controllers:
-        destroyed: "%{resource} wurde erfolgreich gelöscht"
-        created: "%{resource} wurde erfolgreich erstellt"
-        invisible: "%{resource} ist nicht öffentlich sichtbar"
-        no_attached: "Kein %{resource}!"
-        updated: "%{resource} wurde erfolgreich aktualisiert"
-        permission_denied: "Sie haben keine Berechtigung dies zu tun!"
+        destroyed: '%{resource} wurde erfolgreich gelöscht'
+        created: '%{resource} wurde erfolgreich erstellt'
+        invisible: '%{resource} ist nicht öffentlich sichtbar'
+        no_attached: 'Kein %{resource}!'
+        updated: '%{resource} wurde erfolgreich aktualisiert'
+        permission_denied: 'Sie haben keine Berechtigung dies zu tun!'
 
     collections:
-        resource_name: "Sammlung"
+        resource_name: 'Sammlung'
     tags:
-        resource_name: "Tag"
+        resource_name: 'Tag'
     images:
-        resource_name: "Bild"
+        resource_name: 'Bild'
         index:
             new: Neues Bild
             all: Alle Bilder
@@ -55,7 +55,7 @@ de:
         analyse:
             analysing: Das Bild wird jetzt im hintergrund neu analysiert. Bitte aktualisiere die Seite in ein paar Sekunden.
     comments:
-        resource_name: "Kommentar"
+        resource_name: 'Kommentar'
         form:
             post: Kommentieren
             name: Name...
@@ -64,11 +64,11 @@ de:
         comment:
             time_ago: 'vor %{time}'
             delete: Löschen
-            registered: "Dies ist ein registrierter Benutzer"
+            registered: 'Dies ist ein registrierter Benutzer'
         create:
             created: Kommentar wurde erfolgreich erstellt!
     ratings:
-        resource_name: "Bewertung"
+        resource_name: 'Bewertung'
         score:
             stars_from: Sterne aus
             ratings:
@@ -77,7 +77,7 @@ de:
         interface:
             no_session: Cookies müssen zum bewerten aktiv sein!
     users:
-        resource_name: "Nutzer"
+        resource_name: 'Nutzer'
         model:
             delete_last: Der letzte Administrator kann nicht gelöscht werden
             edit_own: Die eigenen Berechtigungen können nicht editiert werden
@@ -106,7 +106,46 @@ de:
             table_info: 'Bei orange markierten Benutzern steht die Einladung noch aus.'
             table_info_2: "Hier markiert 'Mitglied seit' das Datum der Einladung"
             invite: Neuen Nutzer einladen
-
+    userpanels:
+        resource_name: Userpanel
+        index:
+            images: Bilder
+            collections: Sammlungen
+            categories: Kategorien
+        views:
+            show_images:
+                images: Bilder
+                customMessage: Dateien zum Hochladen hier ablegen
+            show_collections:
+                collections: Sammlungen
+                createNewCollection: 'Neue Sammlung erstellen'
+            show_details:
+                details: Eigenschaften
+                information: Informationen
+                exif_camera_maker: Kamerahersteller
+                exif_camera_model: Kameramodell
+                exif_lens_model: Objektiv-Modell
+                exif_focal_length: Brennweite
+                exif_aperture: Blende
+                exif_exposure: Belichtungszeit
+                exif_iso: ISO
+                exif_gps_latitude: GPS-Breitengrad
+                exif_gps_longitude: GPS-Längengrad
+                title: Titel
+                description: Beschreibung
+                processing: Verarbeitung starten
+                deletion: '%{img} löschen'
+            show_collection_details:
+                details: Eigenschaften
+                name: Sammlungsname
+                headerImage: Sammlungstitelbild
+                deletion: '%{col} löschen'
+            collection_modal:
+                title: Titel
+                create: Erstellen
+        categories:
+            images: Bilder
+            collections: Sammlungen
     #
     #
     #

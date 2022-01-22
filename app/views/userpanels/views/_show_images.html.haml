@@ -1,5 +1,6 @@
-%h1 Images
+%h1= t('.images')
 = form_for @image, :html => {:class => "dropzone", :id=>'upload'} do |f|
+	.dz-message= t('.customMessage')
 	.fallback
 		= f.file_field :image_file, direct_upload: true
 .img-container

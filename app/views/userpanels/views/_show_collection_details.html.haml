@@ -1,14 +1,14 @@
-%h3 Details
+%h3= t('.details')
 .changeBox
 	- @editables.each do | attr_name, attr_val|
 		.changeProp
-			%span{data: { collection_id: @collection.id }}= attr_name
+			%span{data: { collection_id: @collection.id }}= t('.'+attr_name)
 			%input{
 				type: 'text',
 				value: attr_val,
 				class: 'attr_edit_'+attr_name.to_s
 			}/
-%h4 Header Image
+%h4= t('.headerImage')
 .headerImages
 	- @collection.images.each do |img|
 		%div
@@ -20,6 +20,5 @@
 			= image_tag url_for(img.image_file.variant(resize_to_fill: [100, 100]).processed), data:{img: img.id}, class:'widget smal' if img.image_file.variant(resize_to_fill: [100, 100])
 			= image_tag url_for(img.image_file),data:{img: img.id}, class:'widget' if !img.image_file.variant(resize_to_fill: [100, 100])
 .deleteButton
-	Delete
-	%span= @collection.name
+	%span= t('.deletion', col:@collection.name)
 = javascript_pack_tag 'userpanel/show_collection_details', 'data-turbolinks-track': 'reload'

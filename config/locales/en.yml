@@ -44,19 +44,19 @@ en:
         'no': 'no'
 
     controllers:
-        destroyed: "%{resource} was successfully deleted"
-        created: "%{resource} was successfully created"
-        invisible: "%{resource} is not publicly visible"
-        no_attached: "No %{resource} attached!"
-        updated: "%{resource} was successfully updated"
-        permission_denied: "You have no permission to do this!"
+        destroyed: '%{resource} was successfully deleted'
+        created: '%{resource} was successfully created'
+        invisible: '%{resource} is not publicly visible'
+        no_attached: 'No %{resource} attached!'
+        updated: '%{resource} was successfully updated'
+        permission_denied: 'You have no permission to do this!'
 
     collections:
-        resource_name: "Collection"
+        resource_name: 'Collection'
     tags:
-        resource_name: "Tag"
+        resource_name: 'Tag'
     images:
-        resource_name: "Image"
+        resource_name: 'Image'
         index:
             new: New Image
             all: All Images
@@ -86,7 +86,7 @@ en:
         analyse:
             analysing: Now re-analysing exif-data in Background. Please refresh this page in a few Seconds.
     comments:
-        resource_name: "Comment"
+        resource_name: 'Comment'
         form:
             post: Comment
             name: Your Name...
@@ -95,11 +95,11 @@ en:
         comment:
             time_ago: '%{time} ago'
             delete: Delete
-            registered: "This is a registered user"
+            registered: 'This is a registered user'
         create:
             created: Comment was successfully created!
     ratings:
-        resource_name: "Rating"
+        resource_name: 'Rating'
         score:
             stars_from: Stars from
             ratings:
@@ -108,7 +108,7 @@ en:
         interface:
             no_session: Please activate cookies to rate!
     users:
-        resource_name: "User"
+        resource_name: 'User'
         model:
             delete_last: The last Admin cannot be deleted
             edit_own: You cannot change your own permissions
@@ -137,6 +137,46 @@ en:
             table_info: 'If a users registration is pending, he will be marked orange.'
             table_info_2: "In this case 'Registered since' is the date of invitation"
             invite: Invite new User
+    userpanels:
+        resource_name: userpanel
+        index:
+            images: images
+            collections: collections
+            categories: categories
+        views:
+            show_images:
+                images: images
+                customMessage: 'Drop your files here to upload'
+            show_collections:
+                collections: collections
+                createNewCollection: 'create a new collection'
+            show_details:
+                details: details
+                information: information
+                exif_camera_maker: 'camera maker'
+                exif_camera_model: 'camera model'
+                exif_lens_model: 'lens model'
+                exif_focal_length: 'focal lenght'
+                exif_aperture: Aperture
+                exif_exposure: exposure
+                exif_iso: ISO
+                exif_gps_latitude: GPS-latitude
+                exif_gps_longitude: GPS-longitude
+                title: title
+                description: description
+                processing: 'start processing'
+                deletion: 'delete %{img}'
+            show_collection_details:
+                details: details
+                name: collection
+                headerImage: 'collection header image'
+                deletion: 'delete %{col}'
+            collection_modal:
+                title: title
+                create: create
+        categories:
+            images: Images
+            collections: Collections
     #
     #
     #
