@@ -4,7 +4,7 @@
 		%b= l @image.created_at.to_date
 	#description-preview
 		#preview-text
-			= truncate(@image.description, length: 200)
+			= @image.description_short
 		= link_to t(".more"), '', id: "extend-description"
 	#description-full{style: 'display: none;'}
 		= simple_format(@image.description)
@@ -18,5 +18,3 @@
 				|
 				= link_to t(".delete"), @image, method: :delete, data: { confirm: t("application.confirmation") }
 		= link_to t(".less"), '', id: "truncate-description"
-		/ / https://developer.here.com/pricing#plan-details
-		/ / https://developers.google.com/maps?hl=de

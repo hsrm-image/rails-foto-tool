@@ -1,3 +1,32 @@
 // Place all the styles related to the collections controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.collectionName {
+	height: 100%;
+	overflow: hidden;
+	transition: all 0.2s ease-out;
+	-webkit-transition: all 0.2s ease-out;
+}
+.collectionBlocker {
+	text-decoration: none !important;
+	opacity: 0;
+	color: white;
+	text-transform: uppercase;
+	background-image: initial;
+	background-color: #2e2e2e;
+	display: none;
+	height: 100%;
+	transition: all 0.2s ease-out;
+	-webkit-transition: all 0.2s ease-out;
+}
+
+.collectionName:hover {
+	.collectionBlocker {
+		background-color: #2e2e2e;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 1;
+		height: 100%;
+	}
+}

@@ -21,4 +21,8 @@
 		= t(".iso", iso: @image.exif_iso)
 - unless @image.exif_gps_latitude.nil? or @image.exif_gps_longitude.nil?
 	%p
-		= t(".coordinates", lat: @image.exif_gps_latitude, lon: @image.exif_gps_longitude)
+		- if(Rails.application.credentials.dig(:maps_api, :key).nil?)
+			= t(".coordinates", lat: @image.exif_gps_latitude, lon: @image.exif_gps_longitude)
+		- else
+			%iframe{width: "100%", height: "450", style: "border:0", loading: "lazy", allowfullscreen: true, src: "https://www.google.com/maps/embed/v1/place?key=#{Rails.application.credentials.dig(:maps_api, :key)}&q=#{@image.exif_gps_latitude},#{@image.exif_gps_longitude}&language=#{I18n.locale}&maptype=satellite"}
+

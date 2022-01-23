@@ -1,21 +1,29 @@
 - img = @image
-%h3 details
-%h4 Information
+%h3= t('.details')
+%h4= t('.information')
 .infoBox
 	- @informations.each do | attr_name, attr_val|
-		%span= attr_name
+		%span= t('.'+attr_name)
 		%span= (attr_val ? attr_val : '-')
 %h4 Properties
 .changeBox
 	- @editables.each do | attr_name, attr_val|
-		%span#img_id{data: { img_id: @image.id }}= attr_name
-		%input{type: 'text', value: attr_val, class: 'attr_edit_'+attr_name.to_s
-		}/
+		%span#img_id{data: { img_id: img.id }}= t('.' + attr_name)
+		- if attr_name != 'description'
+			.editContainer
+				%input{
+					type: 'text',
+					value: attr_val,
+					class: 'attr_edit_'+attr_name.to_s
+				}/
+		- if attr_name == 'description'
+			.editContainer
+				= text_area_tag('',attr_val,{class: 'attr_edit_'+attr_name.to_s})
 - if !img.processed
 	.proccessButton{data: { img: img.id }}
-		Start Processing
+		= t('.processing')
 .changeProp
-	%span Collections
+	%span= t('collections.resource_name')
 	.collectionList
 		- @collections.each do |collection|
 			%div
@@ -26,6 +34,5 @@
 				}/
 				%span= collection.name
 .deleteButton
-	Delete
-	%span= @image.title
+	%span= t('.deletion', img:img.title)
 = javascript_pack_tag 'userpanel/show_details', 'data-turbolinks-track': 'reload'

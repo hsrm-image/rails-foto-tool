@@ -1,7 +1,7 @@
-%h1 Collections
+%h1= t('.collections')
 .collection-container
 	#collectionButton
-		%span Create New Collection
+		%span= t('.createNewCollection')
 	:erb
 		<%- @collections.each do |col|%>
 			<%= render partial:'collections/userpanel_collection', object: col, as: 'collection'%>

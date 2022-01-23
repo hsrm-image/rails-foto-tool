@@ -1,4 +1,3 @@
-- img = image.image_file.variant(resize_to_fill: [Rails.configuration.x.image.preview_image_size, Rails.configuration.x.image.preview_image_size])
 %li{:class => "grid-element" +(image.processed ? "" : " processing")}
-    = link_to image do
-        = image_tag url_for(img)
+    = link_to @collection.nil? ? image : collection_image_path(@collection, image) do
+        = image_tag url_for(image.preview)

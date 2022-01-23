@@ -1,9 +1,8 @@
-var typingTimer //timer identifier
-var doneTypingInterval = 2000 //time in ms
-var id = $('#img_id').data().imgId
+//var id = $('#img_id').data().imgId
+// Deletebutton - Deletes the image
 $('.deleteButton').on('click', () => {
 	$.ajax({
-		url: 'images/' + id,
+		url: 'images/' + $('#img_id').data().imgId,
 		type: 'DELETE',
 		data: {
 			authenticity_token: $('meta[name="csrf-token"]').attr('content'),
@@ -12,6 +11,7 @@ $('.deleteButton').on('click', () => {
 		$.ajax({url: 'userpanel/show_images.js', type: 'GET'})
 	})
 })
+
 $('.collectionList input[type="checkbox"]').on('click', e => {
 	var clicked = $(e.target)
 	console.log(clicked)
@@ -27,9 +27,7 @@ $('.collectionList input[type="checkbox"]').on('click', e => {
 				),
 			},
 			type: 'POST',
-		}).done(() => {
-			toastr.success('Removed from Collection(s)')
-		})
+		}).done(() => {})
 	} else {
 		$.ajax({
 			url: 'userpanel/join_collection_image',
@@ -41,11 +39,10 @@ $('.collectionList input[type="checkbox"]').on('click', e => {
 				),
 			},
 			type: 'POST',
-		}).done(() => {
-			toastr.success('Added to Collection(s)')
-		})
+		}).done(() => {})
 	}
 })
+//manually start proccess if not run jet
 $('.proccessButton').on('click', e => {
 	$.ajax({
 		url: 'userpanel/startProccess',
@@ -56,16 +53,24 @@ $('.proccessButton').on('click', e => {
 		type: 'POST',
 	})
 })
-
-$('[class^=attr_edit_]').on('keyup', () => {
-	clearTimeout(typingTimer)
-	typingTimer = setTimeout(updateImage, doneTypingInterval)
+//spawn & remove done button
+$('[class^=attr_edit_]').on('keyup', e => {
+	var input = $(e.target)
+	console.log(input.next())
+	if (input.next().prop('class') != 'doneButton') {
+		$('.doneButton').remove()
+		input.after('<span class="doneButton">✓</span>')
+	}
 })
-$('[class^=attr_edit_]').on('keydown', function () {
-	clearTimeout(typingTimer)
+//start update
+$('body').on('click', '.doneButton', () => {
+	$('.doneButton').remove()
+	updateImage()
 })
-
+//update image
 function updateImage() {
+	var id = $('#img_id').data().imgId
+	console.log(id)
 	let img_info = {
 		title: $('.attr_edit_title').val(),
 		description: $('.attr_edit_description').val(),
@@ -92,7 +97,6 @@ function updateImage() {
 	}).done(() => {
 		$.ajax('userpanel/show_images.js').done(() => {
 			$.ajax('userpanel/show_details.js?img=' + id)
-			toastr.success('Updated ' + img_info.title)
 		})
 	})
 }

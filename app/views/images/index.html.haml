@@ -1,7 +1,6 @@
 = javascript_pack_tag 'images', 'data-turbolinks-track': 'reload'
 - @body_attributes = {'data-turbolinks': "false"}
 %h1= t('.all')
-= link_to t('.new'), new_image_path
 %ol.grid
 	= render @images
 .page-load-status

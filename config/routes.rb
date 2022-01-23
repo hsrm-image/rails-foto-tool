@@ -15,7 +15,9 @@ Rails.application.routes.draw do
 		end
 
 		resources :ratings, only: %i[create destroy]
-		resources :collections
+		resources :collections do
+			resources :images, only: %i[index, show]
+		end
 		resources :images do
 			patch :analyse, on: :member
 			resources :comments

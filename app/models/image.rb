@@ -19,6 +19,10 @@ class Image < ApplicationRecord
 	# Kaminari
 	paginates_per 3
 
+	def rateable_type
+		"Image"
+	end
+
 	def get_ratings
 		return Rating.where(rateable_id: id, rateable_type: 'Image')
 	end
@@ -35,18 +39,27 @@ class Image < ApplicationRecord
 		get_ratings.where(session_id: session_id).first
 	end
 
-	def next(logged_in)
-		all = get_visible(logged_in)
+	def next(logged_in, collection = nil)
+		all = get_visible(logged_in, collection)
 		all.where('id > ?', id).order('id ASC').first || all.first
 	end
 
-	def previous(logged_in)
-		all = get_visible(logged_in)
+	def previous(logged_in, collection = nil)
+		all = get_visible(logged_in, collection)
 		all.where('id < ?', id).order('id DESC').first || all.last
 	end
 
-	def get_visible(logged_in)
+	def get_visible(logged_in, collection = nil)
 		# Only get the images that the user can view
-		logged_in ? Image.all : Image.where(processed: true)
+		if collection.nil?
+			logged_in ? Image.all : Image.where(processed: true)
+		else 
+			logged_in ? Collection.find(collection.id).images.all : Collection.find(collection.id).images.where(processed: true)
+		end
 	end
+  
+  def description_short
+    description.truncate(200)
+  end
+
 end

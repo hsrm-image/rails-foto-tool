@@ -1,10 +1,10 @@
 #view
 	#control
-		%h3 categories
-		= link_to "Images", userpanel_show_images_path, :remote => true
-		= link_to "Collections", userpanel_show_collections_path, :remote => true
+		%h3= t('.categories')
+		= link_to t(".images"), userpanel_show_images_path, :remote => true
+		= link_to t(".collections"), userpanel_show_collections_path, :remote => true
 	#show
-		%h3 Default Placeholder
+		= render(partial: 'userpanels/views/show_images')
 	#details
 = javascript_pack_tag 'userpanel/userpanel_index.js', 'data-turbolinks-track': 'reload'
 %style
