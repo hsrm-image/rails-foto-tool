@@ -42,13 +42,4 @@ class RatingsCollectionTest < ApplicationSystemTestCase
 
     assert_equal Rating.last.rating, @rating.rating
   end
-
-  test "no rating without session cookie" do
-    visit collections_url
-    Capybara.current_session.driver.browser.manage.delete_all_cookies
-    page.all('.grid-element').last.click
-
-    assert_text I18n.t("ratings.interface.no_session")
-    assert_no_selector "#star_1"
-  end
 end
