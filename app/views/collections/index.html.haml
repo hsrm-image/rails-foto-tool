@@ -1,21 +1,15 @@
-%h1 Listing collections
-
-%table
-  %thead
-    %tr
-      %th Name
-      %th
-      %th
-      %th
-
-  %tbody
-    - @collections.each do |collection|
-      %tr
-        %td= collection.name
-        %td= link_to 'Show', collection
-        %td= link_to 'Edit', edit_collection_path(collection)
-        %td= link_to 'Destroy', collection, method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
-= link_to 'New Collection', new_collection_path
+= javascript_pack_tag 'collections', 'data-turbolinks-track': 'reload'
+- @body_attributes = {'data-turbolinks': "false"}
+%h1= t('.all')
+%ol.grid
+	= render @collections
+.page-load-status
+	.infinite-scroll-request
+		%h2= t('.loading')
+	.infinite-scroll-last{style: 'display: none;'}
+		%hr/
+		%h2= t('.done')
+	.infinite-scroll-error{style: 'display: none;'}
+		%h2= t('.error')
+%br/
+= paginate @collections

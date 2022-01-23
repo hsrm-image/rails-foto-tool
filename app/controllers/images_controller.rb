@@ -25,7 +25,12 @@ class ImagesController < ApplicationController
 		else
 			respond_to do |format|
 				format.html do
-					redirect_to images_url, notice: t("controllers.invisible", resource: t("images.resource_name"))
+					redirect_to images_url,
+					            notice:
+							t(
+								'controllers.invisible',
+								resource: t('images.resource_name'),
+							)
 				end
 			end
 		end
@@ -51,7 +56,6 @@ class ImagesController < ApplicationController
 			)
 		@image.description = ''
 
-
 		respond_to do |format|
 			if @image.save
 				format.html do
@@ -68,7 +72,6 @@ class ImagesController < ApplicationController
 			end
 		end
 	end
-
 
 	def analyse
 		respond_to do |format|
@@ -103,32 +106,40 @@ class ImagesController < ApplicationController
 
 	# PATCH/PUT /images/1 or /images/1.json
 	def update
-		@image.update(image_params)
+		error = '_error'
+		error = '' if @image.update(image_params)
+		respond_to do |format|
+			format.js do
+				render 'layouts/toast',
+				       locals: {
+						method: (error == '' ? 'success' : 'error'),
+						message:
+							t(
+								'controllers.updated' + error,
+								resource: @image.title,
+							),
+						title: '',
+				       }
+			end
+		end
 	end
 
 	# DELETE /images/1 or /images/1.json
 	def destroy
-		if @image.destroy
-			respond_to do |format|
-				format.js do
-					render 'layouts/toast',
-					       locals: {
-							method: 'success',
-							message: 'Successfully deleted ' + @image.title,
-							title: '',
-					       }
-				end
-			end
-		else
-			respond_to do |format|
-				format.js do
-					render 'layouts/toast',
-					       locals: {
-							method: 'error',
-							message: 'Error whilst deleting ' + @image.title,
-							title: '',
-					       }
-				end
+		error = '_error'
+		error = '' if @image.destroy
+		respond_to do |format|
+			format.js do
+				render 'layouts/toast',
+				       locals: {
+						method: (error == '' ? 'success' : 'error'),
+						message:
+							t(
+								'controllers.destroyed' + error,
+								resource: @image.title,
+							),
+						title: '',
+				       }
 			end
 		end
 	end
@@ -137,7 +148,26 @@ class ImagesController < ApplicationController
 
 	# Use callbacks to share common setup or constraints between actions.
 	def set_image
-		@image = Image.find(params[:id])
+		begin
+			Image.find(params[:id])
+		rescue StandardError
+			respond_to do |format|
+				format.html do
+					redirect_back fallback_location: root_path,
+					              notice: t('controllers.image_404')
+				end
+				format.js do
+					render 'layouts/toast',
+					       locals: {
+							method: 'error',
+							message: t('controllers.image_404'),
+							title: '',
+					       }
+				end
+			end
+		else
+			@image = Image.find(params[:id])
+		end
 	end
 
 	# Only allow a list of trusted parameters through.

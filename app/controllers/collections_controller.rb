@@ -5,7 +5,7 @@ class CollectionsController < ApplicationController
 
 	# GET /collections or /collections.json
 	def index
-		@collections = Collection.all
+		@collections = Collection.order(:created_at).page(params[:page])
 	end
 
 	# GET /collections/1 or /collections/1.json
@@ -23,30 +23,63 @@ class CollectionsController < ApplicationController
 	def create
 		@collection = Collection.new(collection_params)
 		@collection.owner_id = current_user.id
+		error = '_error'
+		error = '' if @collection.save
 		respond_to do |format|
-			if @collection.save
-				format.js do
-					render 'layouts/toast',
-							locals: {
-							method: 'success',
-							message: 'Collection created',
-							title: '',
-							}
-				end
+			format.js do
+				render 'layouts/toast',
+				       locals: {
+						method: (error == '' ? 'success' : 'error'),
+						message:
+							t(
+								'controllers.created' + error,
+								resource: @collection.name,
+							),
+						title: '',
+				       }
 			end
 		end
 	end
 
 	# PATCH/PUT /collections/1 or /collections/1.json
 	def update
-		@collection.update(collection_params)
+		error = '_error'
+		error = '' if @collection.update(collection_params)
+		respond_to do |format|
+			format.js do
+				render 'layouts/toast',
+				       locals: {
+						method: (error == '' ? 'success' : 'error'),
+						message:
+							t(
+								'controllers.updated' + error,
+								resource: @collection.name,
+							),
+						title: '',
+				       }
+			end
+		end
 	end
 
 	# DELETE /collections/1 or /collections/1.json
 	def destroy
-		@collection.destroy
+		error = '_error'
+		error = '' if @collection.destroy
+		respond_to do |format|
+			format.js do
+				render 'layouts/toast',
+				       locals: {
+						method: (error == '' ? 'success' : 'error'),
+						message:
+							t(
+								'controllers.destroyed' + error,
+								resource: @collection.name,
+							),
+						title: '',
+				       }
+			end
+		end
 	end
-
 
 	private
 

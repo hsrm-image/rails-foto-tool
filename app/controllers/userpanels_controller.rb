@@ -10,23 +10,21 @@ class UserpanelsController < ApplicationController
 	def show_images
 		@image = Image.new
 		@images = Image.all
-		respond_to do |format|
-			format.js {}
-		end
+		respond_to { |format| format.js {} }
 	end
 
 	def startProccess
 		image = Image.find(params[:image_id])
-		AnalyseImageJob.perform_now image
-		respond_to do |format|
-			format.js do
-				render 'layouts/toast',
-						locals: {
-						method: 'success',
-						message:
-							'Now re-analysing exif-data in Background. Check again in a few Seconds.',
-						title: '',
-						}
+		if AnalyseImageJob.perform_now image
+			respond_to do |format|
+				format.js do
+					render 'layouts/toast',
+					       locals: {
+							method: 'success',
+							message: t('controllers.start_analyze'),
+							title: '',
+					       }
+				end
 			end
 		end
 	end
@@ -55,7 +53,23 @@ class UserpanelsController < ApplicationController
 		@image = Image.find(params[:image_id])
 		@collection = Collection.find(params[:collection_id])
 		return nil if @collection.images.include? @image
-		@image.collections << @collection
+		error = '_error'
+		error = '' if @image.collections << @collection
+		respond_to do |format|
+			format.js do
+				render 'layouts/toast',
+				       locals: {
+						method: (error == '' ? 'success' : 'error'),
+						message:
+							t(
+								'controllers.image_add_collection' + error,
+								img: @image.title,
+								col: @collection.name,
+							),
+						title: '',
+				       }
+			end
+		end
 	end
 
 	#POST userpanel/join_collection_image
@@ -64,18 +78,54 @@ class UserpanelsController < ApplicationController
 		@image = Image.find(params[:image_id])
 		@collection = Collection.find(params[:collection_id])
 		return nil if !@collection.images.include? @image
-		@image.collections.delete(@collection)
+		error = '_error'
+		error = '' if @image.collections.delete(@collection)
+		respond_to do |format|
+			format.js do
+				render 'layouts/toast',
+				       locals: {
+						method: 'success',
+						message:
+							t(
+								'controllers.image_rem_collection' + error,
+								img: @image.title,
+								col: @collection.name,
+							),
+						title: '',
+				       }
+			end
+		end
 	end
 
 	def set_collection_header
 		@collection = Collection.find(params[:collection_id])
-		puts params[:image_id].class
+		error = '_error'
+		setState = ''
 		if params[:image_id] === ''
-			@collection.update({ header_image: nil })
-			return
+			setState = 'rem_'
+			error = '' if @collection.update({ header_image: nil })
+		else
+			setState = 'set_'
+			@img = Image.find(params[:image_id])
+			error = '' if @collection.update({ header_image: @img })
 		end
-		img = Image.find(params[:image_id])
-		@collection.update({ header_image: img })
+
+		respond_to do |format|
+			format.js do
+				render 'layouts/toast',
+				       locals: {
+						method: (error == '' ? 'success' : 'error'),
+						message:
+							t(
+								'controllers.' + setState +
+									'collection_header' + error,
+								img: (@img != nil ? @img.title : nil),
+								col: @collection.name,
+							),
+						title: '',
+				       }
+			end
+		end
 	end
 
 	def show_collection_details

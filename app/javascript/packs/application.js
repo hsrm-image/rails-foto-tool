@@ -20,28 +20,25 @@ ActiveStorage.start()
 
 // Global options for toastr https://codeseven.github.io/toastr/demo.html
 toastr.options = {
-    "closeButton": true,
-    "positionClass": "toast-bottom-center",
-    "progressBar": true,
-    "timeOut": "10000",
+	closeButton: true,
+	positionClass: 'toast-bottom-center',
+	progressBar: true,
+	timeOut: '10000',
 }
 
-window.Dropzone = Dropzone
 window.ActiveStorage = ActiveStorage
 window.toastr = toastr // very ugly but otherwise .js.erb files don't receive toastr
 window.$ = $
 window.jquery = $
 
+$(document).on('turbolinks:load', function () {
+	let notice = $('.notice').text()
+	if (notice) {
+		toastr.success(notice)
+	}
 
-
-$( document ).on('turbolinks:load', function() {
-    let notice = $(".notice").text();
-    if(notice) {
-        toastr.success(notice); 
-    }
-
-    let alert = $(".alert").text();
-    if(alert) {
-        toastr.error(alert);
-    }
-});
+	let alert = $('.alert').text()
+	if (alert) {
+		toastr.error(alert)
+	}
+})

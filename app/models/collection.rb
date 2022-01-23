@@ -7,4 +7,7 @@ class Collection < ApplicationRecord
 	           class_name: 'Image',
 	           foreign_key: 'header_image',
 	           optional: true
+
+	# Kaminari
+	paginates_per 3
 end
