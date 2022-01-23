@@ -5,21 +5,107 @@ class ImagesTest < ApplicationSystemTestCase
     @image = images(:one)
     @user = users(:adminOne)
     perform_enqueued_jobs
+    sign_in(@user)
   end
 
   test "visiting the index" do
+    sign_out(@user)
     visit images_url
     assert_selector "h1", text: I18n.t("images.index.all")
   end
 
 
   test "viewing an Image" do
+    sign_out(@user)
     visit images_url
     page.all('.grid-element').last.click
 
     assert_selector "h1", text: @image.title
   end
 
-  # attach_file("image_image_file", Rails.root.join('test', 'fixtures', 'files', 'exif.jpg'), make_visible: true)
-  
+  test "uploading an Image" do
+    visit userpanel_url
+    within "#content" do
+      click_on "Images"
+    end
+
+    assert_difference "Image.count", 1 do
+      attach_file(Rails.root.join('test', 'fixtures', 'files', 'exif.jpg')) do
+        find("#upload").click
+      end
+      within ".img-container" do
+        assert_text "exif"
+      end
+    end
+  end
+
+  test "uploading multiple images" do
+    n = 10
+    assert n > 1, "Please select a number equal or greater than 1 for multiple file uploads"
+    visit userpanel_url
+    within "#content" do
+      click_on "Images"
+    end
+
+    images = []
+    (1..n).each do |x|
+      images << Rails.root.join('test', 'fixtures', 'files', 'exif.jpg')
+    end
+
+    assert_difference "Image.count", n do
+      attach_file(images) do
+        find(".dropzone.dz-clickable").click
+      end
+ 
+      within ".img-container" do
+        assert_text "exif", count: n, wait: 10
+      end
+    end
+  end
+
+  test "deleting an Image" do
+    visit userpanel_url
+    within "#content" do
+      click_on "Images"
+    end
+
+    within ".img-container" do
+      click_on @image.title[0..6]
+    end
+
+    assert_difference "Image.count", -1 do
+      find(".deleteButton").click
+      assert_text "Successfully deleted #{@image.title}"
+    end
+
+    assert_equal Image.exists?(@image.id), false
+  end
+
+  test "updating an Image" do
+    visit userpanel_url
+    within "#content" do
+      click_on "Images"
+    end
+
+    within ".img-container" do
+      click_on @image.title[0..6]
+    end
+
+    assert_no_difference "Image.count" do
+      # First delete the prefilled texts
+      @image.title.length.times { find(".attr_edit_title").send_keys(:backspace) }
+      @image.description.length.times { find(".attr_edit_description").send_keys(:backspace) }
+
+      # Now fill in the new text
+      fill_in class: "attr_edit_title", with: @image.title + "_edit"
+      fill_in class: "attr_edit_description", with: @image.description + "_edit"
+
+      assert_text @image.title + "_edit", wait: 5
+    end
+
+    assert_equal Image.find(@image.id).title, @image.title + "_edit"
+    assert_equal Image.find(@image.id).description, @image.description + "_edit"
+  end
+
+
 end

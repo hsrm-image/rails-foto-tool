@@ -39,6 +39,9 @@ class CollectionsTest < ApplicationSystemTestCase
     end
 
     assert_no_difference "Collection.count" do
+      # First delete the prefilled texts
+      @collection.name.length.times { find(".attr_edit_name").send_keys(:backspace) }
+      # Now fill in the new text
       fill_in with: @collection.name + "_edit", class: "attr_edit_name"
 
       assert_text @collection.name + "_edit", wait: 5

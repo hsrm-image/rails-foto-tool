@@ -22,7 +22,7 @@ class ImagesControllerUserTest < ActionDispatch::IntegrationTest
 			fixture_file_upload(
 				Rails.root.join('test', 'fixtures', 'files', 'test.png'),
 				'image/png',
-			) #todo
+			)
 		assert_difference('ActiveStorage::Attachment.count', 1) do
 			assert_difference('Image.count', 1) do
 				post images_url,
