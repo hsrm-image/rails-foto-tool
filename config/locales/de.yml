@@ -32,8 +32,7 @@ de:
             loading: Lädt...
             done: 'Ende der Sammlung'
             error: 'Fehler beim laden der nächsten Bilder'
-    tags:
-        resource_name: 'Tag'
+
     images:
         resource_name: 'Bild'
         index:

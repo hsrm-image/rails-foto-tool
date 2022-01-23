@@ -22,7 +22,6 @@ Rails.application.routes.draw do
 			patch :analyse, on: :member
 			resources :comments
 		end
-		resources :tags
 		resources :users, only: %i[index show destroy] do
 			patch :admin, on: :member
 		end
