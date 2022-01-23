@@ -1,9 +1,15 @@
-%p#notice= notice
-
-%p
-  %b Name:
-  = @collection.name
-
-= link_to 'Edit', edit_collection_path(@collection)
-\|
-= link_to 'Back', collections_path
+= javascript_pack_tag 'images', 'data-turbolinks-track': 'reload'
+- @body_attributes = {'data-turbolinks': "false"}
+%h1= t('.all', col:@col_name)
+%ol.grid
+	= render @images
+.page-load-status
+	.infinite-scroll-request
+		%h2= t('.loading')
+	.infinite-scroll-last{style: 'display: none;'}
+		%hr/
+		%h2= t('.done')
+	.infinite-scroll-error{style: 'display: none;'}
+		%h2= t('.error')
+%br/
+= paginate @images

@@ -58,6 +58,12 @@ en:
             loading: 'Loading...'
             done: 'End of Collections'
             error: 'Error loading next collections'
+        show:
+            all: 'All %{col} Images'
+            loading: 'Loading...'
+            done: 'End of Collections'
+            error: 'Error loading next images'
+
     tags:
         resource_name: 'Tag'
     images:

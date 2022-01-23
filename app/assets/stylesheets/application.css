@@ -17,3 +17,10 @@
  *= require dropzone/dropzone
  *= require 'toastr'
  */
+/*fix dropzone hover*/
+a:hover {
+	background-color: unset;
+}
+a {
+	text-decoration: none;
+}

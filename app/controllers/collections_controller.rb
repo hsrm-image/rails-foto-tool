@@ -15,7 +15,21 @@ class CollectionsController < ApplicationController
 	end
 
 	# GET /collections/1 or /collections/1.json
-	def show; end
+	def show
+		if current_user
+			collection = Collection.find(params[:id])
+			@col_name = collection.name
+			@images = collection.images.order(:created_at).page(params[:page])
+		else
+			collection = Collection.find(params[:id])
+			@images =
+				@collection
+					.images
+					.where(processed: true)
+					.order(:created_at)
+					.page(params[:page])
+		end
+	end
 
 	# GET /collections/new
 	def new
@@ -104,6 +118,6 @@ class CollectionsController < ApplicationController
 
 	# Only allow a list of trusted parameters through.
 	def collection_params
-		params.require(:collection).permit(:name)
+		params.require(:collection).permit(:name, :page)
 	end
 end
