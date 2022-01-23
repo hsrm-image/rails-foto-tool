@@ -62,7 +62,7 @@ class ImagesControllerUserTest < ActionDispatch::IntegrationTest
 					description: @image.description + "abc",
 					title: @image.title + "def",
 				},
-			  }
+			  }, xhr: true, as: :js
 		assert_response :success
 		assert_equal Image.find(@image.id).description, @image.description + "abc"
 		assert_equal Image.find(@image.id).title, @image.title + "def"

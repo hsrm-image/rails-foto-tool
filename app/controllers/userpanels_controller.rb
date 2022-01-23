@@ -31,7 +31,6 @@ class UserpanelsController < ApplicationController
 
 	def show_collections
 		@collections = Collection.all
-		@collections.each { |col| puts 'header' + col.header_image.to_s }
 		respond_to { |format| format.js {} }
 	end
 
@@ -133,7 +132,6 @@ class UserpanelsController < ApplicationController
 		@editables = collections_editables_filter(@collection.attributes)
 	end
 	def image_informations_filter(attr)
-		puts attr
 		attr.extract!(
 			'exif_camera_maker',
 			'exif_camera_model',
@@ -147,15 +145,12 @@ class UserpanelsController < ApplicationController
 		)
 	end
 	def image_editables_filter(attr)
-		puts attr
 		attr.extract!('title', 'description')
 	end
 	def collections_informations_filter(attr)
-		puts attr
 		attr.extract!('na', 'description')
 	end
 	def collections_editables_filter(attr)
-		puts attr
 		attr.extract!('name')
 	end
 end

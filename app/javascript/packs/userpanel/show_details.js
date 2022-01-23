@@ -71,7 +71,6 @@ $('body').on('click', '.doneButton', () => {
 //update image
 function updateImage() {
 	var id = $('#img_id').data().imgId
-	console.log(id)
 	let img_info = {
 		title: sanatizeUserInput($('.attr_edit_title').val()),
 		description: sanatizeUserInput($('.attr_edit_description').val()),

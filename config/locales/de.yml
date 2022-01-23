@@ -14,11 +14,23 @@ de:
 
     controllers:
         destroyed: '%{resource} wurde erfolgreich gelöscht'
+        destroyed_error: '%{resource} konnte nicht gelöscht werden'
         created: '%{resource} wurde erfolgreich erstellt'
+        created_error: '%{resource} konnte nicht erstellt werden: %{message}'
         invisible: '%{resource} ist nicht öffentlich sichtbar'
         no_attached: 'Kein %{resource}!'
         updated: '%{resource} wurde erfolgreich aktualisiert'
         permission_denied: 'Sie haben keine Berechtigung dies zu tun!'
+        image_add_collection: "Erfolgreich '%{img}' zu %{col} hinzugefügt"
+        image_add_collection_error: "Fehler beim hinzufügen von '%{img}' zu %{col}"
+        image_rem_collection: "Erfolgreich '%{img}' aus %{col} entfernt"
+        image_rem_collection_error: "Fehler beim entfernen von '%{img}' aus %{col}"
+        set_collection_header: "Erfolgreich '%{img}' als das Titelbild von %{col}'s gesetzt"
+        set_collection_header_error: "Fehler beim setzen von '%{img}' als das Titelbild von %{col}"
+        rem_collection_header: "Erfolgreich das Titelbild von %{col} entfernt"
+        rem_collection_header_error: "Fehler beim entfernen des Titelbildes von %{col}"
+        start_analyze: 'Das Bild wird jetzt im Hintergrund neu analysiert.'
+        image_404: 'Das angegebene Bild konnte nicht gefunden werden!'
 
     collections:
         resource_name: 'Sammlung'
@@ -62,7 +74,7 @@ de:
             iso: 'ISO: ISO-%{iso}'
             coordinates: 'LAT: %{lat}, LON: %{lon}'
         analyse:
-            analysing: Das Bild wird jetzt im hintergrund neu analysiert. Bitte aktualisiere die Seite in ein paar Sekunden.
+            analysing: Das Bild wird jetzt im Hintergrund neu analysiert. Bitte aktualisiere die Seite in ein paar Sekunden.
     comments:
         resource_name: 'Kommentar'
         form:
@@ -178,6 +190,11 @@ de:
                         Datensatz kann nicht gelöscht werden, da ein abhängiger %{record}-Datensatz
                         existiert.
                     has_many: Datensatz kann nicht gelöscht werden, da abhängige %{record} existieren.
+                content_type: "hat kein Gültiges Dateiformat!"
+                min_size_error: "sollte größer als %{min_size} sein"
+                max_size_error: "sollte kleiner als %{max_size} sein"
+
+
     date:
         abbr_day_names:
             - So

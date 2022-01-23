@@ -4,6 +4,11 @@
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
 #
+
+# pool is set to 1 because otherwise performing the AnalyseImageJob sometimes throws a
+# DatabaseLocked Exception, since sqlite3 does not allow concurrent writing.
+# Other databases like mysql fix this but for testing purposes we accepted the fact
+# that pool: 1 also slows down reads.
 default: &default
     adapter: sqlite3
     pool: 1

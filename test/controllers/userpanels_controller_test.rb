@@ -51,7 +51,7 @@ class UserpanelsControllerTest < ActionDispatch::IntegrationTest
 
   test "should add image to collection" do
     assert_difference "Collection.find(#{@collection.id}).images.count", 1 do
-      post userpanel_join_collection_image_path, params: {image_id: @image.id, collection_id: @collection.id}
+      post userpanel_join_collection_image_path, params: {image_id: @image.id, collection_id: @collection.id}, xhr: true, as: :js
     end
     assert_response :success
 
@@ -59,39 +59,39 @@ class UserpanelsControllerTest < ActionDispatch::IntegrationTest
 
     # should not add images to collection twice
     assert_no_difference "Collection.find(#{@collection.id}).images.count" do
-      post userpanel_join_collection_image_path, params: {image_id: @image.id, collection_id: @collection.id}
+      post userpanel_join_collection_image_path, params: {image_id: @image.id, collection_id: @collection.id}, xhr: true, as: :js
     end
     assert_response :success
 
   end
 
   test "should remove images from collection" do
-    post userpanel_join_collection_image_path, params: {image_id: @image.id, collection_id: @collection.id}
+    post userpanel_join_collection_image_path, params: {image_id: @image.id, collection_id: @collection.id}, xhr: true, as: :js
     assert_response :success
     assert_difference "Collection.find(#{@collection.id}).images.count", -1 do
-      post userpanel_part_collection_image_path, params: {image_id: @image.id, collection_id: @collection.id}
+      post userpanel_part_collection_image_path, params: {image_id: @image.id, collection_id: @collection.id}, xhr: true, as: :js
     end
     assert_response :success
 
     # should not remove non existant image
     assert_no_difference "Collection.find(#{@collection.id}).images.count" do
-      post userpanel_part_collection_image_path, params: {image_id: @image.id, collection_id: @collection.id}
+      post userpanel_part_collection_image_path, params: {image_id: @image.id, collection_id: @collection.id}, xhr: true, as: :js
     end
     assert_response :success
   end
 
   test "should set collection header image" do
-    post userpanel_join_collection_image_path, params: {image_id: @image.id, collection_id: @collection.id}
+    post userpanel_join_collection_image_path, params: {image_id: @image.id, collection_id: @collection.id}, xhr: true, as: :js
     assert_response :success
 
     assert_nil Collection.find(@collection.id).header_image
-    post userpanel_set_collection_header_path, params: {image_id: @image.id, collection_id: @collection.id}
+    post userpanel_set_collection_header_path, params: {image_id: @image.id, collection_id: @collection.id}, xhr: true, as: :js
     assert_response :success
 
     assert_equal Collection.find(@collection.id).header_image, @image
 
     # now remove the header image!
-    post userpanel_set_collection_header_path, params: {image_id: '', collection_id: @collection.id}
+    post userpanel_set_collection_header_path, params: {image_id: '', collection_id: @collection.id}, xhr: true, as: :js
     assert_response :success
 
     assert_nil Collection.find(@collection.id).header_image

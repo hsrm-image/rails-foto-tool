@@ -9,12 +9,5 @@
 	#description-full{style: 'display: none;'}
 		= simple_format(@image.description)
 		%hr/
-		#description-exif
-			= render 'images/exif'
-			- unless current_user.nil?
-				= link_to t(".analyse"), analyse_image_path(@image, :format => "js"), method: :patch, remote: true
-				|
-				= link_to t(".edit"), edit_image_path(@image)
-				|
-				= link_to t(".delete"), @image, method: :delete, data: { confirm: t("application.confirmation") }
+		#description-exif= render 'images/exif'
 		= link_to t(".less"), '', id: "truncate-description"

@@ -26,11 +26,4 @@ class RatingsControllerImagesTest < ActionDispatch::IntegrationTest
     assert_equal @rating.rateable.get_score, @response.parsed_body["rating"]
   end
 
-  #test "should destroy rating" do
-    #assert_difference('Rating.count', -1) do
-      #delete rating_url(@rating)
-    #end
-
-    #assert_redirected_to ratings_url
-  #end
 end

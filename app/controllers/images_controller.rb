@@ -54,7 +54,7 @@ class ImagesController < ApplicationController
 			File.basename(
 				image_params[:image_file].original_filename,
 				File.extname(image_params[:image_file].original_filename),
-			)
+			)[0..49]
 		@image.description = ''
 
 		respond_to do |format|
@@ -68,38 +68,7 @@ class ImagesController < ApplicationController
 			else
 				format.html { render :new, status: :unprocessable_entity }
 				format.json do
-					render json: @image.errors, status: :unprocessable_entity
-				end
-			end
-		end
-	end
-
-	def analyse
-		respond_to do |format|
-			if @image.image_file.attached?
-				AnalyseImageJob.perform_later @image
-				format.html do
-					redirect_to @image,
-					            notice: 'Image will be analysed in background.'
-				end
-				format.js do
-					render 'layouts/toast',
-					       locals: {
-							method: 'success',
-							message:
-								'Now re-analysing exif-data in Background. Please refresh this page in a few Seconds.',
-							title: '',
-					       }
-				end
-			else
-				format.html { redirect_to @image, notice: 'No image!' }
-				format.js do
-					render 'layouts/toast',
-					       locals: {
-							method: 'error',
-							message: 'Error: No image attached!',
-							title: '',
-					       }
+					render json: @image.errors.full_messages.join(", ").to_json, status: :unprocessable_entity
 				end
 			end
 		end

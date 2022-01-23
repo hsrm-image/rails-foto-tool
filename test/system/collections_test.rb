@@ -10,19 +10,33 @@ class CollectionsTest < ApplicationSystemTestCase
     sign_in(@user)
   end
 
+  test "viewing image in collection" do
+    @collection.images << @image
+    @collection.save!
+
+    assert_includes Collection.find(@collection.id).images, @image
+    visit collections_url
+    page.all('.grid-element').last.click
+
+    page.all('.grid-element').last.click
+    assert_selector "h1#image-title", text: @image.title
+  end
+
   test "creating a Collection" do
     visit userpanel_url
     within "#content" do
-      click_on "Collections"
+      click_on I18n.t("userpanels.index.collections")
     end
 
-    find('span', text: "Create New Collection").click
+    find('span', text: I18n.t("userpanels.views.show_collections.createNewCollection")).click
 
     fill_in "title", with: @collection.name + "yo"
     assert_difference "Collection.count", 1 do
-      find('span', text: "create").click
+      within ".hoverCard" do
+        find('span', text: I18n.t("userpanels.views.collection_modal.create")).click
+      end
 
-      assert_text "Collection created"
+      assert_text I18n.t("controllers.created", resource: @collection.name + "yo")
     end
 
     assert_equal Collection.last.name, @collection.name + "yo"
@@ -31,7 +45,7 @@ class CollectionsTest < ApplicationSystemTestCase
   test "updating a Collection" do
     visit userpanel_url
     within "#content" do
-      click_on "Collections"
+      click_on I18n.t("userpanels.index.collections")
     end
 
     within ".collection-container" do
@@ -44,7 +58,8 @@ class CollectionsTest < ApplicationSystemTestCase
       # Now fill in the new text
       fill_in with: @collection.name + "_edit", class: "attr_edit_name"
 
-      assert_text @collection.name + "_edit", wait: 5
+      find(".doneButton").click
+      assert_text I18n.t("controllers.updated", resource: @collection.name + "_edit"), wait: 5
     end
 
     assert_equal Collection.find(@collection.id).name, @collection.name + "_edit"
@@ -53,7 +68,7 @@ class CollectionsTest < ApplicationSystemTestCase
   test "destroying a Collection" do
     visit userpanel_url
     within "#content" do
-      click_on "Collections"
+      click_on I18n.t("userpanels.index.collections")
     end
 
     within ".collection-container" do
@@ -62,32 +77,13 @@ class CollectionsTest < ApplicationSystemTestCase
 
     assert_difference "Collection.count", -1 do
       find(".deleteButton").click
-      assert_text "Collection deleted"
+      assert_text I18n.t("controllers.destroyed", resource: @collection.name), wait: 5
     end
 
     assert_equal Collection.exists?(@collection.id), false
   end
 
-  test "adding image to collection" do
-    visit userpanel_url
-    within "#content" do
-      click_on "Images"
-    end
 
-    within ".img-container" do
-      click_on @image.title[0..6]
-    end
-
-    assert_difference "Collection.find(#{@collection.id}).images.count", 1 do
-      within ".collectionList" do
-        find("input[data-collection='#{@collection.id}']").click
-      end
-
-      assert_text "Added to Collection(s)"
-    end
-
-    assert_includes Collection.find(@collection.id).images, @image
-  end
 
   test "setting cover image" do
     @image.collections << @collection
@@ -96,7 +92,7 @@ class CollectionsTest < ApplicationSystemTestCase
     
     visit userpanel_url
     within "#content" do
-      click_on "Collections"
+      click_on I18n.t("userpanels.index.collections")
     end
 
     within ".collection-container" do
@@ -106,7 +102,7 @@ class CollectionsTest < ApplicationSystemTestCase
     within ".headerImages" do
       find("input[data-img='#{@image.id}']").click
     end
-    assert_text "Header Image set!"
+    assert_text I18n.t("controllers.set_collection_header", img: @image.title, col: @collection.name)
 
     assert_equal Collection.find(@collection.id).header_image, @image
 
@@ -118,7 +114,7 @@ class CollectionsTest < ApplicationSystemTestCase
     within ".headerImages" do
       find("input[data-img='#{@image.id}']").click
     end
-    assert_text "Header Image unset!"
+    assert_text I18n.t("controllers.rem_collection_header", col: @collection.name)
     assert_nil Collection.find(@collection.id).header_image
   end
 end

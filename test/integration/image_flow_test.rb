@@ -50,7 +50,7 @@ class ImageFlowTest < ActionDispatch::IntegrationTest
 
     assert_no_difference 'ActiveStorage::Attachment.count' do
       assert_no_difference 'Image.count' do
-        patch image_url(@image), params: { image: { description: @image.description + "abc", title: @image.title + "def" }}
+        patch image_url(@image), params: { image: { description: @image.description + "abc", title: @image.title + "def" }}, xhr: true, as: :js
         assert_response :success
       end
     end

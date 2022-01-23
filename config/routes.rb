@@ -14,12 +14,11 @@ Rails.application.routes.draw do
 			       :as => 'delete_user_registration'
 		end
 
-		resources :ratings, only: %i[create destroy]
+		resources :ratings, only: %i[create]
 		resources :collections do
 			resources :images, only: %i[index, show]
 		end
 		resources :images do
-			patch :analyse, on: :member
 			resources :comments
 		end
 		resources :users, only: %i[index show destroy] do

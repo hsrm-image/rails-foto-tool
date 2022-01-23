@@ -13,7 +13,7 @@ class Image < ApplicationRecord
 			size_range: 1..(Rails.configuration.x.image.max_file_size),
 	          },
 	          on: :create # supported options: :image, :audio, :video, :text
-	validates :title, length: { maximum: 1000 }
+	validates :title, length: { maximum: 50 }
 	validates :description, length: { maximum: 1000 }
 
 	# Kaminari

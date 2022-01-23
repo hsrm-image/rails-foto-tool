@@ -1,4 +1,5 @@
 = javascript_pack_tag 'images', 'rating', 'data-turbolinks-track': 'reload'
+- @title = @collection.name
 - @body_attributes = {'data-turbolinks': "false"}
 %h1= t('.all', col:@collection.name)
 = render 'ratings/interface', locals: {rateable: @collection}

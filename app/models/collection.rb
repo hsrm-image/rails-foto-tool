@@ -7,6 +7,8 @@ class Collection < ApplicationRecord
 	           foreign_key: 'header_image',
 	           optional: true
 
+	validates :name, length: { maximum: 50 }, presence: true
+
 	# Kaminari
 	paginates_per 3
 

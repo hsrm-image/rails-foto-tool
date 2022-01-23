@@ -26,11 +26,12 @@ drop.on('addedfile', file => {
 	})
 })
 
-drop.on('error', file => {
+drop.on('error', (file, message) => {
 	drop.removeFile(file)
+	toastr.error(message)
 })
 
-drop.on('complete', () => {
+drop.on('queuecomplete', () => {
 	setTimeout(() => {
 		$.ajax('userpanel/show_images.js')
 	}, 1000)
