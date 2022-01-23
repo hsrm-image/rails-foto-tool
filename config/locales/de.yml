@@ -22,6 +22,16 @@ de:
 
     collections:
         resource_name: 'Sammlung'
+        index:
+            all: 'Alle Sammlungen'
+            loading: Lädt...
+            done: Ende.
+            error: Fehler beim laden der nächsten Sammlungen
+        show:
+            all: 'Alle %{col} Bilder'
+            loading: Lädt...
+            done: 'Ende der Sammlung'
+            error: 'Fehler beim laden der nächsten Bilder'
     tags:
         resource_name: 'Tag'
     images:

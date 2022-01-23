@@ -18,11 +18,16 @@ class AnalyseImageJob < ApplicationJob
     # GPS values arrive as a comma-separated list of 3 rationals: Degrees, Minutes, seconds (https://exif.org/Exif2-2.PDF Page 53)
     # eg. "8/1, 106236750/10000000, 0/1"
     # To convert this format we first extract the numbers and then convert it to Decimal Degrees because the database likes numbers more than strings :)
-    unless(exif["GPSLatitude"].nil? or exif["GPSLongitude"].nil?)
-      d, m, s = exif["GPSLatitude"].split(", ").map{ |x| x.to_r } 
-      image.exif_gps_latitude  ||= d + m / 60 + s / 3600
-      d, m, s = exif["GPSLongitude"].split(", ").map{ |x| x.to_r } 
-      image.exif_gps_longitude ||= d + m / 60 + s / 3600
+    unless(exif["GPSLatitude"].nil? or exif["GPSLongitude"].nil? or exif["GPSLongitude"] == "0" or exif["GPSLatitude"] == "0")
+      begin
+        d, m, s = exif["GPSLatitude"].split(", ").map{ |x| x.to_r } 
+        image.exif_gps_latitude  ||= d + m / 60 + s / 3600
+        d, m, s = exif["GPSLongitude"].split(", ").map{ |x| x.to_r } 
+        image.exif_gps_longitude ||= d + m / 60 + s / 3600
+      rescue ZeroDivisionError => e
+        image.exif_gps_latitude  ||= nil
+        image.exif_gps_longitude ||= nil
+      end
     end
 
     file = MiniMagick::Image.open(image.image_file)

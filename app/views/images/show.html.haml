@@ -1,18 +1,19 @@
 = javascript_pack_tag 'rating', 'image', 'data-turbolinks-track': 'reload'
+- @active = @collection.nil? ? "" : "collections"
 - unless @image.processed
 	%span#processing{style: 'display: none;'}= t('.processing')
 %p#notice= notice
-= link_to @image.previous(current_user) do
+= link_to @collection.nil? ? @image.previous(current_user, @collection) : collection_image_path(@collection, @image.previous(current_user, @collection)) do
 	.pagination#paginationL
 		<
-= link_to @image.next(current_user) do
+= link_to @collection.nil? ? @image.next(current_user, @collection) : collection_image_path(@collection, @image.next(current_user, @collection)) do
 	.pagination#paginationR
 		>
 #main-image
 	- if @image.image_file.attached?
 		= image_tag @image.image_file
 %h1#image-title= @image.title
-= render 'ratings/interface'
+= render 'ratings/interface', locals: {rateable: @image}
 = render 'ratings/score', locals: {rateable: @image}
 = render 'images/description'
 %hr.description-comment/

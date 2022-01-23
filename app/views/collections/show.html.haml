@@ -1,9 +1,17 @@
-%p#notice= notice
-
-%p
-  %b Name:
-  = @collection.name
-
-= link_to 'Edit', edit_collection_path(@collection)
-\|
-= link_to 'Back', collections_path
+= javascript_pack_tag 'images', 'rating', 'data-turbolinks-track': 'reload'
+- @body_attributes = {'data-turbolinks': "false"}
+%h1= t('.all', col:@collection.name)
+= render 'ratings/interface', locals: {rateable: @collection}
+= render 'ratings/score', locals: {rateable: @collection}
+%ol.grid
+	= render @images, locals: {collection: @collection}
+.page-load-status
+	.infinite-scroll-request
+		%h2= t('.loading')
+	.infinite-scroll-last{style: 'display: none;'}
+		%hr/
+		%h2= t('.done')
+	.infinite-scroll-error{style: 'display: none;'}
+		%h2= t('.error')
+%br/
+= paginate @images
