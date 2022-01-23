@@ -22,8 +22,6 @@ de:
 
     collections:
         resource_name: "Sammlung"
-    tags:
-        resource_name: "Tag"
     images:
         resource_name: "Bild"
         index:

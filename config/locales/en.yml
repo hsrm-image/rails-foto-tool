@@ -53,8 +53,6 @@ en:
 
     collections:
         resource_name: "Collection"
-    tags:
-        resource_name: "Tag"
     images:
         resource_name: "Image"
         index:
