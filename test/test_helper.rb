@@ -3,6 +3,16 @@ require_relative '../config/environment'
 require 'rails/test_help'
 require 'fileutils'
 
+#---------------------------------------------------------------------
+# Please DO NOT run system and normal tests at the same time!
+# Instead run the normal test using 'rails test'
+# And System tests using 'rails test test/system'
+# This is caused by the System tests requiring a session cookie
+# But setting
+# ActionController::Base.allow_forgery_protection = true
+# in the system tests overwrites the setting inside the test_helper
+#---------------------------------------------------------------------
+
 class ActiveSupport::TestCase
 	ActionDispatch::IntegrationTest.app.default_url_options[:locale] =
 		I18n.locale

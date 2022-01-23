@@ -3,42 +3,122 @@ require "application_system_test_case"
 class CollectionsTest < ApplicationSystemTestCase
   setup do
     @collection = collections(:one)
-    perform_enqueued_jobs
-  end
+    @image = images(:one)
+    @user = users(:one)
 
-  test "visiting the index" do
-    visit collections_url
-    assert_selector "h1", text: "Collections"
+    perform_enqueued_jobs
+    sign_in(@user)
   end
 
   test "creating a Collection" do
-    visit collections_url
-    click_on "New Collection"
+    visit userpanel_url
+    within "#content" do
+      click_on "Collections"
+    end
 
-    fill_in "Name", with: @collection.name
-    click_on "Create Collection"
+    find('span', text: "Create New Collection").click
 
-    assert_text "Collection was successfully created"
-    click_on "Back"
+    fill_in "title", with: @collection.name + "yo"
+    assert_difference "Collection.count", 1 do
+      find('span', text: "create").click
+
+      assert_text "Collection created"
+    end
+
+    assert_equal Collection.last.name, @collection.name + "yo"
   end
 
   test "updating a Collection" do
-    visit collections_url
-    click_on "Edit", match: :first
+    visit userpanel_url
+    within "#content" do
+      click_on "Collections"
+    end
 
-    fill_in "Name", with: @collection.name
-    click_on "Update Collection"
+    within ".collection-container" do
+      click_on @collection.name[0..6]
+    end
 
-    assert_text "Collection was successfully updated"
-    click_on "Back"
+    assert_no_difference "Collection.count" do
+      # First delete the prefilled texts
+      @collection.name.length.times { find(".attr_edit_name").send_keys(:backspace) }
+      # Now fill in the new text
+      fill_in with: @collection.name + "_edit", class: "attr_edit_name"
+
+      assert_text @collection.name + "_edit", wait: 5
+    end
+
+    assert_equal Collection.find(@collection.id).name, @collection.name + "_edit"
   end
 
   test "destroying a Collection" do
-    visit collections_url
-    page.accept_confirm do
-      click_on "Destroy", match: :first
+    visit userpanel_url
+    within "#content" do
+      click_on "Collections"
     end
 
-    assert_text "Collection was successfully destroyed"
+    within ".collection-container" do
+      click_on @collection.name[0..6]
+    end
+
+    assert_difference "Collection.count", -1 do
+      find(".deleteButton").click
+      assert_text "Collection deleted"
+    end
+
+    assert_equal Collection.exists?(@collection.id), false
+  end
+
+  test "adding image to collection" do
+    visit userpanel_url
+    within "#content" do
+      click_on "Images"
+    end
+
+    within ".img-container" do
+      click_on @image.title[0..6]
+    end
+
+    assert_difference "Collection.find(#{@collection.id}).images.count", 1 do
+      within ".collectionList" do
+        find("input[data-collection='#{@collection.id}']").click
+      end
+
+      assert_text "Added to Collection(s)"
+    end
+
+    assert_includes Collection.find(@collection.id).images, @image
+  end
+
+  test "setting cover image" do
+    @image.collections << @collection
+    @image.save!
+    assert_nil Collection.find(@collection.id).header_image
+    
+    visit userpanel_url
+    within "#content" do
+      click_on "Collections"
+    end
+
+    within ".collection-container" do
+      click_on @collection.name[0..6]
+    end
+
+    within ".headerImages" do
+      find("input[data-img='#{@image.id}']").click
+    end
+    assert_text "Header Image set!"
+
+    assert_equal Collection.find(@collection.id).header_image, @image
+
+    # Now removing the header image:
+    within ".collection-container" do
+      click_on @collection.name[0..6]
+    end
+
+    within ".headerImages" do
+      find("input[data-img='#{@image.id}']").click
+    end
+    assert_text "Header Image unset!"
+    assert_nil Collection.find(@collection.id).header_image
   end
 end

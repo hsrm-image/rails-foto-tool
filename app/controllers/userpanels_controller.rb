@@ -1,131 +1,73 @@
 class UserpanelsController < ApplicationController
+	include Authenticate
+	before_action :authenticate_user!
+
 	def index
-		if current_user
-			@image = Image.new
-			@images = Image.all
-		else
-			respond_to do |format|
-				format.html do
-					redirect_back(
-						fallback_location: root_path,
-						notice: t("controllers.permission_denied"),
-					)
-				end
-			end
-		end
+		@image = Image.new
+		@images = Image.all
 	end
+
 	def show_images
-		if current_user
-			@image = Image.new
-			@images = Image.all
-			respond_to do |format|
-				puts format
-				format.js {}
-			end
-		else
-			respond_to do |format|
-				format.html do
-					redirect_back(
-						fallback_location: root_path,
-						notice: 'You are not logged in',
-					)
-				end
-			end
-		end
+		@image = Image.new
+		@images = Image.all
+		respond_to { |format| format.js {} }
 	end
 
 	def startProccess
-		if current_user
-			image = Image.find(params[:image_id])
-			AnalyseImageJob.perform_now image
+		image = Image.find(params[:image_id])
+		if AnalyseImageJob.perform_now image
 			respond_to do |format|
 				format.js do
 					render 'layouts/toast',
 					       locals: {
 							method: 'success',
-							message:
-								'Now re-analysing exif-data in Background. Check again in a few Seconds.',
+							message: t('controllers.start_analyze'),
 							title: '',
 					       }
-				end
-			end
-		else
-			respond_to do |format|
-				format.html do
-					redirect_back(
-						fallback_location: root_path,
-						notice: 'You are not logged in',
-					)
 				end
 			end
 		end
 	end
 
 	def show_collections
-		if current_user
-			@collections = Collection.all
-			@collections.each { |col| puts 'header' + col.header_image.to_s }
-			respond_to { |format| format.js {} }
-		else
-			respond_to do |format|
-				format.html do
-					redirect_back(
-						fallback_location: root_path,
-						notice: 'You are not logged in',
-					)
-				end
-			end
-		end
+		@collections = Collection.all
+		@collections.each { |col| puts 'header' + col.header_image.to_s }
+		respond_to { |format| format.js {} }
 	end
 
 	def create_collection
-		if current_user
-			respond_to do |format|
-				format.js { render 'userpanels/show_collection_modal' }
-			end
-		else
-			respond_to do |format|
-				format.html do
-					redirect_back(
-						fallback_location: root_path,
-						notice: 'You are not logged in',
-					)
-				end
-			end
+		respond_to do |format|
+			format.js { render 'userpanels/show_collection_modal' }
 		end
 	end
+
 	def show_details
-		if current_user
-			@image = Image.find(params['img'])
-			@informations = image_informations_filter(@image.attributes)
-			@editables = image_editables_filter(@image.attributes)
-			@collections = Collection.all
-			respond_to { |format| format.js {} }
-		else
-			respond_to do |format|
-				format.html do
-					redirect_back(
-						fallback_location: root_path,
-						notice: 'You are not logged in',
-					)
-				end
-			end
-		end
+		@image = Image.find(params['img'])
+		@informations = image_informations_filter(@image.attributes)
+		@editables = image_editables_filter(@image.attributes)
+		@collections = Collection.all
+		respond_to { |format| format.js {} }
 	end
+
 	def add_image_to_collection
-		if current_user
-			@image = Image.find(params[:image_id])
-			@collection = Collection.find(params[:collection_id])
-			return nil if @collection.images.include? @image
-			@image.collections << @collection
-		else
-			respond_to do |format|
-				format.html do
-					redirect_back(
-						fallback_location: root_path,
-						notice: 'You are not logged in',
-					)
-				end
+		@image = Image.find(params[:image_id])
+		@collection = Collection.find(params[:collection_id])
+		return nil if @collection.images.include? @image
+		error = '_error'
+		error = '' if @image.collections << @collection
+		respond_to do |format|
+			format.js do
+				render 'layouts/toast',
+				       locals: {
+						method: (error == '' ? 'success' : 'error'),
+						message:
+							t(
+								'controllers.image_add_collection' + error,
+								img: @image.title,
+								col: @collection.name,
+							),
+						title: '',
+				       }
 			end
 		end
 	end
@@ -133,59 +75,62 @@ class UserpanelsController < ApplicationController
 	#POST userpanel/join_collection_image
 	# data: image_id, collection_id
 	def remove_image_from_collection
-		if current_user
-			@image = Image.find(params[:image_id])
-			@collection = Collection.find(params[:collection_id])
-			return nil if !@collection.images.include? @image
-			@image.collections.delete(@collection)
-		else
-			respond_to do |format|
-				format.html do
-					redirect_back(
-						fallback_location: root_path,
-						notice: 'You are not logged in',
-					)
-				end
+		@image = Image.find(params[:image_id])
+		@collection = Collection.find(params[:collection_id])
+		return nil if !@collection.images.include? @image
+		error = '_error'
+		error = '' if @image.collections.delete(@collection)
+		respond_to do |format|
+			format.js do
+				render 'layouts/toast',
+				       locals: {
+						method: 'success',
+						message:
+							t(
+								'controllers.image_rem_collection' + error,
+								img: @image.title,
+								col: @collection.name,
+							),
+						title: '',
+				       }
 			end
 		end
 	end
 
 	def set_collection_header
-		if current_user
-			@collection = Collection.find(params[:collection_id])
-			puts params[:image_id].class
-			if params[:image_id] === ''
-				@collection.update({ header_image: nil })
-				return
-			end
-			img = Image.find(params[:image_id])
-			@collection.update({ header_image: img })
+		@collection = Collection.find(params[:collection_id])
+		error = '_error'
+		setState = ''
+		if params[:image_id] === ''
+			setState = 'rem_'
+			error = '' if @collection.update({ header_image: nil })
 		else
-			respond_to do |format|
-				format.html do
-					redirect_back(
-						fallback_location: root_path,
-						notice: 'You are not logged in',
-					)
-				end
+			setState = 'set_'
+			@img = Image.find(params[:image_id])
+			error = '' if @collection.update({ header_image: @img })
+		end
+
+		respond_to do |format|
+			format.js do
+				render 'layouts/toast',
+				       locals: {
+						method: (error == '' ? 'success' : 'error'),
+						message:
+							t(
+								'controllers.' + setState +
+									'collection_header' + error,
+								img: (@img != nil ? @img.title : nil),
+								col: @collection.name,
+							),
+						title: '',
+				       }
 			end
 		end
 	end
 
 	def show_collection_details
-		if current_user
-			@collection = Collection.find(params[:collection_id])
-			@editables = collections_editables_filter(@collection.attributes)
-		else
-			respond_to do |format|
-				format.html do
-					redirect_back(
-						fallback_location: root_path,
-						notice: 'You are not logged in',
-					)
-				end
-			end
-		end
+		@collection = Collection.find(params[:collection_id])
+		@editables = collections_editables_filter(@collection.attributes)
 	end
 	def image_informations_filter(attr)
 		puts attr

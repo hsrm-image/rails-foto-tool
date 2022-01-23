@@ -26,7 +26,6 @@ drop.on('addedfile', file => {
 
 drop.on('error', file => {
 	drop.removeFile(file)
-	toastr.warning('Error while uploading:' + file.name)
 })
 
 drop.on('complete', () => {

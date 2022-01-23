@@ -1,7 +1,7 @@
 class ImagesController < ApplicationController
 	include Authenticate
 	before_action :set_image, only: %i[show edit update destroy analyse]
-	before_action :authenticate_user_custom!,
+	before_action :authenticate_user!,
 	              only: %i[edit update destroy analyse new create]
 
 	# GET /images or /images.json
@@ -26,7 +26,12 @@ class ImagesController < ApplicationController
 		else
 			respond_to do |format|
 				format.html do
-					redirect_to images_url, notice: t("controllers.invisible", resource: t("images.resource_name"))
+					redirect_to images_url,
+					            notice:
+							t(
+								'controllers.invisible',
+								resource: t('images.resource_name'),
+							)
 				end
 			end
 		end
@@ -34,22 +39,7 @@ class ImagesController < ApplicationController
 
 	# GET /images/new
 	def new
-		if current_user
-			@image = Image.new
-		else
-			respond_to do |format|
-				format.js do
-					render 'layouts/toast',
-					       locals: {
-							method: 'error',
-							message:
-								'Now re-analysing exif-data in Background. Please refresh this page in a few Seconds.',
-							title: '',
-					       }
-				end
-			end
-		end
-
+		@image = Image.new
 	end
 
 	# GET /images/1/edit
@@ -67,7 +57,6 @@ class ImagesController < ApplicationController
 			)
 		@image.description = ''
 
-
 		respond_to do |format|
 			if @image.save
 				format.html do
@@ -84,7 +73,6 @@ class ImagesController < ApplicationController
 			end
 		end
 	end
-
 
 	def analyse
 		respond_to do |format|
@@ -119,45 +107,40 @@ class ImagesController < ApplicationController
 
 	# PATCH/PUT /images/1 or /images/1.json
 	def update
-		if current_user
-			@image.update(image_params)
-		else
-			respond_to do |format|
-				format.js do
-					render 'layouts/toast',
-					       locals: {
-							method: 'error',
-							message: 'Error while updating',
-							title: '',
-					       }
-				end
+		error = '_error'
+		error = '' if @image.update(image_params)
+		respond_to do |format|
+			format.js do
+				render 'layouts/toast',
+				       locals: {
+						method: (error == '' ? 'success' : 'error'),
+						message:
+							t(
+								'controllers.updated' + error,
+								resource: @image.title,
+							),
+						title: '',
+				       }
 			end
 		end
 	end
 
 	# DELETE /images/1 or /images/1.json
 	def destroy
-		if @image.destroy
-			respond_to do |format|
-				format.js do
-					render 'layouts/toast',
-					       locals: {
-							method: 'success',
-							message: 'Successfully deleted ' + @image.title,
-							title: '',
-					       }
-				end
-			end
-		else
-			respond_to do |format|
-				format.js do
-					render 'layouts/toast',
-					       locals: {
-							method: 'error',
-							message: 'Error whilst deleting ' + @image.title,
-							title: '',
-					       }
-				end
+		error = '_error'
+		error = '' if @image.destroy
+		respond_to do |format|
+			format.js do
+				render 'layouts/toast',
+				       locals: {
+						method: (error == '' ? 'success' : 'error'),
+						message:
+							t(
+								'controllers.destroyed' + error,
+								resource: @image.title,
+							),
+						title: '',
+				       }
 			end
 		end
 	end
@@ -166,7 +149,26 @@ class ImagesController < ApplicationController
 
 	# Use callbacks to share common setup or constraints between actions.
 	def set_image
-		@image = Image.find(params[:id])
+		begin
+			Image.find(params[:id])
+		rescue StandardError
+			respond_to do |format|
+				format.html do
+					redirect_back fallback_location: root_path,
+					              notice: t('controllers.image_404')
+				end
+				format.js do
+					render 'layouts/toast',
+					       locals: {
+							method: 'error',
+							message: t('controllers.image_404'),
+							title: '',
+					       }
+				end
+			end
+		else
+			@image = Image.find(params[:id])
+		end
 	end
 
 	# Only allow a list of trusted parameters through.

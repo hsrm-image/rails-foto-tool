@@ -58,4 +58,9 @@ class Image < ApplicationRecord
 			logged_in ? Collection.find(collection.id).images.all : Collection.find(collection.id).images.where(processed: true)
 		end
 	end
+  
+  def description_short
+    description.truncate(200)
+  end
+
 end

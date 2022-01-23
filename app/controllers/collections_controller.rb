@@ -1,4 +1,6 @@
 class CollectionsController < ApplicationController
+	include Authenticate
+	before_action :authenticate_user!, only: %i[new edit create update destroy]
 	before_action :set_collection, only: %i[show edit update destroy]
 
 	# GET /collections or /collections.json
@@ -30,70 +32,62 @@ class CollectionsController < ApplicationController
 
 	# POST /collections or /collections.json
 	def create
-		if current_user
-			puts(collection_params)
-			@collection = Collection.new(collection_params)
-			@collection.owner_id = current_user.id
-			respond_to do |format|
-				if @collection.save
-					format.js do
-						render 'layouts/toast',
-						       locals: {
-								method: 'success',
-								message: 'Collection created',
-								title: '',
-								position: 'toast-bottom-center',
-						       }
-					end
-				else
-					format.js do
-						render 'layouts/toast',
-						       locals: {
-								method: 'error',
-								message: 'Collection could not be created',
-								title: '',
-								position: 'toast-bottom-center',
-						       }
-					end
-				end
+		@collection = Collection.new(collection_params)
+		@collection.owner_id = current_user.id
+		error = '_error'
+		error = '' if @collection.save
+		respond_to do |format|
+			format.js do
+				render 'layouts/toast',
+				       locals: {
+						method: (error == '' ? 'success' : 'error'),
+						message:
+							t(
+								'controllers.created' + error,
+								resource: @collection.name,
+							),
+						title: '',
+				       }
 			end
-		else
-
 		end
 	end
 
 	# PATCH/PUT /collections/1 or /collections/1.json
 	def update
-		if current_user
-			@collection.update(collection_params)
-		else
-			respond_to do |format|
-				format.js do
-					render 'layouts/toast',
-					       locals: {
-							method: 'error',
-							message: 'Not Authenticated',
-							title: '',
-					       }
-				end
+		error = '_error'
+		error = '' if @collection.update(collection_params)
+		respond_to do |format|
+			format.js do
+				render 'layouts/toast',
+				       locals: {
+						method: (error == '' ? 'success' : 'error'),
+						message:
+							t(
+								'controllers.updated' + error,
+								resource: @collection.name,
+							),
+						title: '',
+				       }
 			end
 		end
 	end
 
 	# DELETE /collections/1 or /collections/1.json
 	def destroy
-		if current_user
-			@collection.destroy
-		else
-			respond_to do |format|
-				format.js do
-					render 'layouts/toast',
-					       locals: {
-							method: 'error',
-							message: 'Not Authenticated',
-							title: '',
-					       }
-				end
+		error = '_error'
+		error = '' if @collection.destroy
+		respond_to do |format|
+			format.js do
+				render 'layouts/toast',
+				       locals: {
+						method: (error == '' ? 'success' : 'error'),
+						message:
+							t(
+								'controllers.destroyed' + error,
+								resource: @collection.name,
+							),
+						title: '',
+				       }
 			end
 		end
 	end
