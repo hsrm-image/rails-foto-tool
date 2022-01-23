@@ -53,12 +53,12 @@ en:
         updated: '%{resource} was successfully updated'
         updated_error: '%{resource} could not be updated'
         permission_denied: 'You have no permission to do this!'
-        image_add_collection: 'Successfully added %{img} to %{col}'
-        image_add_collection_error: 'Error while adding %{img} to %{col}'
-        image_rem_collection: 'Successfully removed %{img} to %{col}'
-        image_rem_collection_error: 'Error while removing %{img} to %{col}'
-        set_collection_header: "Successfully set %{img} as %{col}'s header image"
-        set_collection_header_error: "Successfully set %{img} as %{col}'s header image"
+        image_add_collection: "Successfully added '%{img}' to %{col}"
+        image_add_collection_error: "Error while adding '%{img}' to %{col}"
+        image_rem_collection: "Successfully removed '%{img}' to %{col}"
+        image_rem_collection_error: "Error while removing '%{img}' to %{col}"
+        set_collection_header: "Successfully set '%{img}' as %{col}'s header image"
+        set_collection_header_error: "Error while setting '%{img}' as %{col}'s header image"
         rem_collection_header: "Successfully removed %{col}'s header image"
         rem_collection_header_error: "Error while removing %{col}'s header image"
         start_analyze: 'Now analysing exif-data in Background. Check again in a few Seconds.'
@@ -171,7 +171,7 @@ en:
                 customMessage: 'Drop your files here to upload'
             show_collections:
                 collections: collections
-                createNewCollection: 'create a new collection'
+                createNewCollection: 'Create a new collection'
             show_details:
                 details: Details
                 information: information
@@ -194,8 +194,8 @@ en:
                 headerImage: 'Collection header image'
                 deletion: 'delete %{col}'
             collection_modal:
-                title: title
-                create: create
+                title: Title
+                create: Create
         categories:
             images: Images
             collections: Collections

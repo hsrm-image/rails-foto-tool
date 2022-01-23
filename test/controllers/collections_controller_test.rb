@@ -26,14 +26,14 @@ class CollectionsControllerTest < ActionDispatch::IntegrationTest
     end
 
     test "should update collection" do
-        patch collection_url(@collection), params: { collection: { name: @collection.name + "abc" } }
+        patch collection_url(@collection), params: { collection: { name: @collection.name + "abc" } }, xhr: true, as: :js
         
         assert_equal Collection.find(@collection.id).name, @collection.name + "abc"
     end
 
     test "should destroy collection" do
         assert_difference('Collection.count', -1) do
-            delete collection_url(@collection)
+            delete collection_url(@collection), xhr: true, as: :js
         end
 
         assert_equal Collection.exists?(@collection.id), false

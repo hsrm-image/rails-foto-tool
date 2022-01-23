@@ -4,6 +4,7 @@ class ImagesTest < ApplicationSystemTestCase
   setup do
     @image = images(:one)
     @user = users(:adminOne)
+    @collection = collections(:two)
     perform_enqueued_jobs
     sign_in(@user)
   end
@@ -26,7 +27,7 @@ class ImagesTest < ApplicationSystemTestCase
   test "uploading an Image" do
     visit userpanel_url
     within "#content" do
-      click_on "Images"
+      click_on I18n.t("userpanels.index.images")
     end
 
     assert_difference "Image.count", 1 do
@@ -44,7 +45,7 @@ class ImagesTest < ApplicationSystemTestCase
     assert n > 1, "Please select a number equal or greater than 1 for multiple file uploads"
     visit userpanel_url
     within "#content" do
-      click_on "Images"
+      click_on I18n.t("userpanels.index.images")
     end
 
     images = []
@@ -66,7 +67,7 @@ class ImagesTest < ApplicationSystemTestCase
   test "deleting an Image" do
     visit userpanel_url
     within "#content" do
-      click_on "Images"
+      click_on I18n.t("userpanels.index.images")
     end
 
     within ".img-container" do
@@ -75,7 +76,7 @@ class ImagesTest < ApplicationSystemTestCase
 
     assert_difference "Image.count", -1 do
       find(".deleteButton").click
-      assert_text "Successfully deleted #{@image.title}"
+      assert_text I18n.t("controllers.destroyed", resource: @image.title)
     end
 
     assert_equal Image.exists?(@image.id), false
@@ -84,7 +85,7 @@ class ImagesTest < ApplicationSystemTestCase
   test "updating an Image" do
     visit userpanel_url
     within "#content" do
-      click_on "Images"
+      click_on I18n.t("userpanels.index.images")
     end
 
     within ".img-container" do
@@ -92,15 +93,18 @@ class ImagesTest < ApplicationSystemTestCase
     end
 
     assert_no_difference "Image.count" do
-      # First delete the prefilled texts
-      @image.title.length.times { find(".attr_edit_title").send_keys(:backspace) }
-      @image.description.length.times { find(".attr_edit_description").send_keys(:backspace) }
+      within "#details" do
+        # First delete the prefilled texts
+        @image.title.length.times { find(".attr_edit_title").send_keys(:backspace) }
+        @image.description.length.times { find(".attr_edit_description").send_keys(:backspace) }
 
-      # Now fill in the new text
-      fill_in class: "attr_edit_title", with: @image.title + "_edit"
-      fill_in class: "attr_edit_description", with: @image.description + "_edit"
-
-      assert_text @image.title + "_edit", wait: 5
+        # Now fill in the new text
+        fill_in class: "attr_edit_title", with: @image.title + "_edit"
+        find(".doneButton").click
+        fill_in class: "attr_edit_description", with: @image.description + "_edit"
+        find(".doneButton").click
+      end
+      assert_text I18n.t("controllers.updated", resource: @image.title + "_edit")
     end
 
     assert_equal Image.find(@image.id).title, @image.title + "_edit"
@@ -108,4 +112,24 @@ class ImagesTest < ApplicationSystemTestCase
   end
 
 
+  test "adding image to collection" do
+    visit userpanel_url
+    within "#content" do
+      click_on I18n.t("userpanels.index.images")
+    end
+
+    within ".img-container" do
+      click_on @image.title[0..6]
+    end
+
+    assert_difference "Collection.find(#{@collection.id}).images.count", 1 do
+      within ".collectionList" do
+        find("input[data-collection='#{@collection.id}']").click
+      end
+
+      assert_text I18n.t("controllers.image_add_collection", img: @image.title, col: @collection.name)
+    end
+
+    assert_includes Collection.find(@collection.id).images, @image
+  end
 end

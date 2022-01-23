@@ -15,6 +15,6 @@ class UserpanelTest < ApplicationSystemTestCase
 
   test "visiting the index when signed in" do
     visit userpanel_url
-    assert_selector "h3", text: "categories"
+    assert_selector "h3", text: I18n.t("userpanels.index.categories")
   end
 end
