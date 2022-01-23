@@ -46,7 +46,7 @@ function updateCollection() {
 		name: $('.attr_edit_name').val(),
 	}
 	$.ajax({
-		url: '/collections/' + id,
+		url: 'collections/' + id,
 		type: 'PUT',
 		data: {
 			collection: {

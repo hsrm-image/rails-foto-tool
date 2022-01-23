@@ -89,7 +89,7 @@ function updateImage() {
 		gps_longitude: $('.attr_edit_exif_gps_longitude').val(),
 	}
 	$.ajax({
-		url: '/images/' + id,
+		url: 'images/' + id,
 		type: 'PUT',
 		data: {
 			image: {
