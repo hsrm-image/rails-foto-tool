@@ -13,7 +13,6 @@ $(function () {
 	InfiniteScroll.imagesLoaded = imagesLoaded
 
 	if ($('nav.pagination a[rel=next]').length > 0) {
-		console.log(active)
 		$grid.infiniteScroll({
 			// Infinite Scroll options...
 			append: '.grid-element',

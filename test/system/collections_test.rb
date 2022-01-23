@@ -10,6 +10,18 @@ class CollectionsTest < ApplicationSystemTestCase
     sign_in(@user)
   end
 
+  test "viewing image in collection" do
+    @collection.images << @image
+    @collection.save!
+
+    assert_includes Collection.find(@collection.id).images, @image
+    visit collections_url
+    page.all('.grid-element').last.click
+
+    page.all('.grid-element').last.click
+    assert_selector "h1#image-title", text: @image.title
+  end
+
   test "creating a Collection" do
     visit userpanel_url
     within "#content" do

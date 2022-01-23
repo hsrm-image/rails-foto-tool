@@ -28,7 +28,6 @@ $('.headerImages img').on('click', e => {
 //spawn & remove done button
 $('[class^=attr_edit_]').on('keyup', e => {
 	var input = $(e.target)
-	console.log(input.next())
 	if (input.next().prop('class') != 'doneButton') {
 		$('.doneButton').remove()
 		input.after('<span class="doneButton">✓</span>')
@@ -64,7 +63,6 @@ function updateCollection() {
 function updateHeaderImage(checkbox) {
 	var id = $('*[data-collection-id]').data().collectionId
 	if (!checkbox.prop('checked')) {
-		console.log('removing')
 		$.ajax({
 			url: 'userpanel/set_collection_header',
 			data: {
@@ -77,7 +75,6 @@ function updateHeaderImage(checkbox) {
 			type: 'POST',
 		})
 	} else {
-		console.log('adding')
 		$.ajax({
 			url: 'userpanel/set_collection_header',
 			data: {

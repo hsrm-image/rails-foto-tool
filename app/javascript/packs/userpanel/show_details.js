@@ -14,8 +14,6 @@ $('.deleteButton').on('click', () => {
 
 $('.collectionList input[type="checkbox"]').on('click', e => {
 	var clicked = $(e.target)
-	console.log(clicked)
-	console.log($(e.target).prop('checked'))
 	if (!clicked.prop('checked')) {
 		$.ajax({
 			url: 'userpanel/part_collection_image',
@@ -56,7 +54,6 @@ $('.proccessButton').on('click', e => {
 //spawn & remove done button
 $('[class^=attr_edit_]').on('keyup', e => {
 	var input = $(e.target)
-	console.log(input.next())
 	if (input.next().prop('class') != 'doneButton') {
 		$('.doneButton').remove()
 		input.after('<span class="doneButton">✓</span>')
@@ -70,7 +67,6 @@ $('body').on('click', '.doneButton', () => {
 //update image
 function updateImage() {
 	var id = $('#img_id').data().imgId
-	console.log(id)
 	let img_info = {
 		title: $('.attr_edit_title').val(),
 		description: $('.attr_edit_description').val(),

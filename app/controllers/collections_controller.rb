@@ -45,7 +45,7 @@ class CollectionsController < ApplicationController
 							t(
 								'controllers.created' + error,
 								resource: @collection.name,
-								message: @collection.errors.values.flatten.join("\n")
+								message: @collection.errors.full_messages.join(",")
 							),
 						title: '',
 				       }

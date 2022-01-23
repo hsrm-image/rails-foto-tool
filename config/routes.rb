@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 			       :as => 'delete_user_registration'
 		end
 
-		resources :ratings, only: %i[create destroy]
+		resources :ratings, only: %i[create]
 		resources :collections do
 			resources :images, only: %i[index, show]
 		end

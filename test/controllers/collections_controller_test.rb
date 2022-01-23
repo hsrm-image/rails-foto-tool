@@ -4,6 +4,7 @@ class CollectionsControllerTest < ActionDispatch::IntegrationTest
     setup do
         @user = users(:one)
         @collection = collections(:one)
+        @image = images(:one)
         sign_in(@user)
     end
 
@@ -22,6 +23,16 @@ class CollectionsControllerTest < ActionDispatch::IntegrationTest
 
     test "should show collection" do
         get collection_url(@collection)
+        assert_response :success
+    end
+
+    test "should show image inside collection" do
+        @collection.images << @image
+        @collection.save!
+
+        assert_includes Collection.find(@collection.id).images, @image
+
+        get collection_image_path(@collection, @image)
         assert_response :success
     end
 

@@ -220,9 +220,9 @@ en:
                 restrict_dependent_destroy:
                     has_one: Cannot delete record because a dependent %{record} exists
                     has_many: Cannot delete record because dependent %{record} exist
-                content_type: "File does not have a valid Format!"
-                min_size_error: "Filesize should be more than %{min_size}!"
-                max_size_error: "Filesize should be less than%{max_size}!"
+                content_type: "does not have a valid Format!"
+                min_size_error: "should be more than %{min_size} in size!"
+                max_size_error: "should be less than%{max_size}in size!"
     date:
         abbr_day_names:
             - Sun

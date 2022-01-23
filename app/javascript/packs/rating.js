@@ -18,7 +18,6 @@ let set_stars = function(stars) {
 $(function() {
     if($('[name="session_id"]').length == 0) {
         // No session Cookie set
-        console.log("No session!");
         return;
     }
 

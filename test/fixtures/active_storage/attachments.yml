@@ -10,5 +10,10 @@ image_file_two:
 
 image_file_three:
   name: image_file
+  record: three (Image)
+  blob: image_file_one_blob
+
+image_file_processing:
+  name: image_file
   record: processing (Image)
   blob: image_file_two_blob

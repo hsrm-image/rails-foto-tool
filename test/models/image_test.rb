@@ -3,6 +3,11 @@ require "test_helper"
 class ImageTest < ActiveSupport::TestCase
   setup do
     @image = images(:one)
+    @image2 = images(:two)
+    @image3 = images(:three)
+    @processing = images(:processing)
+
+    @collection = collections(:two)
   end
 
   def new_image
@@ -62,8 +67,8 @@ class ImageTest < ActiveSupport::TestCase
 
   test "should skip not processed images as visitor" do
     images.each do |img|
-      assert_not_equal img.next(nil), images(:processing)
-      assert_not_equal img.previous(nil), images(:processing)
+      assert_not_equal img.next(nil), @processing
+      assert_not_equal img.previous(nil), @processing
     end
   end
 
@@ -75,7 +80,57 @@ class ImageTest < ActiveSupport::TestCase
       prevs << img.previous(true)
     end
 
-    assert_includes nexts, images(:processing)
-    assert_includes prevs, images(:processing)
+    assert_includes nexts, @processing
+    assert_includes prevs, @processing
+  end
+
+  test "should only navigate images in collection" do
+    @collection.images << @image
+    @collection.images << @image2
+
+    nexts = []
+    prevs = []
+
+    @collection.images.each do |img|
+      nexts << img.next(nil, @collection)
+      prevs << img.previous(nil, @collection)
+    end
+
+    assert_includes nexts, @image
+    assert_includes prevs, @image
+
+    assert_includes nexts, @image2
+    assert_includes prevs, @image2
+
+    assert_not_includes nexts, @image3
+    assert_not_includes prevs, @image3
+  end
+
+  test "should skip not processed images in collection as visitor" do
+    @collection.images << @image
+    @collection.images << @image2
+    @collection.images << @processing
+
+    @collection.images.each do |img|
+      assert_not_equal img.next(nil), @processing
+      assert_not_equal img.previous(nil), @processing
+    end
+  end
+
+  test "should show all images in collection as user" do
+    @collection.images << @image
+    @collection.images << @image2
+    @collection.images << @processing
+
+    nexts = []
+    prevs = []
+
+    @collection.images.each do |img|
+      nexts << img.next(true, @collection)
+      prevs << img.previous(true, @collection)
+    end
+
+    assert_includes nexts, @processing
+    assert_includes prevs, @processing
   end
 end

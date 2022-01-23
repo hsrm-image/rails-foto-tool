@@ -68,7 +68,7 @@ class ImagesController < ApplicationController
 			else
 				format.html { render :new, status: :unprocessable_entity }
 				format.json do
-					render json: @image.errors, status: :unprocessable_entity
+					render json: @image.errors.full_messages.join(", ").to_json, status: :unprocessable_entity
 				end
 			end
 		end

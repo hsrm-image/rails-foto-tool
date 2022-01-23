@@ -12,6 +12,12 @@ two:
   owner: two
   processed: true
 
+three:
+  title: Image 3
+  description: hellou
+  owner: two
+  processed: true
+
 processing:
   title: MyString 3
   description: MyText
