@@ -1,9 +1,7 @@
-var typingTimer //timer identifier
-var doneTypingInterval = 2000 //time in ms
-var id = $('*[data-collection-id]').data().collectionId
+//var id = $('*[data-collection-id]').data().collectionId
 $('.deleteButton').on('click', () => {
 	$.ajax({
-		url: 'collections/' + id,
+		url: 'collections/' + $('*[data-collection-id]').data().collectionId,
 		type: 'DELETE',
 		data: {
 			authenticity_token: $('meta[name="csrf-token"]').attr('content'),
@@ -28,16 +26,23 @@ $('.headerImages img').on('click', e => {
 	updateHeaderImage(matchingCheckbox)
 })
 
-$('[class^=attr_edit_]').on('keyup', () => {
-	clearTimeout(typingTimer)
-	typingTimer = setTimeout(updateCollection, doneTypingInterval)
+//spawn & remove done button
+$('[class^=attr_edit_]').on('keyup', e => {
+	var input = $(e.target)
+	console.log(input.next())
+	if (input.next().prop('class') != 'doneButton') {
+		$('.doneButton').remove()
+		input.after('<span class="doneButton">✓</span>')
+	}
 })
-$('[class^=attr_edit_]').on('keydown', function () {
-	clearTimeout(typingTimer)
+//start update
+$('body').on('click', '.doneButton', () => {
+	$('.doneButton').remove()
+	updateCollection()
 })
 
 function updateCollection() {
-	console.log($('meta[name="csrf-token"]').data())
+	var id = $('*[data-collection-id]').data().collectionId
 	let collection_info = {
 		name: $('.attr_edit_name').val(),
 	}
@@ -59,6 +64,7 @@ function updateCollection() {
 }
 
 function updateHeaderImage(checkbox) {
+	var id = $('*[data-collection-id]').data().collectionId
 	if (!checkbox.prop('checked')) {
 		console.log('removing')
 		$.ajax({

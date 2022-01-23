@@ -12,6 +12,9 @@
 	color: #fff;
 	flex-grow: 1;
 	height: 100%;
+	input {
+		outline: none;
+	}
 }
 #control {
 	background-color: #304747;
@@ -180,4 +183,32 @@
 	height: 50px;
 	width: 100%;
 	grid-column: 1/-1;
+}
+.changeBox textarea {
+	padding: 2px;
+	height: 3em;
+	outline: none;
+	border: none;
+	border-radius: 0px;
+	color: white;
+	background-color: #2e2e2e;
+}
+.editContainer {
+	height: calc(2em + 6px);
+}
+.doneButton {
+	height: calc(2em + 3px);
+	width: calc(2em + 3px);
+	display: block;
+	position: relative;
+	top: calc(-2em - 5px);
+	background-color: green;
+	cursor: pointer;
+	line-height: 2em;
+	border: 1px solid green;
+	text-align: center;
+	left: calc(100% - 3em);
+}
+textarea + .doneButton {
+	top: calc(-2em - 10px);
 }

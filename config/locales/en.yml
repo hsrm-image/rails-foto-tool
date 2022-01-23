@@ -140,18 +140,18 @@ en:
     userpanels:
         resource_name: userpanel
         index:
-            images: images
-            collections: collections
-            categories: categories
+            images: Images
+            collections: Collections
+            categories: Categories
         views:
             show_images:
-                images: images
+                images: Images
                 customMessage: 'Drop your files here to upload'
             show_collections:
                 collections: collections
                 createNewCollection: 'create a new collection'
             show_details:
-                details: details
+                details: Details
                 information: information
                 exif_camera_maker: 'camera maker'
                 exif_camera_model: 'camera model'
@@ -167,9 +167,9 @@ en:
                 processing: 'start processing'
                 deletion: 'delete %{img}'
             show_collection_details:
-                details: details
-                name: collection
-                headerImage: 'collection header image'
+                details: Details
+                name: Collection
+                headerImage: 'Collection header image'
                 deletion: 'delete %{col}'
             collection_modal:
                 title: title

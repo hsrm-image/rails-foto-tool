@@ -1,8 +1,8 @@
 %h3= t('.details')
 .changeBox
 	- @editables.each do | attr_name, attr_val|
-		.changeProp
-			%span{data: { collection_id: @collection.id }}= t('.'+attr_name)
+		%span{data: { collection_id: @collection.id }}= t('.'+attr_name)
+		.editContainer
 			%input{
 				type: 'text',
 				value: attr_val,
