@@ -17,19 +17,48 @@
 	}
 }
 #control {
-	background-color: #304747;
+	background-color: #2e2e2e;
 	height: 100%;
 	overflow-y: auto;
 	display: flex;
 	flex-direction: column;
+	border-right: solid black 1px;
+	a {
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+		height: 2em;
+		background-color: #ffffff;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 2em;
+		margin-bottom: 0.5em;
+		&:hover {
+			background-color: #111;
+		}
+	}
+	h3 {
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.active {
+		background-color: #4caf50;
+		color: white;
+	}
 }
+
 .box {
 	flex: 1 1 auto;
 }
 #details {
-	background-color: #304747;
+	background-color: #2e2e2e;
 	height: 100%;
 	overflow: hidden;
+	overflow-y: auto;
+	border-left: solid black 1px;
+	padding: 0% 10%;
 }
 #show {
 	background-color: #2e2e2e;
@@ -104,6 +133,10 @@
 	border: solid 1px black;
 	color: white;
 	height: 2em;
+	width: 100%;
+}
+.hoverCard input {
+	width: unset;
 }
 .shadow {
 	width: 100%;
@@ -141,9 +174,10 @@
 #collectionButton {
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-evenly;
 	flex-direction: column;
 	text-align: center;
+	height: 120px;
 }
 
 #collectionButton:before {
@@ -156,7 +190,7 @@
 .headerImages {
 	display: flex;
 	background: #0000009a;
-	width: 80%;
+	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
 	flex-direction: column;
@@ -173,6 +207,9 @@
 		margin-bottom: 1em;
 	}
 }
+.headerImages {
+	height: 500px;
+}
 .infoBox,
 .changeBox {
 	display: grid;
@@ -186,16 +223,19 @@
 }
 .changeBox textarea {
 	padding: 2px;
+	width: 100%;
 	height: 3em;
 	outline: none;
 	border: none;
 	border-radius: 0px;
 	color: white;
-	background-color: #2e2e2e;
+	background-color: #4f4f4f;
+	border: solid 1px black;
 }
-.editContainer {
-	height: calc(2em + 6px);
+.fixHeight {
+	height: calc(2em + 5px);
 }
+
 .doneButton {
 	height: calc(2em + 3px);
 	width: calc(2em + 3px);
@@ -207,8 +247,9 @@
 	line-height: 2em;
 	border: 1px solid green;
 	text-align: center;
-	left: calc(100% - 3em);
+	left: calc(100% - 2em + 1px);
 }
 textarea + .doneButton {
 	top: calc(-2em - 10px);
+	left: calc(100% - 3em);
 }

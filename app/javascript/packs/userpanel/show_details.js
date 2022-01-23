@@ -59,6 +59,10 @@ $('[class^=attr_edit_]').on('keyup', e => {
 	console.log(input.next())
 	if (input.next().prop('class') != 'doneButton') {
 		$('.doneButton').remove()
+		$('.editContainer').removeClass('fixHeight')
+		console.log(input.prop('nodeName'))
+		if (input.prop('nodeName') != 'textarea'.toUpperCase())
+			input.parent().addClass('fixHeight')
 		input.after('<span class="doneButton">✓</span>')
 	}
 })
