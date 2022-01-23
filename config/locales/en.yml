@@ -47,7 +47,7 @@ en:
         destroyed: '%{resource} was successfully deleted'
         destroyed_error: '%{resource} could not be deleted'
         created: '%{resource} was successfully created'
-        created_error: '%{resource} could not be created'
+        created_error: '%{resource} could not be created: %{message}'
         invisible: '%{resource} is not publicly visible'
         no_attached: 'No %{resource} attached!'
         updated: '%{resource} was successfully updated'
@@ -74,7 +74,7 @@ en:
         show:
             all: 'All %{col} Images'
             loading: 'Loading...'
-            done: 'End of Collections'
+            done: 'End of Collection'
             error: 'Error loading next images'
             
     images:
@@ -220,6 +220,9 @@ en:
                 restrict_dependent_destroy:
                     has_one: Cannot delete record because a dependent %{record} exists
                     has_many: Cannot delete record because dependent %{record} exist
+                content_type: "File does not have a valid Format!"
+                min_size_error: "Filesize should be more than %{min_size}!"
+                max_size_error: "Filesize should be less than%{max_size}!"
     date:
         abbr_day_names:
             - Sun

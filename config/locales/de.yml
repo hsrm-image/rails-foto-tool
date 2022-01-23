@@ -14,7 +14,9 @@ de:
 
     controllers:
         destroyed: '%{resource} wurde erfolgreich gelöscht'
+        destroyed_error: '%{resource} konnte nicht gelöscht werden'
         created: '%{resource} wurde erfolgreich erstellt'
+        created_error: '%{resource} konnte nicht erstellt werden: %{message}'
         invisible: '%{resource} ist nicht öffentlich sichtbar'
         no_attached: 'Kein %{resource}!'
         updated: '%{resource} wurde erfolgreich aktualisiert'
@@ -188,6 +190,9 @@ de:
                         Datensatz kann nicht gelöscht werden, da ein abhängiger %{record}-Datensatz
                         existiert.
                     has_many: Datensatz kann nicht gelöscht werden, da abhängige %{record} existieren.
+                content_type: "Datei hat kein Gültiges Dateiformat!"
+                min_size_error: "Dateigröße sollte mehr als %{min_size} betragen"
+                max_size_error: "Dateigröße sollte weniger als %{max_size} betragen"
     date:
         abbr_day_names:
             - So
