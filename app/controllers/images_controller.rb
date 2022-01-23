@@ -33,7 +33,22 @@ class ImagesController < ApplicationController
 
 	# GET /images/new
 	def new
-		@image = Image.new
+		if current_user
+			@image = Image.new
+		else
+			respond_to do |format|
+				format.js do
+					render 'layouts/toast',
+					       locals: {
+							method: 'error',
+							message:
+								'Now re-analysing exif-data in Background. Please refresh this page in a few Seconds.',
+							title: '',
+					       }
+				end
+			end
+		end
+
 	end
 
 	# GET /images/1/edit
@@ -42,14 +57,21 @@ class ImagesController < ApplicationController
 	# POST /images or /images.json
 	def create
 		@image = Image.new(image_params)
-		@image.owner = current_user
-		@image.title = image_params[:image_file].original_filename
+
+		@image.owner_id = current_user.id
+		@image.title =
+			File.basename(
+				image_params[:image_file].original_filename,
+				File.extname(image_params[:image_file].original_filename),
+			)
+		@image.description = ''
+
 
 		respond_to do |format|
 			if @image.save
 				format.html do
 					redirect_to @image,
-					            notice: t('controllers.created', resource: t("images.resource_name"))
+					            notice: 'Image was successfully created.'
 				end
 				format.json { render :show, status: :created, location: @image }
 				AnalyseImageJob.perform_later @image
@@ -62,30 +84,31 @@ class ImagesController < ApplicationController
 		end
 	end
 
+
 	def analyse
 		respond_to do |format|
 			if @image.image_file.attached?
 				AnalyseImageJob.perform_later @image
 				format.html do
 					redirect_to @image,
-					            notice: t('.analysing')
+					            notice: 'Image will be analysed in background.'
 				end
 				format.js do
 					render 'layouts/toast',
 					       locals: {
 							method: 'success',
 							message:
-								t('.analysing'),
+								'Now re-analysing exif-data in Background. Please refresh this page in a few Seconds.',
 							title: '',
 					       }
 				end
 			else
-				format.html { redirect_to @image, notice: t('controllers.no_attached', resource: t("images.resource_name")) }
+				format.html { redirect_to @image, notice: 'No image!' }
 				format.js do
 					render 'layouts/toast',
 					       locals: {
 							method: 'error',
-							message: t('controllers.no_attached', resource: t("images.resource_name")),
+							message: 'Error: No image attached!',
 							title: '',
 					       }
 				end
@@ -95,19 +118,46 @@ class ImagesController < ApplicationController
 
 	# PATCH/PUT /images/1 or /images/1.json
 	def update
-		respond_to do |format|
-			if @image.update(image_params)
-				format.html { redirect_to userpanels_path, format: 'js' }
+		if current_user
+			@image.update(image_params)
+		else
+			respond_to do |format|
+				format.js do
+					render 'layouts/toast',
+					       locals: {
+							method: 'error',
+							message: 'Error while updating',
+							title: '',
+					       }
+				end
 			end
 		end
 	end
 
 	# DELETE /images/1 or /images/1.json
 	def destroy
-		@image.destroy
-		respond_to do |format|
-			format.html { redirect_to images_path, notice: t("controllers.destroyed", resource: t("images.resource_name")) }
-			format.json { head :no_content }
+		if @image.destroy
+			respond_to do |format|
+				format.js do
+					render 'layouts/toast',
+					       locals: {
+							method: 'success',
+							message: 'Successfully deleted ' + @image.title,
+							title: '',
+					       }
+				end
+			end
+		else
+			respond_to do |format|
+				format.js do
+					render 'layouts/toast',
+					       locals: {
+							method: 'error',
+							message: 'Error whilst deleting ' + @image.title,
+							title: '',
+					       }
+				end
+			end
 		end
 	end
 

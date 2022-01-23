@@ -26,7 +26,7 @@ module RailsFotoTool
 		I18n.default_locale = :en
 
 		# Set the maximum filesize for images
-		config.x.image.max_file_size = 5.megabyte
+		config.x.image.max_file_size = 50.megabyte
 
 		# Please edit this variable to reflect the URL of the Server
 		config.x.mail.root_url = 'localhost:3000'

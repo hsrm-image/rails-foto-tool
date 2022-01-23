@@ -17,6 +17,9 @@
 					= link_to t('application.images'), images_path
 				%li{id: is_active?("collections")}
 					= link_to t('application.collections'), collections_path
+				- if !current_user.nil?
+					%li{id: is_active?("userpanels")}
+						= link_to 'Userpanel', userpanel_path
 				- if admin?
 					%li{id: is_active?("users", "invitations")}
 						= link_to t('application.users'), users_path
