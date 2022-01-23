@@ -43,7 +43,7 @@ $('body').on('click', '.doneButton', () => {
 function updateCollection() {
 	var id = $('*[data-collection-id]').data().collectionId
 	let collection_info = {
-		name: $('.attr_edit_name').val(),
+		name: sanatizeUserInput($('.attr_edit_name').val()),
 	}
 	$.ajax({
 		url: '/collections/' + id,
@@ -90,4 +90,7 @@ function updateHeaderImage(checkbox) {
 			type: 'POST',
 		})
 	}
+}
+function sanatizeUserInput(input) {
+	return input.replace(/[^\w. ]/gi, '')
 }

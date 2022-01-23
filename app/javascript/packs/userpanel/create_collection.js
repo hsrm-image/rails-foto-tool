@@ -5,7 +5,8 @@ $('.cross').on('click', () => {
 
 $('.submitButton').on('click', () => {
 	//Submit new Collection
-	var title = $('input[name=title]').val()
+	var title = sanatizeUserInput($('input[name=title]').val())
+	console.log(title)
 	$.ajax({
 		url: 'collections',
 		type: 'POST',
@@ -18,3 +19,7 @@ $('.submitButton').on('click', () => {
 		$.ajax({url: 'userpanel/show_collections'})
 	})
 })
+
+function sanatizeUserInput(input) {
+	return input.replace(/[^\w. ]/gi, '')
+}

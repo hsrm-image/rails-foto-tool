@@ -14,8 +14,6 @@ $('.deleteButton').on('click', () => {
 
 $('.collectionList input[type="checkbox"]').on('click', e => {
 	var clicked = $(e.target)
-	console.log(clicked)
-	console.log($(e.target).prop('checked'))
 	if (!clicked.prop('checked')) {
 		$.ajax({
 			url: 'userpanel/part_collection_image',
@@ -56,7 +54,6 @@ $('.proccessButton').on('click', e => {
 //spawn & remove done button
 $('[class^=attr_edit_]').on('keyup', e => {
 	var input = $(e.target)
-	console.log(input.next())
 	if (input.next().prop('class') != 'doneButton') {
 		$('.doneButton').remove()
 		input.after('<span class="doneButton">✓</span>')
@@ -72,17 +69,8 @@ function updateImage() {
 	var id = $('#img_id').data().imgId
 	console.log(id)
 	let img_info = {
-		title: $('.attr_edit_title').val(),
-		description: $('.attr_edit_description').val(),
-		camera_maker: $('.attr_edit_exif_camera_maker').val(),
-		camera_model: $('.attr_edit_exif_camera_model').val(),
-		lens_model: $('.attr_edit_exif_lens_model').val(),
-		focal_length: $('.attr_edit_exif_focal_length').val(),
-		aperture: $('.attr_edit_exif_aperture').val(),
-		exposure: $('.attr_edit_exif_exposure').val(),
-		iso: $('.attr_edit_exif_iso').val(),
-		gps_latitude: $('.attr_edit_exif_gps_latitude').val(),
-		gps_longitude: $('.attr_edit_exif_gps_longitude').val(),
+		title: sanatizeUserInput($('.attr_edit_title').val()),
+		description: sanatizeUserInput($('.attr_edit_description').val()),
 	}
 	$.ajax({
 		url: '/images/' + id,
@@ -99,4 +87,7 @@ function updateImage() {
 			$.ajax('userpanel/show_details.js?img=' + id)
 		})
 	})
+}
+function sanatizeUserInput(input) {
+	return input.replace(/[^\w. ]/gi, '')
 }
