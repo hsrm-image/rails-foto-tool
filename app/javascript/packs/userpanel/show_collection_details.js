@@ -89,5 +89,5 @@ function updateHeaderImage(checkbox) {
 	}
 }
 function sanatizeUserInput(input) {
-	return input.replace(/[^\p{L}]/gmu, '')
+	return input.replace(/[^\p{L}. _,-]/gmu, '')
 }
