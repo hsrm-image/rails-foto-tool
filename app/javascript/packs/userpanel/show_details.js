@@ -27,9 +27,7 @@ $('.collectionList input[type="checkbox"]').on('click', e => {
 				),
 			},
 			type: 'POST',
-		}).done(() => {
-			toastr.success('Removed from Collection(s)')
-		})
+		}).done(() => {})
 	} else {
 		$.ajax({
 			url: 'userpanel/join_collection_image',
@@ -41,9 +39,7 @@ $('.collectionList input[type="checkbox"]').on('click', e => {
 				),
 			},
 			type: 'POST',
-		}).done(() => {
-			toastr.success('Added to Collection(s)')
-		})
+		}).done(() => {})
 	}
 })
 //manually start proccess if not run jet
@@ -101,7 +97,6 @@ function updateImage() {
 	}).done(() => {
 		$.ajax('userpanel/show_images.js').done(() => {
 			$.ajax('userpanel/show_details.js?img=' + id)
-			toastr.success('Updated ' + img_info.title)
 		})
 	})
 }

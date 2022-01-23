@@ -7,7 +7,6 @@ $('.deleteButton').on('click', () => {
 			authenticity_token: $('meta[name="csrf-token"]').attr('content'),
 		},
 	}).done(() => {
-		toastr.success('Collection deleted')
 		setTimeout(() => {
 			$.ajax({url: 'userpanel/show_collections.js', type: 'GET'})
 		}, 500)
@@ -58,7 +57,6 @@ function updateCollection() {
 	}).done(() => {
 		$.ajax('userpanel/show_collections.js').done(() => {
 			$.ajax('userpanel/show_collection_details.js?collection_id=' + id)
-			toastr.success('Updated ' + collection_info.name)
 		})
 	})
 }
@@ -77,14 +75,6 @@ function updateHeaderImage(checkbox) {
 				),
 			},
 			type: 'POST',
-		}).done(() => {
-			toastr.success('Header Image unset!')
-			$.ajax({url: 'userpanel/show_collections'}).done(() => {
-				$.ajax({
-					url:
-						'userpanel/show_collection_details?collection_id=' + id,
-				})
-			})
 		})
 	} else {
 		console.log('adding')
@@ -98,14 +88,6 @@ function updateHeaderImage(checkbox) {
 				),
 			},
 			type: 'POST',
-		}).done(() => {
-			toastr.success('Header Image set!')
-			$.ajax({url: 'userpanel/show_collections'}).done(() => {
-				$.ajax({
-					url:
-						'userpanel/show_collection_details?collection_id=' + id,
-				})
-			})
 		})
 	}
 }
