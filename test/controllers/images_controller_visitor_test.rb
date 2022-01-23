@@ -10,7 +10,7 @@ class ImagesControllerVisitorTest < ActionDispatch::IntegrationTest
 
 	test 'should not get new' do
 		get new_image_url
-		assert_redirected_to root_url
+		assert_redirected_to new_user_session_url
 	end
 
 	test 'should not create image' do
@@ -32,7 +32,7 @@ class ImagesControllerVisitorTest < ActionDispatch::IntegrationTest
 			end
 		end
 
-		assert_redirected_to root_url
+		assert_redirected_to new_user_session_url
 	end
 
 	test 'should show processed image' do
@@ -48,7 +48,7 @@ class ImagesControllerVisitorTest < ActionDispatch::IntegrationTest
 
 	test 'should not get edit' do
 		get edit_image_url(@image)
-		assert_redirected_to root_url
+		assert_redirected_to new_user_session_url
 	end
 
 	test 'should not update image' do
@@ -59,7 +59,7 @@ class ImagesControllerVisitorTest < ActionDispatch::IntegrationTest
 					title: @image.title,
 				},
 		      }
-		assert_redirected_to root_url
+		assert_redirected_to new_user_session_url
 	end
 
 	test 'should not destroy image' do
@@ -67,6 +67,6 @@ class ImagesControllerVisitorTest < ActionDispatch::IntegrationTest
 			assert_no_difference('Image.count') { delete image_url(@image) }
 		end
 
-		assert_redirected_to root_url
+		assert_redirected_to new_user_session_url
 	end
 end

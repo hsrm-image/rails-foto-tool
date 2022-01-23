@@ -2,10 +2,6 @@ module Authenticate
   extend ActiveSupport::Concern
   include ApplicationHelper
 
-  def authenticate_user_custom!
-    deny if current_user.nil?
-  end
-
   def authenticate_admin!
     authenticate_user!
     deny unless admin?
@@ -22,7 +18,7 @@ module Authenticate
   private
   def deny
     respond_to do |format|
-      format.html { redirect_back(fallback_location: root_path, notice: t("controllers.permission_denied")) }
+      format.html { redirect_back(fallback_location: root_path, alert: t("controllers.permission_denied")) }
       format.js {render 'layouts/toast', locals: { :method => "error", :message => t("controllers.permission_denied"), :title => ""}}
     end
     return false

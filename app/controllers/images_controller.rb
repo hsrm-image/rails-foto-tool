@@ -1,7 +1,7 @@
 class ImagesController < ApplicationController
 	include Authenticate
 	before_action :set_image, only: %i[show edit update destroy analyse]
-	before_action :authenticate_user_custom!,
+	before_action :authenticate_user!,
 	              only: %i[edit update destroy analyse new create]
 
 	# GET /images or /images.json
@@ -33,22 +33,7 @@ class ImagesController < ApplicationController
 
 	# GET /images/new
 	def new
-		if current_user
-			@image = Image.new
-		else
-			respond_to do |format|
-				format.js do
-					render 'layouts/toast',
-					       locals: {
-							method: 'error',
-							message:
-								'Now re-analysing exif-data in Background. Please refresh this page in a few Seconds.',
-							title: '',
-					       }
-				end
-			end
-		end
-
+		@image = Image.new
 	end
 
 	# GET /images/1/edit
@@ -118,20 +103,7 @@ class ImagesController < ApplicationController
 
 	# PATCH/PUT /images/1 or /images/1.json
 	def update
-		if current_user
-			@image.update(image_params)
-		else
-			respond_to do |format|
-				format.js do
-					render 'layouts/toast',
-					       locals: {
-							method: 'error',
-							message: 'Error while updating',
-							title: '',
-					       }
-				end
-			end
-		end
+		@image.update(image_params)
 	end
 
 	# DELETE /images/1 or /images/1.json
