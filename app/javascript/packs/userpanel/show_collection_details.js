@@ -89,5 +89,5 @@ function updateHeaderImage(checkbox) {
 	}
 }
 function sanatizeUserInput(input) {
-	return input.replace(/[^\w. ]/gi, '')
+	return input.replace(/[^\wüöäß. ]/gi, '')
 }
