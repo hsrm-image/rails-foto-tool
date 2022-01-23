@@ -1,0 +1,8 @@
+- col = collection
+- header = col.images.first.image_file.variant(resize_to_fill: [Rails.configuration.x.image.preview_image_size, Rails.configuration.x.image.preview_image_size]) if col.images.first
+- header = col.header_image.image_file.variant(resize_to_fill: [Rails.configuration.x.image.preview_image_size, Rails.configuration.x.image.preview_image_size]) if col.header_image
+%li
+	= link_to col do
+		.collectionName
+			%h3= col.name
+			= image_tag url_for(header)

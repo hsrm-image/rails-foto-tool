@@ -3,7 +3,15 @@ class CollectionsController < ApplicationController
 
 	# GET /collections or /collections.json
 	def index
-		@collections = Collection.all
+		if current_user
+			@collections = Collection.order(:created_at).page(params[:page])
+		else
+			@collections =
+				Collection
+					.where(processed: true)
+					.order(:created_at)
+					.page(params[:page])
+		end
 	end
 
 	# GET /collections/1 or /collections/1.json
@@ -48,7 +56,6 @@ class CollectionsController < ApplicationController
 			end
 		else
 
-
 		end
 	end
 
@@ -87,7 +94,6 @@ class CollectionsController < ApplicationController
 			end
 		end
 	end
-
 
 	private
 
