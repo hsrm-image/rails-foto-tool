@@ -28,14 +28,14 @@ $('.headerImages img').on('click', e => {
 //spawn & remove done button
 $('[class^=attr_edit_]').on('keyup', e => {
 	var input = $(e.target)
-	if (input.next().prop('class') != 'doneButton') {
-		$('.doneButton').remove()
-		input.after('<span class="doneButton">✓</span>')
+	if (input.next().prop('class') != 'doneButton2') {
+		$('.doneButton2').remove()
+		input.after('<span class="doneButton2">✓</span>')
 	}
 })
 //start update
-$('body').on('click', '.doneButton', () => {
-	$('.doneButton').remove()
+$('body').on('click', '.doneButton2', () => {
+	$('.doneButton2').remove()
 	updateCollection()
 })
 

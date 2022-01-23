@@ -6,7 +6,6 @@ $('.cross').on('click', () => {
 $('.submitButton').on('click', () => {
 	//Submit new Collection
 	var title = sanatizeUserInput($('input[name=title]').val())
-	console.log(title)
 	$.ajax({
 		url: 'collections',
 		type: 'POST',

@@ -236,7 +236,8 @@
 	height: calc(2em + 5px);
 }
 
-.doneButton {
+.doneButton,
+.doneButton2 {
 	height: calc(2em + 3px);
 	width: calc(2em + 3px);
 	display: block;
@@ -249,7 +250,8 @@
 	text-align: center;
 	left: calc(100% - 2em + 1px);
 }
-textarea + .doneButton {
+textarea + .doneButton,
+textarea + .doneButton2 {
 	top: calc(-2em - 10px);
 	left: calc(100% - 3em);
 }
