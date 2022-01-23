@@ -1,8 +1,8 @@
 #view
 	#control
 		%h3= t('.categories')
-		= link_to t(".images"), userpanel_show_images_path, :remote => true
-		= link_to t(".collections"), userpanel_show_collections_path, :remote => true
+		= link_to t(".images"), userpanel_show_images_path, :id => 'imgButton', :remote => true
+		= link_to t(".collections"), userpanel_show_collections_path,:id => 'colButton', :remote => true
 	#show
 		= render(partial: 'userpanels/views/show_images')
 	#details

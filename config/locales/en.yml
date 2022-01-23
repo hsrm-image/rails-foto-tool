@@ -76,7 +76,7 @@ en:
             loading: 'Loading...'
             done: 'End of Collections'
             error: 'Error loading next images'
-            
+
     images:
         resource_name: 'Image'
         index:
@@ -174,7 +174,7 @@ en:
                 createNewCollection: 'create a new collection'
             show_details:
                 details: Details
-                information: information
+                information: Information
                 exif_camera_maker: 'camera maker'
                 exif_camera_model: 'camera model'
                 exif_lens_model: 'lens model'

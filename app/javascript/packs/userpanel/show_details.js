@@ -56,6 +56,10 @@ $('[class^=attr_edit_]').on('keyup', e => {
 	var input = $(e.target)
 	if (input.next().prop('class') != 'doneButton') {
 		$('.doneButton').remove()
+		$('.editContainer').removeClass('fixHeight')
+		console.log(input.prop('nodeName'))
+		if (input.prop('nodeName') != 'textarea'.toUpperCase())
+			input.parent().addClass('fixHeight')
 		input.after('<span class="doneButton">✓</span>')
 	}
 })
@@ -73,7 +77,7 @@ function updateImage() {
 		description: sanatizeUserInput($('.attr_edit_description').val()),
 	}
 	$.ajax({
-		url: '/images/' + id,
+		url: 'images/' + id,
 		type: 'PUT',
 		data: {
 			image: {

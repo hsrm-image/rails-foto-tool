@@ -1,5 +1,7 @@
 import Dropzone from 'dropzone'
 
+$('#control #imgButton').addClass('active')
+$('#control #colButton').removeClass('active')
 var drop = undefined
 var input = document.querySelector('input[type=file]')
 if (!drop) {

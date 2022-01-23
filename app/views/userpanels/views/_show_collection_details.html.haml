@@ -21,4 +21,5 @@
 			= image_tag url_for(img.image_file),data:{img: img.id}, class:'widget' if !img.image_file.variant(resize_to_fill: [100, 100])
 .deleteButton
 	%span= t('.deletion', col:@collection.name)
+.padding-element
 = javascript_pack_tag 'userpanel/show_collection_details', 'data-turbolinks-track': 'reload'
