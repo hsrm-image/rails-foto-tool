@@ -22,6 +22,7 @@ class ImagesController < ApplicationController
 		if current_user or Image.find(params[:id]).processed
 			@image = Image.find(params[:id])
 			@comment = @image.comments.new
+			@collection = Collection.find(params[:collection_id]) unless params[:collection_id].nil?
 		else
 			respond_to do |format|
 				format.html do

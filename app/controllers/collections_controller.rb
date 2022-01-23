@@ -3,25 +3,14 @@ class CollectionsController < ApplicationController
 
 	# GET /collections or /collections.json
 	def index
-		if current_user
-			@collections = Collection.order(:created_at).page(params[:page])
-		else
-			@collections =
-				Collection
-					.where(processed: true)
-					.order(:created_at)
-					.page(params[:page])
-		end
+		@collections = Collection.order(:created_at).page(params[:page])
 	end
 
 	# GET /collections/1 or /collections/1.json
 	def show
 		if current_user
-			collection = Collection.find(params[:id])
-			@col_name = collection.name
-			@images = collection.images.order(:created_at).page(params[:page])
+			@images = @collection.images.order(:created_at).page(params[:page])
 		else
-			collection = Collection.find(params[:id])
 			@images =
 				@collection
 					.images

@@ -10,4 +10,24 @@ class Collection < ApplicationRecord
 
 	# Kaminari
 	paginates_per 3
+
+	def rateable_type
+		"Collection"
+	end
+
+	def get_ratings
+		return Rating.where(rateable_id: id, rateable_type: 'Collection')
+	end
+
+	def get_score
+		1.0 * get_ratings.sum(:rating) / get_ratings.count
+	end
+
+	def has_rated?(session_id)
+		get_ratings.where(session_id: session_id).count > 0
+	end
+
+	def get_rate(session_id)
+		get_ratings.where(session_id: session_id).first
+	end
 end

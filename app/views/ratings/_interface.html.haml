@@ -1,8 +1,8 @@
 #rating
   - unless session[:session_id].nil?
     %input{:type=>"hidden", :value=>session[:session_id], :name=>:session_id}
-      - user_rate = (@image.get_rate(session[:session_id])&.rating) || 0
+      - user_rate = (locals[:rateable].get_rate(session[:session_id])&.rating) || 0
       - (1..5).each do |i|
-        %i{:class => "rating-star bi bi-star" + (user_rate >= i ? "-fill" : ""), id: "star_#{i}", "data-rateable-type": "Image", "data-rateable-id": "#{@image.id}", "data-stars": "#{i}"}
+        %i{:class => "rating-star bi bi-star" + (user_rate >= i ? "-fill" : ""), id: "star_#{i}", "data-rateable-type": "#{locals[:rateable].rateable_type}", "data-rateable-id": "#{locals[:rateable].id}", "data-stars": "#{i}"}
   - else 
     = t(".no_session")
