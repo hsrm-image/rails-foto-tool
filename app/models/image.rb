@@ -62,4 +62,7 @@ class Image < ApplicationRecord
     description.truncate(200)
   end
 
+  def preview
+    image_file.variant(resize_to_fill: [Rails.configuration.x.image.preview_image_size, Rails.configuration.x.image.preview_image_size])
+  end
 end
