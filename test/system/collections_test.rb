@@ -58,7 +58,7 @@ class CollectionsTest < ApplicationSystemTestCase
       # Now fill in the new text
       fill_in with: @collection.name + "_edit", class: "attr_edit_name"
 
-      find(".doneButton").click
+      find(".doneButton2").click
       assert_text I18n.t("controllers.updated", resource: @collection.name + "_edit"), wait: 5
     end
 
